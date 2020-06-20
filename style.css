@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+body, html {
+    padding: 0;
+    margin: 0;
+}
+.column {
+    float: left;
+    /*padding: 10px;*/
+    height: 100vh; /* Should be removed. Only for demonstration */
+}
+.left {
+    width: 20%;
+    padding: 16px;
+}
+.left h2 {
+    font-family: 'Comfortaa', cursive;
+    font-size: 20px;
+}
+
+
+.middle {
+    width: 40%;
+    padding: 32px;
+}
+.right {
+    width: 40%;
+    padding: 32px;
+    padding-left: 0;
+} 
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.day-row {
+    width: 100%;
+    border-top: 1px dashed rgb(184, 184, 184);
+    border-bottom:none;
+    font-family: 'Comfortaa', cursive;
+}
+.day-row .weekday {
+    width: 40px;
+    height: 100%;
+    padding-left: 4px;
+    display: inline-flex;
+    align-items: center;
+
+}
+.day-row .day {
+    width: 40px;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.txt-m {
+    font-size: 13px;
+}
+.txt-s {
+    font-size: 11px;
+}
+
+.past-day {
+    opacity: 0.3;
+}
+
+.weekend {
+    background-color: rgb(248, 241, 231);
+}
+
+.last-month-day {
+    /*border-bottom-right-radius: 5px;*/
+    /*border-bottom-left-radius: 5px;*/
+    border-bottom: 1px solid rgb(109, 109, 109);
+    /*margin-bottom: 8px;*/
+}
+
+.first-month-day {
+    border-top: none;
+    /*border-top-left-radius: 5px;*/
+    /*border-top-right-radius: 5px;*/
+}
