@@ -2,7 +2,7 @@ var middle_days = 33;
 var right_days = 33;
 var past_days = 3;
 var days = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var feriados = [
     {day: "2020-07-09 01:00",
@@ -19,6 +19,24 @@ window.onload = function() {
     date.setDate(date.getDate() - past_days);
     fillDays(middle_days, ".column.middle")
     fillDays(right_days, ".column.right")
+
+    $("#nav-next").click(function () {
+        $(".column.middle").html("")
+        $(".column.right").html("")
+        date.setDate(date.getDate() - right_days);
+        fillDays(middle_days, ".column.middle")
+        fillDays(right_days, ".column.right")
+    })
+    $("#nav-prev").click(function () {
+        $(".column.middle").html("")
+        $(".column.right").html("")
+        date.setDate(date.getDate() - right_days - 2*middle_days);
+        fillDays(middle_days, ".column.middle")
+        fillDays(right_days, ".column.right")
+    })
+    startGeo()
+
+
 };
 
 const fillDays = (total_days, container) => {
@@ -31,12 +49,18 @@ const fillDays = (total_days, container) => {
         var classes = "day-row "+txt_class
         if (isPastDay(date)) classes += " past-day"
         if (isWeekend(date) || isFeriado(date)) classes += " weekend"
-        if (isLastMonthDay(date)) {classes += " last-month-day"} else if (isFirstMonthDay(date)) {classes += " first-month-day"}
+        var h_month = "";
+        if (isLastMonthDay(date)) {
+            classes += " last-month-day"
+        } else if (isFirstMonthDay(date)) {
+            classes += " first-month-day"
+            var h_month = "<span class='month'>"+getMonth(date).toUpperCase()+" "+date.getFullYear().toString().substring(2)+"</span>"
+        }
 
         // content
         var h_week_day = "<span class='weekday'>"+getWeekDay(date)+"</span>"+"<span class='day'>"+date.getDate()+"</span>"
         var h_content = "<span class='content'></span>"
-        var h_month = "<span class='month'>"+getMonth(date).toUpperCase()+"</span>"
+        
         
         $(container).append("<div class='"+classes+"' style='"+style+"'>"+h_week_day+h_content+h_month+"</div>")
         date.setDate(date.getDate() + 1);
@@ -113,4 +137,25 @@ function updateClock () {
 function checkTime(i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
     return i;
+}
+
+
+
+// GEO
+var geocoder;
+function startGeo() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+    } 
+}
+  
+//Get the latitude and the longitude;
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    console.log(lat+" "+lng)
+}
+
+function errorFunction(){
+    alert("Geocoder failed");
 }
