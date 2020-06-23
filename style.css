@@ -15,13 +15,7 @@ body, html {
     padding: 16px;
     background-color: #B2EBF2;
 }
-.left h2 {
-    font-family: 'Comfortaa', cursive;
-    text-align: center;
-    color: #0277BD;
-    font-size: 16px;
-    margin: 0 0 32px 0;
-}
+
 
 nav {
     width: 4%;
@@ -119,6 +113,37 @@ nav:hover {
     /*border-top-right-radius: 5px;*/
 }
 
+/* ----- WIDGETS ---- */
+.widget {
+    margin-bottom: 24px;
+}
+
+
+
+#welcome h2 {
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    color: black;
+    margin: 16px 0 8px 0;
+    font-size: 18px;
+}
+#welcome input[name="name"] {
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    font-size: 28px;
+    color: black;
+    background: none;
+    border: none;
+    border-bottom: 1px solid grey;
+    padding: 8px;
+    height: 40px;
+    width: 100%;
+}
+#welcome input[name="name"]:focus {
+    border: none;
+    border-bottom: 1px solid rgb(48, 48, 48);
+    background: none;   
+}
 
 #clock {
     height: 70px;

@@ -15,7 +15,8 @@ var date = new Date ();
 const today = new Date()
 
 window.onload = function() {
-    startClock ()
+    new Clock("#clock")
+    new Sunhours(today)
     date.setDate(date.getDate() - past_days);
     fillDays(middle_days, ".column.middle")
     fillDays(right_days, ".column.right")
@@ -34,9 +35,6 @@ window.onload = function() {
         fillDays(middle_days, ".column.middle")
         fillDays(right_days, ".column.right")
     })
-    startGeo()
-
-
 };
 
 const fillDays = (total_days, container) => {
@@ -119,43 +117,93 @@ const isSameday = (someDate, someDate2) => {
       someDate.getFullYear() == someDate2.getFullYear()
 }
 
-function startClock () {
-    updateClock ()
-    clock_interval = setInterval(function () {
-        updateClock ()
-    }, 1000);
+
+
+// WIDGETS
+
+class Clock {
+    constructor(selector) {
+        this.selector = selector
+        this.updateClock ()
+        var me = this
+        this.clock_interval = setInterval(function () {
+            me.updateClock ()
+        }, 1000);
+    }
+
+    updateClock() {
+        var now = new Date();
+        var h = now.getHours();
+        var m = now.getMinutes();
+        var s = now.getSeconds();
+        m = this.checkTime(m);
+        s = this.checkTime(s);
+        document.querySelector(this.selector).innerHTML = h + ":" + m + "<span class='seconds'>" + s + "</span>";
+    }
+    checkTime (i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
 }
-function updateClock () {
-    var now = new Date();
-    var h = now.getHours();
-    var m = now.getMinutes();
-    var s = now.getSeconds();
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('clock').innerHTML = h + ":" + m + "<span class='seconds'>" + s + "</span>";
-}
-function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
+
+class Sunhours {
+    constructor(date) {
+        this.date = date
+        this.timezone = -date.getTimezoneOffset()/60
+        this.lat = -34.5417;
+        this.lng = -58.6153;
+        var me = this
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                me.lat = position.coords.latitude;
+                me.lng = position.coords.longitude;
+                me.getSunrise ()
+                me.getSunset ()
+            }, this.geoError);
+        }
+    }
+
+    fyear() {
+        var year = this.date.getFullYear();
+        var start = new Date(year, 0, 0);
+        var diff = this.date - start;
+        var day = Math.floor(diff / (1000 * 60 * 60 * 24));
+        var total_days = (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) ? 366 : 365;
+        return (2*Math.PI*(day -1 + (0-12)/24) / total_days)
+    }
+
+    decl () {
+        return 0.006918 - 0.399912*Math.cos(this.fyear()) + 0.070257*Math.sin(this.fyear()) - 0.006758*Math.cos(2*this.fyear()) + 0.000907*Math.sin(2*this.fyear()) - 0.002697*Math.cos(3*this.fyear()) + 0.00148*Math.sin(3*this.fyear())
+    }
+
+    eqtime () {
+        return 229.18*(0.000075 + 0.001868*Math.cos(this.fyear()) - 0.032077*Math.sin(this.fyear()) - 0.014615*Math.cos(2*this.fyear())- 0.040849*Math.sin(2*this.fyear()))
+    }
+
+    ha() {
+        return Math.acos( Math.cos(90.833*Math.PI/180)/Math.cos(this.lat*Math.PI/180)/Math.cos(this.decl()) -Math.tan(this.lat*Math.PI/180)*Math.tan(this.decl()) )
+    }
+
+    getSunrise () {
+        var hs = (720-4*(this.lng+this.ha()*180/Math.PI)-this.eqtime())/60+this.timezone
+        var h = Math.floor(hs)
+        var m = Math.round((hs-h)*60)
+        console.log(this.checkTime(h)+":"+this.checkTime(m))
+    }
+    getSunset () {
+        var hs = (720-4*(this.lng-this.ha()*180/Math.PI)-this.eqtime())/60+this.timezone
+        var h = Math.floor(hs)
+        var m = Math.round((hs-h)*60)
+        console.log(this.checkTime(h)+":"+this.checkTime(m))
+    }
+
+    geoError() {
+        console.log("no geo")
+    }
+    checkTime (i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
 }
 
 
-
-// GEO
-var geocoder;
-function startGeo() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-    } 
-}
-  
-//Get the latitude and the longitude;
-function successFunction(position) {
-    var lat = position.coords.latitude;
-    var lng = position.coords.longitude;
-    console.log(lat+" "+lng)
-}
-
-function errorFunction(){
-    alert("Geocoder failed");
-}
