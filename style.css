@@ -52,6 +52,7 @@ nav:hover {
     border-top: 1px dotted #ECEFF1;
     border-bottom:none;
     font-family: 'Comfortaa', cursive;
+    border-radius: 8px;
 }
 .day-row .weekday {
     width: 28px;
@@ -161,4 +162,58 @@ nav:hover {
     font-size: 24px;
     padding-left: 8px;
     color: #455A64
+}
+
+
+#sunhours .hours {
+    width: 100%;
+    height: 24px;
+    position: relative;
+}
+
+#sunhours .hour {
+    display: inline-block;
+    position: absolute;
+    font-family: 'Comfortaa', cursive;
+    text-align: center;
+    float: left;
+    width: 50px;
+    height: 20px;
+    margin-left: -25px;
+}
+
+#sunhours .nightbar {
+    height: 30px;
+    background-color: #37474F;
+    width: 100%;
+    border-radius: 15px;
+}
+#sunhours .daybar {
+    height: 100%;
+    display: inline-block;
+    position: relative;
+    float: left;
+    background-color: #FFF59D;
+}
+#sunhours .sunhours-container-lines {
+    height: 20px;
+    width: 100%;
+    position: relative;
+}
+#sunhours .sunhours-container-lines .sunhours-lines {
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    float: left;
+    border-right: 1px #FFF59D solid;
+    border-left: 1px #FFF59D solid;
+}
+#sunhours .sunhours-container-lines .now-line {
+    height: 50%;
+    bottom: 0;
+    width: 1px;
+    display: inline-block;
+    position: absolute;
+    float: left;
+    border-right: 2px #051d27 solid;
 }

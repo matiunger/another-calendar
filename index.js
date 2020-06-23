@@ -16,7 +16,7 @@ const today = new Date()
 
 window.onload = function() {
     new Clock("#clock")
-    new Sunhours(today)
+    new Sunhours(today, "#sunhours")
     date.setDate(date.getDate() - past_days);
     fillDays(middle_days, ".column.middle")
     fillDays(right_days, ".column.right")
@@ -147,7 +147,8 @@ class Clock {
 }
 
 class Sunhours {
-    constructor(date) {
+    constructor(date, selector) {
+        this.selector = selector
         this.date = date
         this.timezone = -date.getTimezoneOffset()/60
         this.lat = -34.5417;
@@ -161,6 +162,7 @@ class Sunhours {
                 me.getSunset ()
             }, this.geoError);
         }
+        this.render()
     }
 
     fyear() {
@@ -188,13 +190,13 @@ class Sunhours {
         var hs = (720-4*(this.lng+this.ha()*180/Math.PI)-this.eqtime())/60+this.timezone
         var h = Math.floor(hs)
         var m = Math.round((hs-h)*60)
-        console.log(this.checkTime(h)+":"+this.checkTime(m))
+        return [h, this.checkTime(h)+":"+this.checkTime(m)]
     }
     getSunset () {
         var hs = (720-4*(this.lng-this.ha()*180/Math.PI)-this.eqtime())/60+this.timezone
         var h = Math.floor(hs)
         var m = Math.round((hs-h)*60)
-        console.log(this.checkTime(h)+":"+this.checkTime(m))
+        return [h, this.checkTime(h)+":"+this.checkTime(m)]
     }
 
     geoError() {
@@ -204,6 +206,25 @@ class Sunhours {
         if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
         return i;
     }
+
+    render () {
+        var now = new Date()
+        document.querySelector(this.selector).innerHTML = `
+        <div class="hours">
+            <div class="hour" style="left:${100*this.getSunrise()[0]/24}%;">${this.getSunrise()[1]}</div>
+            <div class="hour" style="left:${100*this.getSunset()[0]/24}%;">${this.getSunset()[1]}</div>
+        </div>
+        <div class="sunhours-container-lines">
+            <div class="now-line" style="left:${100*(now.getHours()+now.getMinutes()/60)/24}%"></div>
+            <div class="sunhours-lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
+        </div>
+        <div class="nightbar">
+            <div class="daybar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
+        </div>`;
+        
+
+    }
+
 }
 
 
