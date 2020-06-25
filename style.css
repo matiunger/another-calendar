@@ -94,7 +94,7 @@ nav:hover {
 }
 
 .past-day {
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 .weekend {
@@ -143,7 +143,8 @@ nav:hover {
 #welcome input[name="name"]:focus {
     border: none;
     border-bottom: 1px solid rgb(48, 48, 48);
-    background: none;   
+    background: none;
+    outline: none;  
 }
 
 #clock {
@@ -183,8 +184,8 @@ nav:hover {
 }
 
 #sunhours .nightbar {
-    height: 30px;
-    background-color: #37474F;
+    height: 25px;
+    background-color: #200c68;
     width: 100%;
     border-radius: 15px;
 }
@@ -193,7 +194,7 @@ nav:hover {
     display: inline-block;
     position: relative;
     float: left;
-    background-color: #FFF59D;
+    background-color: #90CAF9;
 }
 #sunhours .sunhours-container-lines {
     height: 20px;
@@ -205,8 +206,8 @@ nav:hover {
     display: inline-block;
     position: absolute;
     float: left;
-    border-right: 1px #FFF59D solid;
-    border-left: 1px #FFF59D solid;
+    border-right: 1px #90CAF9 solid;
+    border-left: 1px #90CAF9 solid;
 }
 #sunhours .sunhours-container-lines .now-line {
     height: 50%;

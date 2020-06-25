@@ -17,6 +17,13 @@ const today = new Date()
 window.onload = function() {
     new Clock("#clock")
     new Sunhours(today, "#sunhours")
+    new Name("#welcome")
+    //data
+
+    var user_data = getData("ac_user")
+
+    
+    // calendar
     date.setDate(date.getDate() - past_days);
     fillDays(middle_days, ".column.middle")
     fillDays(right_days, ".column.right")
@@ -118,8 +125,67 @@ const isSameday = (someDate, someDate2) => {
 }
 
 
+function getData (key) {
+    if (localStorage.getItem(key) != null) {
+        return JSON.parse(localStorage.getItem(key))
+    } else {
+        localStorage.setItem(key, "{}")
+        return {}
+    }
+
+}
+function setData (location, key, value) {
+    var data = getData (location)
+    data[key] = value
+    localStorage.setItem(location, JSON.stringify(data))
+}
+
+
 
 // WIDGETS
+
+class Name {
+    constructor(selector) {
+        this.selector = selector
+        var user_data = getData("ac_user")
+        this.user_name = user_data["name"]
+        if (this.user_name) {
+            this.renderWelcome()    
+        } else {
+            this.renderInput()
+        }
+    }
+
+    renderWelcome() {
+        document.querySelector(this.selector).innerHTML = `<h2>Hey, <span class="welcome-name">${this.user_name}</span></h2>`
+        var me = this
+        document.querySelector(this.selector+" .welcome-name").addEventListener("click", function () {
+            me.renderInput()
+        })
+    }
+    renderInput() {
+        var me = this
+        document.querySelector(this.selector).innerHTML = `
+            <h2>Hey, whats your name?</h2>
+            <input type="text" name="name" class="name"></input>
+        `
+        var input = document.querySelector(this.selector+" input[name='name']")
+        if (this.user_name) input.value = this.user_name
+        input.focus()
+        input.addEventListener("focusout", function () { me.validateInput() })
+        input.addEventListener("keypress", function (e) { if (e.keyCode == 13) me.validateInput() })  
+    }
+    validateInput() {
+        var input_name = document.querySelector(this.selector+" input[name='name']").value
+        if (input_name != "") {
+            this.user_name = input_name
+            setData ("ac_user", "name", input_name)
+            this.renderWelcome()
+        }
+    }
+
+}
+
 
 class Clock {
     constructor(selector) {
@@ -147,6 +213,8 @@ class Clock {
 }
 
 class Sunhours {
+
+    // TODO: Add moon phases
     constructor(date, selector) {
         this.selector = selector
         this.date = date
