@@ -1,9 +1,19 @@
+:root {
+    --background-image: url('');
+    --font-main: 'Comfortaa', cursive;
+    --moon-i: 5;
+}
+
+
 * {
     box-sizing: border-box;
 }
 body, html {
     padding: 0;
     margin: 0;
+    background: white;
+    background-image: var(--background-image);
+    background-size: cover;
 }
 .column {
     float: left;
@@ -13,7 +23,7 @@ body, html {
 .left {
     width: 20%;
     padding: 16px;
-    background-color: #B2EBF2;
+    background-color: #b2ebf27a;
 }
 
 
@@ -116,7 +126,7 @@ nav:hover {
 
 /* ----- WIDGETS ---- */
 .widget {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 
@@ -152,11 +162,11 @@ nav:hover {
     width: 100%;
     font-family: 'Comfortaa', cursive;
     font-size: 60px;
+    text-shadow: rgb(218, 218, 218) 1px 1px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    margin: 0 0 32px 0;
     color: #263238;
 }
 #clock .seconds {
@@ -168,7 +178,7 @@ nav:hover {
 
 #sunhours .hours {
     width: 100%;
-    height: 24px;
+    height: 45px;
     position: relative;
 }
 
@@ -176,28 +186,48 @@ nav:hover {
     display: inline-block;
     position: absolute;
     font-family: 'Comfortaa', cursive;
+    font-size: 13px;
     text-align: center;
     float: left;
     width: 50px;
-    height: 20px;
+    height: 40px;
     margin-left: -25px;
+}
+#sunhours .hour .icon{
+    margin-bottom: 4px;
+    opacity: 0.6;
+    color: black;
 }
 
 #sunhours .nightbar {
     height: 25px;
     background-color: #200c68;
     width: 100%;
+    position: relative;
     border-radius: 15px;
+}
+#sunhours .nowbar {
+    height: 50%;
+    margin: auto;
+    top: 25%;
+    display: inline-block;
+    position: absolute;
+    float: left;
+    border-radius: 15px;
+    opacity: 0.3;
+    background-color: #ffffff;
+    z-index: 2;
 }
 #sunhours .daybar {
     height: 100%;
     display: inline-block;
-    position: relative;
+    position: absolute;
     float: left;
     background-color: #90CAF9;
 }
 #sunhours .sunhours-container-lines {
-    height: 20px;
+    height: 10px;
+    margin-bottom: 4px;
     width: 100%;
     position: relative;
 }
@@ -206,15 +236,43 @@ nav:hover {
     display: inline-block;
     position: absolute;
     float: left;
-    border-right: 1px #90CAF9 solid;
-    border-left: 1px #90CAF9 solid;
+    border-right: 1px #5c5c5c dotted;
+    border-left: 1px #5c5c5c dotted;
 }
 #sunhours .sunhours-container-lines .now-line {
-    height: 50%;
-    bottom: 0;
+    /*height: 50%;
+    
     width: 1px;
     display: inline-block;
+    
+    
+    border-right: 2px #051d27 solid;*/
     position: absolute;
     float: left;
-    border-right: 2px #051d27 solid;
+    bottom: 0;
+    width: 0; 
+    height: 0; 
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    border-top: 8px solid #051d27;
+}
+
+#sunhours .moon-icon {
+    padding: 4px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+#sunhours .moon-icon .moon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: inset calc(var(--moon-i)*16px) 0 black;
+}
+#sunhours .info {
+    font-family: var(--font-main);
+    font-size: 13px;
+    text-align: center;
+    padding: 16px 0;
 }

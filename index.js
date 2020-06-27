@@ -13,8 +13,12 @@ var feriados = [
 
 var date = new Date ();
 const today = new Date()
+let root = document.documentElement;
+
 
 window.onload = function() {
+    root.style.setProperty('--background-image', "url('')");
+    
     new Clock("#clock")
     new Sunhours(today, "#sunhours")
     new Name("#welcome")
@@ -231,6 +235,10 @@ class Sunhours {
             }, this.geoError);
         }
         this.render()
+        this.sunhours_interval = setInterval(function () {
+            me.render()
+        }, 60*1000);
+        this.getMoonPhase()
     }
 
     fyear() {
@@ -258,13 +266,32 @@ class Sunhours {
         var hs = (720-4*(this.lng+this.ha()*180/Math.PI)-this.eqtime())/60+this.timezone
         var h = Math.floor(hs)
         var m = Math.round((hs-h)*60)
-        return [h, this.checkTime(h)+":"+this.checkTime(m)]
+        return [hs, this.checkTime(h)+":"+this.checkTime(m)]
     }
     getSunset () {
         var hs = (720-4*(this.lng-this.ha()*180/Math.PI)-this.eqtime())/60+this.timezone
         var h = Math.floor(hs)
         var m = Math.round((hs-h)*60)
-        return [h, this.checkTime(h)+":"+this.checkTime(m)]
+        return [hs, this.checkTime(h)+":"+this.checkTime(m)]
+    }
+
+    getRemainingDaylight () {
+        var now = new Date()
+        var hs = (now.getHours()+now.getMinutes()/60)
+        if (hs < this.getSunrise()[0]) {
+            var rh = Math.floor(this.getSunrise()[0]- hs)
+            var rm = Math.floor((this.getSunrise()[0]- hs - rh)*60)
+            return `Sunrise in <strong>${rh}</strong>h <strong>${rm}</strong>m`
+        } else if (hs < this.getSunset()[0]) {
+            var rh = Math.floor(this.getSunset()[0]- hs)
+            var rm = Math.floor((this.getSunset()[0]- hs - rh)*60)
+            return `Remaining daylight in <strong>${rh}</strong>h <strong>${rm}</strong>m`
+        } else {
+            return `Go to sleep`
+        }
+        var h = Math.floor(hs)
+        var m = Math.round((hs-h)*60)
+        return [hs, this.checkTime(h)+":"+this.checkTime(m)]
     }
 
     geoError() {
@@ -279,17 +306,45 @@ class Sunhours {
         var now = new Date()
         document.querySelector(this.selector).innerHTML = `
         <div class="hours">
-            <div class="hour" style="left:${100*this.getSunrise()[0]/24}%;">${this.getSunrise()[1]}</div>
-            <div class="hour" style="left:${100*this.getSunset()[0]/24}%;">${this.getSunset()[1]}</div>
+            <div class="hour" style="left:${100*this.getSunrise()[0]/24}%;"><i class="material-icons icon">wb_sunny</i> ${this.getSunrise()[1]}</div>
+            <div class="hour" style="left:${100*this.getSunset()[0]/24}%;"><i class="moon-icon icon"><span class="moon"></span></i>${this.getSunset()[1]}</div>
         </div>
         <div class="sunhours-container-lines">
-            <div class="now-line" style="left:${100*(now.getHours()+now.getMinutes()/60)/24}%"></div>
+            <!-- <div class="now-line" style="left:${100*(now.getHours()+now.getMinutes()/60)/24}%"></div> -->
             <div class="sunhours-lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
         <div class="nightbar">
+            <div class="nowbar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"></div>
             <div class="daybar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
-        </div>`;
-        
+        </div>
+        <div class="info">${this.getRemainingDaylight()}</div>`;
+
+    }
+
+    getMoonPhase() {
+
+        var year = this.date.getFullYear()
+        var month = this.date.getMonth()+1
+        var day = this.date.getDate()
+        if (month < 3) { year--; month += 12;}
+
+        var a = Math.floor(year/100)
+        var b = Math.floor(a/4)
+        var c = 2-a+b
+        var e = Math.floor(365.25 * (year + 4716))
+        var f = Math.floor(30.6001 * (month+1))
+
+        var jd = c + day + e + f - 1524.5;
+        var cycles = (jd-2451549.5)/29.53
+        var moon_i = cycles - Math.floor(cycles)
+
+        if (moon_i < 0.5) {
+            moon_i = 2*moon_i
+        } else {
+            moon_i = 2*moon_i - 2
+        }
+
+        root.style.setProperty('--moon-i', moon_i);
 
     }
 
