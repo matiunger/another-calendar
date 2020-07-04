@@ -1,7 +1,7 @@
-var middle_days = 33;
-var right_days = 33;
-var past_days = 3;
-var days = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+var middle_days = 25;
+var right_days = 25;
+var past_days = 0;
+var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 var feriados = [
@@ -54,7 +54,7 @@ const fillDays = (total_days, container) => {
     
     for (var i=1; i <= total_days; i++) {
         // style
-        var style = "height: "+100/total_days+"%;"
+        var style = `height: ${100/total_days}%;`
         var classes = "day-row "+txt_class
         if (isPastDay(date)) classes += " past-day"
         if (isWeekend(date) || isFeriado(date)) classes += " weekend"
@@ -63,19 +63,23 @@ const fillDays = (total_days, container) => {
             classes += " last-month-day"
         } else if (isFirstMonthDay(date)) {
             classes += " first-month-day"
-            var h_month = "<span class='month'>"+getMonth(date).toUpperCase()+" "+date.getFullYear().toString().substring(2)+"</span>"
+            var h_month = `<span class='month'>${getMonth(date)} ${date.getFullYear().toString()}</span>`
         }
 
         // content
-        var h_week_day = "<span class='weekday'>"+getWeekDay(date)+"</span>"+"<span class='day'>"+date.getDate()+"</span>"
-        var h_content = "<span class='content'></span>"
+        var h_week_day = "<span class='weekday'>"+getWeekDay(date)+"</span>"+"<span class='day'>"+checkTime(date.getDate())+"</span>"
+        var h_content = "<span class='content'>";
+        //if (isFeriado(date)) h_content += `<i class='material-icons md-18'>beach_access</i>`
         
-        
+        h_content += "</span>"
         $(container).append("<div class='"+classes+"' style='"+style+"'>"+h_week_day+h_content+h_month+"</div>")
         date.setDate(date.getDate() + 1);
     }
 }
-
+function checkTime (i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
 const isPastDay = (someDate) => {
     return (someDate - today) < 0
 }
