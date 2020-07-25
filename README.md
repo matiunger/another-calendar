@@ -1,9 +1,11 @@
 # another-calendar
-## take control of your time
 
-Este calendario tiene como objetivo dar un pantallazo
+This is an experimental project with the goal of showing time in different ways and inspire action
 
- - Hora y momento del día. Cuantas horas quedan de luz?
- - Proximos 60 días. Cuando cae el proximo feriado?
- - En que semana del año estamos. Cuando empieza el verano?
- - Cuantas semanas llevo de vida?
+ - Moment of day
+ - Remaing daylight
+ - Day in 10 minutes blocks
+ - Next 60 days
+ - Holidays / Trip planning
+ - Present moment / breathing guidance
+ - Life calendar / Weeks
