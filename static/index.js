@@ -4,11 +4,23 @@ var past_days = 0;
 var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-var feriados = [
-    {day: "2020-07-09 01:00",
-    motive:"Día de la independencia"},
-    {day: "2020-07-10 01:00",
-    motive:"Puente turistico"}
+var holidays = [
+    {day: "2020-08-17 01:00",
+    motive:""},
+    {day: "2020-10-12 01:00",
+    motive:"Puente turistico"},
+    {day: "2020-11-23 01:00",
+    motive:"Puente turistico"},
+    {day: "2020-12-07 01:00",
+    motive:"Puente turistico"},
+    {day: "2020-12-08 01:00",
+    motive:"Concepcion de Maria"},
+    {day: "2020-12-25 01:00",
+    motive:"Navidad"}
+]
+var events = [
+    {day: "2020-07-14 01:00",
+    motive:"Ingles"}
 ]
 
 var date = new Date ();
@@ -70,7 +82,7 @@ const fillDays = (total_days, container) => {
         var h_week_day = "<span class='weekday'>"+getWeekDay(date)+"</span>"+"<span class='day'>"+checkTime(date.getDate())+"</span>"
         var h_content = "<span class='content'>";
         //if (isFeriado(date)) h_content += `<i class='material-icons md-18'>beach_access</i>`
-        
+
         h_content += "</span>"
         $(container).append("<div class='"+classes+"' style='"+style+"'>"+h_week_day+h_content+h_month+"</div>")
         date.setDate(date.getDate() + 1);
@@ -88,8 +100,8 @@ const isWeekend = (someDate) => {
     return someDate.getDay() == 0 || someDate.getDay() == 6
 }
 const isFeriado = (someDate) => {
-    for (var i=0; i < feriados.length; i++) {
-        var feriado = new Date (feriados[i].day)
+    for (var i=0; i < holidays.length; i++) {
+        var feriado = new Date (holidays[i].day)
         if (isSameday(feriado, someDate)) {
             return true;
             break;
