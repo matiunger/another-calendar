@@ -2,7 +2,7 @@ var date = new Date ();
 const today = new Date()
 let root = document.documentElement;
 let app = document.getElementById("app");
-var layouts = [new Welcome(), new NextWeeks()]
+var layouts = [new NextWeeks(), new Welcome()]
 var current_layout = 0; 
 
 window.onload = function() {
@@ -42,7 +42,7 @@ window.onload = function() {
 
 
 var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 var holidays = [
     {day: "2020-08-17 01:00",
@@ -139,7 +139,15 @@ function setData (location, key, value) {
 }
 
 
-
+Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+  
+    return [this.getFullYear(),
+            (mm>9 ? '' : '0') + mm,
+            (dd>9 ? '' : '0') + dd
+           ].join('');
+  };
 
 
 

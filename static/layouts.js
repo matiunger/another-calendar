@@ -10,9 +10,11 @@ class Welcome {
     render(selector) {
         this.selector = selector
         document.querySelector(this.selector).innerHTML = `
-        <div class="c-name"></div>
-        <div class="c-clock"></div>
-        <div class="c-sunhours"></div>
+        <div class="l-welcome">
+            <div class="c-name"></div>
+            <div class="c-clock"></div>
+            <div class="c-sunhours"></div>
+        </div>
         `
         new Clock(".c-clock")
         new Name(".c-name")
@@ -24,46 +26,48 @@ class Welcome {
 class NextWeeks {
     constructor() {
         this.selector = ""
-        this.middle_days = 25;
-        this.right_days = 25;
+        this.date = new Date ();
+        this.days_col = 20;
         this.past_days = 0;
     }
 
     render(selector) {
+        this.date = new Date ();
         this.selector = selector
-        document.querySelector(this.selector).innerHTML = "NextWeeks"
-        
-        /*
-        
+        var me = this
         document.querySelector(this.selector).innerHTML = `
-        <nav id="nav-prev" class="column"><</nav>
-        <div class="column middle"></div>
-        <div class="column right"></div>
-        <nav id="nav-next" class="column">></nav>
+        <div class="l-nextweeks">
+            <nav id="nav-prev" class="column"><</nav>
+            <div class="column col1"></div>
+            <div class="column col2"></div>
+            <div class="column col3"></div>
+            <nav id="nav-next" class="column">></nav>
+        </div>
         `
 
         $("#nav-next").click(function () {
-            $(".column.middle").html("")
-            $(".column.right").html("")
-            date.setDate(date.getDate() - right_days);
-            fillDays(middle_days, ".column.middle")
-            fillDays(right_days, ".column.right")
+            $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+            me.date.setDate(me.date.getDate() - 3*me.days_col +1);
+            me.fillDays(me.days_col, ".l-nextweeks .column.col1")
+            me.fillDays(me.days_col, ".l-nextweeks .column.col2")
+            me.fillDays(me.days_col, ".l-nextweeks .column.col3")
         })
         $("#nav-prev").click(function () {
-            $(".column.middle").html("")
-            $(".column.right").html("")
-            date.setDate(date.getDate() - right_days - 2*middle_days);
-            fillDays(middle_days, ".column.middle")
-            fillDays(right_days, ".column.right")
+            $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+            me.date.setDate(me.date.getDate() - 3*me.days_col-1);
+            me.fillDays(me.days_col, ".l-nextweeks .column.col1")
+            me.fillDays(me.days_col, ".l-nextweeks .column.col2")
+            me.fillDays(me.days_col, ".l-nextweeks .column.col3")
         })
 
-        date.setDate(date.getDate() - past_days);
-        fillDays(middle_days, ".column.middle")
-        fillDays(right_days, ".column.right")
-        */
+        this.date.setDate(this.date.getDate() - this.past_days);
+        this.fillDays(this.days_col, ".l-nextweeks .column.col1")
+        this.fillDays(this.days_col, ".l-nextweeks .column.col2")
+        this.fillDays(this.days_col, ".l-nextweeks .column.col3")
+        
     }
 
-    fillDays = (total_days, container) => {
+    fillDays (total_days, container) {
     
         var txt_class = total_days < 32 ? "txt-m" : "txt-s"
         
@@ -71,28 +75,29 @@ class NextWeeks {
             // style
             var style = `height: ${100/total_days}%;`
             var classes = "day-row "+txt_class
-            if (isPastDay(date)) classes += " past-day"
-            if (isWeekend(date) || isFeriado(date)) classes += " weekend"
+            if (isPastDay(this.date)) classes += " past-day"
+            if (isWeekend(this.date) || isHoliday(this.date)) classes += " weekend"
             var h_month = "";
-            if (isLastMonthDay(date)) {
+            if (isLastMonthDay(this.date)) {
                 classes += " last-month-day"
-            } else if (isFirstMonthDay(date)) {
+            } else if (isFirstMonthDay(this.date)) {
                 classes += " first-month-day"
-                var h_month = `<span class='month'>${getMonth(date)} ${date.getFullYear().toString()}</span>`
+                var h_month = getMonth(this.date)+" "+this.date.getFullYear().toString()
             }
-    
-            // content
-            var h_week_day = "<span class='weekday'>"+getWeekDay(date)+"</span>"+"<span class='day'>"+checkTime(date.getDate())+"</span>"
-            var h_content = "<span class='content'>";
-            //if (isFeriado(date)) h_content += `<i class='material-icons md-18'>beach_access</i>`
-    
-            h_content += "</span>"
-            $(container).append("<div class='"+classes+"' style='"+style+"'>"+h_week_day+h_content+h_month+"</div>")
-            date.setDate(date.getDate() + 1);
-        }
-    }
-    
 
+            var day = `
+            <div data-date="${this.date.yyyymmdd()}" class="${classes}" style="${style}">
+                <span class='weekday'>${getWeekDay(this.date)}</span>
+                <span class='day'>${checkTime(this.date.getDate())}</span>
+                <span class='content'></span>
+                <span class='month'>${h_month}</span>
+            </div>
+            `
+
+            $(container).append(day)
+            this.date.setDate(this.date.getDate() + 1);
+        }
+    }  
 }
 
 

@@ -1,1 +1,103 @@
-.l-welcome
+
+.l-welcome {
+    padding: 5%;
+}
+.l-nextweeks .column {
+    float: left;
+    /*padding: 10px;*/
+    height: 100vh; /* Should be removed. Only for demonstration */
+}
+.l-nextweeks .col1 {
+    width: 30%;
+    padding: 64px 32px 64px 0;
+}
+.l-nextweeks .col2 {
+    width: 30%;
+    padding: 64px 32px 64px 0;
+}
+.l-nextweeks .col3 {
+    width: 30%;
+    padding: 64px 0 64px 0;
+} 
+
+.l-nextweeks nav {
+    width: 5%;
+    padding: 0;
+    font-family: 'Comfortaa', cursive;
+    font-size: 40px;
+    color: #E0E0E0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+.l-nextweeks nav:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+
+/* Clear floats after the columns */
+.l-nextweeks .row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.l-nextweeks .day-row {
+    width: 100%;
+    border-top: 1px dotted #ECEFF1;
+    border-bottom:none;
+    padding: 0 16px;
+    font-family: 'Comfortaa', cursive;
+}
+.l-nextweeks .day-row .weekday {
+    width: 10px;
+    opacity: 0.5;
+    font-size: 8px;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+.l-nextweeks .day-row .day {
+    width: 32px;
+    height: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.l-nextweeks .day-row .month {
+    width: 80px;
+    height: 100%;
+    font-size: 14px;
+    opacity: 1;
+    color: #0D47A1;
+    font-weight: bold;
+    font-family: 'Comfortaa', cursive;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    float: right;
+}
+
+.l-nextweeks .past-day {
+    opacity: 0.1;
+}
+
+.l-nextweeks .weekend {
+    background-color: #F0F4C3;
+}
+
+.l-nextweeks .last-month-day {
+    /*border-bottom-right-radius: 5px;*/
+    /*border-bottom-left-radius: 5px;*/
+    border-bottom: 1px dashed #e7e7e7;
+    /*margin-bottom: 8px;*/
+}
+
+.l-nextweeks .first-month-day {
+    border-top: none;
+    /*border-top-left-radius: 5px;*/
+    /*border-top-right-radius: 5px;*/
+}
