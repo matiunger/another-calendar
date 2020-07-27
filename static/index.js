@@ -2,7 +2,7 @@ var date = new Date ();
 const today = new Date()
 let root = document.documentElement;
 let app = document.getElementById("app");
-var layouts = [new NameAndSun(), new NextWeeks()]
+var layouts = [new Welcome(), new NextWeeks()]
 var current_layout = 0; 
 
 window.onload = function() {
@@ -17,17 +17,16 @@ window.onload = function() {
     // space bar
     document.body.onkeyup = function(e){
         if(e.keyCode == 32){
-            if (current_layout == layouts.length-1) {
-                layouts[0].render(".main")
-                current_layout = 0
-                console.log("first")
-            } else {
-                layouts[current_layout+1].render(".main")
-                current_layout++
-                console.log("next")
-            }
-            console.log(current_layout)
-            
+            $("#app").append("<div class='new'></div>")
+            current_layout = current_layout == layouts.length-1 ? 0 : current_layout+1
+            layouts[current_layout].render(".new")
+            $(".main").on("animationend", function() {
+                $(".main").remove()
+                $(".new").attr("class", "main")
+            }); 
+            $(".main").addClass("slide-out")
+            $(".new").addClass("slide-in")
+                 
         }
     }
 

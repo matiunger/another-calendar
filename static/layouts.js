@@ -1,6 +1,6 @@
 // LAYOUTS
 
-class NameAndSun {
+class Welcome {
     constructor() {
         this.selector = ""
         var user_data = getData("ac_user")
@@ -10,8 +10,13 @@ class NameAndSun {
     render(selector) {
         this.selector = selector
         document.querySelector(this.selector).innerHTML = `
-        <div>hello</div>
+        <div class="c-name"></div>
+        <div class="c-clock"></div>
+        <div class="c-sunhours"></div>
         `
+        new Clock(".c-clock")
+        new Name(".c-name")
+        new Sunhours(today, ".c-sunhours")
     }
 
 }
@@ -147,7 +152,9 @@ class Clock {
         this.updateClock ()
         var me = this
         this.clock_interval = setInterval(function () {
+            if (document.querySelector(me.selector) == null) clearInterval(me.clock_interval)
             me.updateClock ()
+            console.log("clock")
         }, 1000);
     }
 
@@ -177,15 +184,18 @@ class Sunhours {
         this.lng = -58.6153;
         var me = this
         if (navigator.geolocation) {
+            /*
             navigator.geolocation.getCurrentPosition(function (position) {
                 me.lat = position.coords.latitude;
                 me.lng = position.coords.longitude;
                 me.getSunrise ()
                 me.getSunset ()
             }, this.geoError);
+            */
         }
         this.render()
         this.sunhours_interval = setInterval(function () {
+            if (document.querySelector(me.selector) == null) clearInterval(me.clock_interval)
             me.render()
         }, 60*1000);
         this.getMoonPhase()
