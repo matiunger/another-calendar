@@ -27,7 +27,7 @@ class NextWeeks {
     constructor() {
         this.selector = ""
         this.date = new Date ();
-        this.days_col = 20;
+        this.days_col = 26;
         this.past_days = 0;
     }
 
@@ -247,12 +247,21 @@ class Sunhours {
             var rh = Math.floor(this.getSunrise()[0]- hs)
             var rm = Math.floor((this.getSunrise()[0]- hs - rh)*60)
             return `Sunrise in <strong>${rh}</strong>h <strong>${rm}</strong>m`
+        } else if (hs < 15) {
+            return `Focus. Don't Multitask<br />Maintain a good posture`
+        
+        
         } else if (hs < this.getSunset()[0]) {
             var rh = Math.floor(this.getSunset()[0]- hs)
             var rm = Math.floor((this.getSunset()[0]- hs - rh)*60)
-            return `Remaining daylight in <strong>${rh}</strong>h <strong>${rm}</strong>m`
+            return `Remaining daylight in <strong>${rh}</strong>h <strong>${rm}</strong>m<br />
+            Go for a walk. Get some sunlight`
+        } else if (hs < 20) {
+            return `Exercise`
+        } else if (hs < 22) {
+            return `Start turning the screens off`
         } else {
-            return `Go to sleep`
+            return `Take a shower. Go to sleep`
         }
         var h = Math.floor(hs)
         var m = Math.round((hs-h)*60)

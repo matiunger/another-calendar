@@ -2,7 +2,7 @@ var date = new Date ();
 const today = new Date()
 let root = document.documentElement;
 let app = document.getElementById("app");
-var layouts = [new NextWeeks(), new Welcome()]
+var layouts = [new Welcome(), new NextWeeks()]
 var current_layout = 0; 
 
 window.onload = function() {
