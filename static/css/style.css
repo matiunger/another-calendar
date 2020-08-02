@@ -22,6 +22,53 @@ body, html {
     width: 100%;
     height: 100%;
 }
+footer {
+    padding: 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 16px 0;
+    text-align: center;
+}
+footer #cont-space{
+    display: inline-block;
+    font-family: var(--font-main);
+    font-size: 12px;
+    opacity: 0;
+}
+footer #cont-space .space{
+    text-transform: uppercase;
+    padding: 5px 8px;
+    margin: 0 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    background-color: honeydew;
+    box-shadow: 0 2px rgb(80, 80, 80);
+    display: inline-block;
+}
+
+.blink {
+    animation: blink 1.5s linear infinite;
+}
+@keyframes blink {
+    0% { opacity: 0; }
+    45% { opacity: 1; }
+    55% { opacity: 1; }
+    100% { opacity: 0;}
+}
+
+
+.cont-settings{
+    position: absolute;
+    opacity: 0.4;
+    padding: 16px;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 .new {
     padding: 0;
     position: absolute;

@@ -27,7 +27,7 @@ class NextWeeks {
     constructor() {
         this.selector = ""
         this.date = new Date ();
-        this.days_col = 26;
+        this.days_col = 24;
         this.past_days = 0;
     }
 
@@ -37,6 +37,7 @@ class NextWeeks {
         var me = this
         document.querySelector(this.selector).innerHTML = `
         <div class="l-nextweeks">
+            <header>Plan your next <span id=dynamic-word>weeks</span></header>
             <nav id="nav-prev" class="column"><</nav>
             <div class="column col1"></div>
             <div class="column col2"></div>
@@ -45,28 +46,43 @@ class NextWeeks {
         </div>
         `
 
+
+        $("body").on("keyup", function(e){
+            if(e.keyCode == 39){
+                $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+                me.date.setDate(me.date.getDate() - 3*me.days_col +1);
+                me.renderDays ()
+            }
+        })
+        $("body").on("keyup", function(e){
+            if(e.keyCode == 37){
+                $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+                me.date.setDate(me.date.getDate() - 3*me.days_col-1);
+                me.renderDays ()
+            }
+        })
+
         $("#nav-next").click(function () {
             $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
             me.date.setDate(me.date.getDate() - 3*me.days_col +1);
-            me.fillDays(me.days_col, ".l-nextweeks .column.col1")
-            me.fillDays(me.days_col, ".l-nextweeks .column.col2")
-            me.fillDays(me.days_col, ".l-nextweeks .column.col3")
+            me.renderDays ()
         })
         $("#nav-prev").click(function () {
             $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
             me.date.setDate(me.date.getDate() - 3*me.days_col-1);
-            me.fillDays(me.days_col, ".l-nextweeks .column.col1")
-            me.fillDays(me.days_col, ".l-nextweeks .column.col2")
-            me.fillDays(me.days_col, ".l-nextweeks .column.col3")
+            me.renderDays ()
         })
 
         this.date.setDate(this.date.getDate() - this.past_days);
+        this.renderDays ()
+    }
+    renderDays () {
         this.fillDays(this.days_col, ".l-nextweeks .column.col1")
         this.fillDays(this.days_col, ".l-nextweeks .column.col2")
         this.fillDays(this.days_col, ".l-nextweeks .column.col3")
-        
+        this.renderHolidays (holidays)
+        this.renderEvents (events)
     }
-
     fillDays (total_days, container) {
     
         var txt_class = total_days < 32 ? "txt-m" : "txt-s"
@@ -76,7 +92,7 @@ class NextWeeks {
             var style = `height: ${100/total_days}%;`
             var classes = "day-row "+txt_class
             if (isPastDay(this.date)) classes += " past-day"
-            if (isWeekend(this.date) || isHoliday(this.date)) classes += " weekend"
+            if (isWeekend(this.date)) classes += " weekend"
             var h_month = "";
             if (isLastMonthDay(this.date)) {
                 classes += " last-month-day"
@@ -87,17 +103,30 @@ class NextWeeks {
 
             var day = `
             <div data-date="${this.date.yyyymmdd()}" class="${classes}" style="${style}">
-                <span class='weekday'>${getWeekDay(this.date)}</span>
-                <span class='day'>${checkTime(this.date.getDate())}</span>
-                <span class='content'></span>
-                <span class='month'>${h_month}</span>
+                <div class='weekday'>${getWeekDay(this.date)}</div>
+                <div class='day'>${checkTime(this.date.getDate())}</div>
+                <div class='content'></div>
+                <div class='month'>${h_month}</div>
             </div>
             `
 
             $(container).append(day)
             this.date.setDate(this.date.getDate() + 1);
         }
-    }  
+    }
+    renderHolidays (holidays) {
+        for (var i=0; i <= holidays.length-1; i++) {
+            var d = parseDate(holidays[i]["day"])
+            $(`.l-nextweeks [data-date='${d.yyyymmdd()}']`).addClass("weekend")
+        }
+    }
+    renderEvents (events) {
+        for (var i=0; i <= events.length-1; i++) {
+            var d = parseDate(events[i]["day"])
+            $(`.l-nextweeks [data-date='${d.yyyymmdd()}'] .content`).append(`<span class='e'>${events[i]["description"]}</span>`)
+        }
+        
+    }
 }
 
 
@@ -159,7 +188,6 @@ class Clock {
         this.clock_interval = setInterval(function () {
             if (document.querySelector(me.selector) == null) clearInterval(me.clock_interval)
             me.updateClock ()
-            console.log("clock")
         }, 1000);
     }
 

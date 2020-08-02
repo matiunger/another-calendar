@@ -7,7 +7,9 @@ var current_layout = 0;
 
 window.onload = function() {
     root.style.setProperty('--background-image', "url('')");
-    
+    var spacebar = setTimeout(function () {
+        $("#cont-space").removeClass("blink")
+    },4500)
     // data
     var user_data = getData("ac_user")
 
@@ -34,18 +36,13 @@ window.onload = function() {
 };
 
 
-
-
-
-
-
-
-
 var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 var holidays = [
     {day: "2020-08-17 01:00",
+    motive:""},
+    {day: "2020-09-02",
     motive:""},
     {day: "2020-10-12 01:00",
     motive:"Puente turistico"},
@@ -59,13 +56,20 @@ var holidays = [
     motive:"Navidad"}
 ]
 var events = [
-    {day: "2020-07-14 01:00",
-    motive:"Ingles"}
+    {day: "2020-08-25 01:00",
+    description:"Data Enginner"},
+    {day: "2020-08-03 01:00",
+    description:"Tarjeta"},
+    {day: "2020-08-03 01:00",
+    description:"Otro evento"}
 ]
 
 
 
-
+function parseDate(str) {
+    var parts = str.split('-');
+    return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+}
 
 function checkTime (i) {
     if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
