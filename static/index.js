@@ -39,29 +39,29 @@ window.onload = function() {
 var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-var holidays = [
-    {day: "2020-08-17 01:00",
-    motive:""},
-    {day: "2020-09-02",
-    motive:""},
-    {day: "2020-10-12 01:00",
-    motive:"Puente turistico"},
-    {day: "2020-11-23 01:00",
-    motive:"Puente turistico"},
-    {day: "2020-12-07 01:00",
-    motive:"Puente turistico"},
-    {day: "2020-12-08 01:00",
-    motive:"Concepcion de Maria"},
-    {day: "2020-12-25 01:00",
-    motive:"Navidad"}
-]
 var events = [
-    {day: "2020-08-25 01:00",
+    {day: "2020-08-17",
+    description:"",
+    holiday: true},
+    {day: "2020-10-12",
+    description:"Puente turistico",
+    holiday: true},
+    {day: "2020-11-23",
+    description:"Puente turistico",
+    holiday: true},
+    {day: "2020-12-07",
+    description:"Puente turistico",
+    holiday: true},
+    {day: "2020-12-08",
+    description:"Concepcion de Maria",
+    holiday: true},
+    {day: "2020-12-25",
+    description:"Navidad",
+    holiday: true},
+    {day: "2020-08-25",
     description:"Data Enginner"},
-    {day: "2020-08-03 01:00",
+    {day: "2020-08-03",
     description:"Tarjeta"},
-    {day: "2020-08-03 01:00",
-    description:"Otro evento"}
 ]
 
 
@@ -125,7 +125,9 @@ const isSameday = (someDate, someDate2) => {
       someDate.getMonth() == someDate2.getMonth() &&
       someDate.getFullYear() == someDate2.getFullYear()
 }
-
+const dateDiff = (someDate, someDate2) => {
+    return Math.ceil(Math.abs(someDate2 - someDate) / (1000 * 60 * 60 * 24));
+}
 
 function getData (key) {
     if (localStorage.getItem(key) != null) {

@@ -7,11 +7,29 @@
 }
 .l-nextweeks header {
     position: absolute;
+    width: 100%;
     top:0;
     padding: 32px 5%;
-    font-size: 32px;
-    font-family: 'Comfortaa', cursive;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-main);
 }
+.l-nextweeks header .title {
+    font-size: 26px;
+}
+.l-nextweeks header .next-holiday {
+    position: relative;
+    font-size: 14px;
+}
+.l-nextweeks header .next-holiday #next-holiday-days {
+    font-size: 18px;
+    color: var(--color-2);
+}
+.l-nextweeks header .title #dynamic-word {
+    color: var(--color-2);
+}
+
 .l-nextweeks .column {
     float: left;
     /*padding: 10px;*/
@@ -119,8 +137,8 @@
     opacity: 0.1;
 }
 
-.l-nextweeks .weekend {
-    background-color: #F0F4C3;
+.l-nextweeks .holiday {
+    background-color: var(--color-2);
 }
 
 .l-nextweeks .last-month-day {

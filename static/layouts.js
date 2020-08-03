@@ -35,9 +35,15 @@ class NextWeeks {
         this.date = new Date ();
         this.selector = selector
         var me = this
+
+        var words = ["weeks", "experience", "trip", "adventure"]
+
         document.querySelector(this.selector).innerHTML = `
         <div class="l-nextweeks">
-            <header>Plan your next <span id=dynamic-word>weeks</span></header>
+            <header>
+                <div class="title">Plan your next <span id="dynamic-word">weeks</span></div>
+                <div class="next-holiday">Next holiday in <span id="next-holiday-days"></span> days</div>
+            </header>
             <nav id="nav-prev" class="column"><</nav>
             <div class="column col1"></div>
             <div class="column col2"></div>
@@ -75,12 +81,12 @@ class NextWeeks {
 
         this.date.setDate(this.date.getDate() - this.past_days);
         this.renderDays ()
+        this.renderNextHoliday (events)
     }
     renderDays () {
         this.fillDays(this.days_col, ".l-nextweeks .column.col1")
         this.fillDays(this.days_col, ".l-nextweeks .column.col2")
         this.fillDays(this.days_col, ".l-nextweeks .column.col3")
-        this.renderHolidays (holidays)
         this.renderEvents (events)
     }
     fillDays (total_days, container) {
@@ -90,42 +96,52 @@ class NextWeeks {
         for (var i=1; i <= total_days; i++) {
             // style
             var style = `height: ${100/total_days}%;`
-            var classes = "day-row "+txt_class
-            if (isPastDay(this.date)) classes += " past-day"
-            if (isWeekend(this.date)) classes += " weekend"
-            var h_month = "";
-            if (isLastMonthDay(this.date)) {
-                classes += " last-month-day"
-            } else if (isFirstMonthDay(this.date)) {
-                classes += " first-month-day"
-                var h_month = getMonth(this.date)+" "+this.date.getFullYear().toString()
-            }
+            var h_month = isFirstMonthDay(this.date) ? getMonth(this.date)+" "+this.date.getFullYear().toString() : ""
 
             var day = `
-            <div data-date="${this.date.yyyymmdd()}" class="${classes}" style="${style}">
+            <div data-date="${this.date.yyyymmdd()}" class="day-row" style="${style}">
                 <div class='weekday'>${getWeekDay(this.date)}</div>
                 <div class='day'>${checkTime(this.date.getDate())}</div>
                 <div class='content'></div>
                 <div class='month'>${h_month}</div>
             </div>
             `
-
             $(container).append(day)
+            var node = $(`.l-nextweeks [data-date='${this.date.yyyymmdd()}']`)
+            if (isLastMonthDay(this.date)) node.addClass("last-month-day")
+            if (isFirstMonthDay(this.date)) node.addClass("first-month-day")
+            if (isPastDay(this.date)) node.addClass("past-day")
+            if (isWeekend(this.date)) node.addClass("holiday")
+
             this.date.setDate(this.date.getDate() + 1);
-        }
-    }
-    renderHolidays (holidays) {
-        for (var i=0; i <= holidays.length-1; i++) {
-            var d = parseDate(holidays[i]["day"])
-            $(`.l-nextweeks [data-date='${d.yyyymmdd()}']`).addClass("weekend")
         }
     }
     renderEvents (events) {
         for (var i=0; i <= events.length-1; i++) {
             var d = parseDate(events[i]["day"])
-            $(`.l-nextweeks [data-date='${d.yyyymmdd()}'] .content`).append(`<span class='e'>${events[i]["description"]}</span>`)
+            var node = $(`.l-nextweeks [data-date='${d.yyyymmdd()}']`)
+            if (events[i]["holiday"] && !node.hasClass("holiday")) node.addClass("holiday")
+            if (!events[i]["holiday"])node.find(".content").append(`<span class='e'>${events[i]["description"]}</span>`)
         }
-        
+    }
+    renderNextHoliday (events) {
+        var next_holiday;
+        var date_diff;
+        for (var i=0; i <= events.length-1; i++) {
+            var d = parseDate(events[i]["day"])
+            var dd = dateDiff(today, d)
+            if (events[i]["holiday"] && (date_diff == undefined || dd < date_diff) && dd >= 0) {
+                date_diff = dd
+                next_holiday = d
+            }
+        }
+        if (date_diff != undefined) {
+            $(".next-holiday #next-holiday-days").html(date_diff)
+            $(".next-holiday").prop("title", d.yyyymmdd())
+        } else {
+            $(".next-holiday").hide()
+        }
+
     }
 }
 

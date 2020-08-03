@@ -1,6 +1,8 @@
 :root {
     --background-image: url('');
     --font-main: 'Comfortaa', cursive;
+    --color-1: "";
+    --color-2: #d6f79a;
     --moon-i: 5;
 }
 
