@@ -36,10 +36,11 @@ footer #cont-space{
     display: inline-block;
     font-family: var(--font-main);
     font-size: 12px;
-    opacity: 0;
+    display: none;
 }
 footer #cont-space .space{
     text-transform: uppercase;
+    opacity: 0;
     padding: 5px 8px;
     margin: 0 5px;
     border: 1px solid grey;

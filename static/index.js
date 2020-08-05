@@ -2,16 +2,20 @@ var date = new Date ();
 const today = new Date()
 let root = document.documentElement;
 let app = document.getElementById("app");
+
+if (!getData("ac_user")) { localStorage.setItem("ac_user", JSON.stringify(config["user"])) }
+if (!getData("ac_settings")) { localStorage.setItem("ac_settings", JSON.stringify(config["settings"])) }
+if (!getData("ac_events")) { localStorage.setItem("ac_events", JSON.stringify(config["events"])) }
+
 var layouts = [new Welcome(), new NextWeeks()]
 var current_layout = 0; 
 
 window.onload = function() {
     root.style.setProperty('--background-image', "url('')");
-    var spacebar = setTimeout(function () {
-        $("#cont-space").removeClass("blink")
-    },4500)
+    
     // data
-    var user_data = getData("ac_user")
+
+    if (!getData("ac_settings")["spaceBarUse"]) $("#cont-space").show()
 
     // render
     layouts[0].render(".main")
@@ -19,6 +23,9 @@ window.onload = function() {
     // space bar
     document.body.onkeyup = function(e){
         if(e.keyCode == 32){
+
+            setData ("ac_settings", "spaceBarUse", true); $("#cont-space").hide();
+
             $("#app").append("<div class='new'></div>")
             current_layout = current_layout == layouts.length-1 ? 0 : current_layout+1
             layouts[current_layout].render(".new")
@@ -38,31 +45,6 @@ window.onload = function() {
 
 var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-var events = [
-    {day: "2020-08-17",
-    description:"",
-    holiday: true},
-    {day: "2020-10-12",
-    description:"Puente turistico",
-    holiday: true},
-    {day: "2020-11-23",
-    description:"Puente turistico",
-    holiday: true},
-    {day: "2020-12-07",
-    description:"Puente turistico",
-    holiday: true},
-    {day: "2020-12-08",
-    description:"Concepcion de Maria",
-    holiday: true},
-    {day: "2020-12-25",
-    description:"Navidad",
-    holiday: true},
-    {day: "2020-08-25",
-    description:"Data Enginner"},
-    {day: "2020-08-03",
-    description:"Tarjeta"},
-]
 
 
 
@@ -132,14 +114,12 @@ const dateDiff = (someDate, someDate2) => {
 function getData (key) {
     if (localStorage.getItem(key) != null) {
         return JSON.parse(localStorage.getItem(key))
-    } else {
-        localStorage.setItem(key, "{}")
-        return {}
     }
+    return
 
 }
 function setData (location, key, value) {
-    var data = getData (location)
+    var data = getData (location) || {}
     data[key] = value
     localStorage.setItem(location, JSON.stringify(data))
 }

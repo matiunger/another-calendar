@@ -41,7 +41,7 @@ class NextWeeks {
         document.querySelector(this.selector).innerHTML = `
         <div class="l-nextweeks">
             <header>
-                <div class="title">Plan your next <span id="dynamic-word">weeks</span></div>
+                <div class="title">Plan your next <span id="dynamic-word">${words[Math.floor(Math.random() * (words.length-1))]}</span></div>
                 <div class="next-holiday">Next holiday in <span id="next-holiday-days"></span> days</div>
             </header>
             <nav id="nav-prev" class="column"><</nav>
@@ -81,13 +81,13 @@ class NextWeeks {
 
         this.date.setDate(this.date.getDate() - this.past_days);
         this.renderDays ()
-        this.renderNextHoliday (events)
+        this.renderNextHoliday (getData("ac_events"))
     }
     renderDays () {
         this.fillDays(this.days_col, ".l-nextweeks .column.col1")
         this.fillDays(this.days_col, ".l-nextweeks .column.col2")
         this.fillDays(this.days_col, ".l-nextweeks .column.col3")
-        this.renderEvents (events)
+        this.renderEvents (getData("ac_events"))
     }
     fillDays (total_days, container) {
     
@@ -229,18 +229,18 @@ class Sunhours {
         this.selector = selector
         this.date = date
         this.timezone = -date.getTimezoneOffset()/60
-        this.lat = -34.5417;
-        this.lng = -58.6153;
+        this.lat = getData("ac_settings")["location"]["lat"];
+        this.lng = getData("ac_settings")["location"]["lng"];
         var me = this
-        if (navigator.geolocation) {
-            /*
+        if (this.lat == null && this.lng == null && navigator.geolocation) {
+            
             navigator.geolocation.getCurrentPosition(function (position) {
                 me.lat = position.coords.latitude;
                 me.lng = position.coords.longitude;
-                me.getSunrise ()
-                me.getSunset ()
+                setData("ac_settings", "location", {"lat": me.lat,"lng": me.lng})
+                me.render()
             }, this.geoError);
-            */
+            
         }
         this.render()
         this.sunhours_interval = setInterval(function () {
