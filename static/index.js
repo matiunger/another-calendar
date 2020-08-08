@@ -22,7 +22,7 @@ window.onload = function() {
 
     // space bar
     document.body.onkeyup = function(e){
-        if(e.keyCode == 32){
+        if(e.keyCode == 32 && !$(".open-event").length) {
 
             setData ("ac_settings", "spaceBarUse", true); $("#cont-space").hide();
 
@@ -118,10 +118,27 @@ function getData (key) {
     return
 
 }
+
+function filterObjects (array, filter) {
+
+    return array.filter(function(item) {
+        for (var key in filter) {
+          if (item[key] === undefined || item[key] != filter[key])
+            return false;
+        }
+        return true;
+    });
+      
+}
+
 function setData (location, key, value) {
     var data = getData (location) || {}
     data[key] = value
     localStorage.setItem(location, JSON.stringify(data))
+}
+
+const yyyymmdd2Date = (someDate) => {
+    return new Date(someDate.substring(0,4),parseInt(someDate.substring(4,6))-1,parseInt(someDate.substring(6,8)));
 }
 
 
@@ -135,6 +152,16 @@ Date.prototype.yyyymmdd = function() {
            ].join('');
   };
 
-
+  Date.prototype.toShortISO = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+  
+    return [this.getFullYear(),
+            "-",
+            (mm>9 ? '' : '0') + mm,
+            "-",
+            (dd>9 ? '' : '0') + dd
+           ].join('');
+  };
 
 

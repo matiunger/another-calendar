@@ -82,6 +82,22 @@ class NextWeeks {
         this.date.setDate(this.date.getDate() - this.past_days);
         this.renderDays ()
         this.renderNextHoliday (getData("ac_events"))
+
+
+        $(selector).click(function (e) {
+
+            var target = $(e.target)
+
+            if ($(".open-event").length && target.closest(".open-event").length == 0) {
+                $(".open-event").remove()
+            } else if (target.closest("[data-date] .e").length) {
+                me.openAddEvent(target.closest("[data-date]").attr("data-date"), target.closest("[data-date] .e").text())
+                
+            } else if (target.closest("[data-date]").length) {
+                me.openAddEvent(target.closest("[data-date]").attr("data-date"), "")
+            }
+
+        })
     }
     renderDays () {
         this.fillDays(this.days_col, ".l-nextweeks .column.col1")
@@ -90,7 +106,7 @@ class NextWeeks {
         this.renderEvents (getData("ac_events"))
     }
     fillDays (total_days, container) {
-    
+        $(container).empty()
         var txt_class = total_days < 32 ? "txt-m" : "txt-s"
         
         for (var i=1; i <= total_days; i++) {
@@ -121,7 +137,7 @@ class NextWeeks {
             var d = parseDate(events[i]["day"])
             var node = $(`.l-nextweeks [data-date='${d.yyyymmdd()}']`)
             if (events[i]["holiday"] && !node.hasClass("holiday")) node.addClass("holiday")
-            if (!events[i]["holiday"])node.find(".content").append(`<span class='e'>${events[i]["description"]}</span>`)
+            if (events[i]["description"] != "")node.find(".content").append(`<span class='e'>${events[i]["description"]}</span>`)
         }
     }
     renderNextHoliday (events) {
@@ -143,6 +159,67 @@ class NextWeeks {
         }
 
     }
+
+    openAddEvent (date, description) {
+        var me = this
+        var events = getData("ac_events")
+        var mydate = yyyymmdd2Date(date).toShortISO()
+        var filter = {
+            "day" : mydate,
+            "description": description
+        }
+        var results = filterObjects(events, filter);
+
+        var description_str = results.length ? results[0]["description"] : ""
+        var holiday_checked = (results.length && results[0]["holiday"]) ? "checked" : ""
+        var delete_display = results.length ? "block" : "none"
+        
+        $(".main").append(`
+        <div class="open-event">
+            <div class=''>${mydate}</div>
+            <div class=''><input type="text" name="description" value="${description_str}" /></div>
+            <div class=''>holiday: <input type="checkbox" ${holiday_checked} name="holiday" /></div>
+            <div class=''><input type="submit" /></div>
+            <div class='btn-delete' style="display:${delete_display}"><i class="material-icons">delete</i></div>
+        </div>
+        `)
+
+        $(".open-event input[type='submit']").click(function () {
+            var event_data = {
+                "day": mydate,
+                "description": $(".open-event input[name='description']").val(),
+                "holiday": $(".open-event input[name='holiday']")[0].checked
+            }
+            if (results.length) events = me.removeEvent(events, results[0]) // si estoy editando
+
+            events.push(event_data)
+            localStorage.setItem("ac_events", JSON.stringify(events))
+            $(".open-event").remove()
+            me.date.setDate(me.date.getDate() - 3*me.days_col)
+            me.renderDays ()
+        })
+        $(".open-event .btn-delete").click(function () {
+
+            console.log(results[0])
+            var filtered_events = me.removeEvent(events, results[0])
+            localStorage.setItem("ac_events", JSON.stringify(filtered_events))
+            $(".open-event").remove()
+            me.date.setDate(me.date.getDate() - 3*me.days_col)
+            me.renderDays ()
+        })
+
+    }
+
+    removeEvent (events, remove_event) {
+        return events.filter(function(item) {
+            console.log(item)
+            for (var key in remove_event) {
+              if (item[key] != remove_event[key]) return true;
+            }
+            return false;
+        });
+    }
+
 }
 
 
