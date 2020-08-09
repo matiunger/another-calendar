@@ -1,11 +1,40 @@
-:root {
+/*:root {
     --background-image: url('');
-    --font-main: 'Comfortaa', cursive;
-    --color-1: "";
-    --color-2: #d6f79a;
+    --font-main: 'Ubuntu', sans-serif;
+    --font-secondary:  'Open Sans', sans-serif;
+    --font-3: 'Comfortaa', cursive;
+    --color-dark: #05668D;
+    --color-secondary: #028090;
+    --color-primary: #00A896;
+    --color-light: #02C39A;
+    --color-surface: #e0e498;
+    --color-background: #F0F3BD;
+
+    --color-on-background: #000000;
+    --color-on-surface: #2b2b2b;
+    --color-on-primary: #1d1d1d;
+    --color-on-secondary: #242424;
     --moon-i: 5;
 }
+*/
+:root {
+    --background-image: url('');
+    --font-main: 'Ubuntu', sans-serif;
+    --font-secondary:  'Open Sans', sans-serif;
+    --font-3: 'Comfortaa', cursive;
+    --color-dark: #05668D;
+    --color-secondary: #028090;
+    --color-primary: #00A896;
+    --color-light: #02C39A;
+    --color-surface: #2c2c2c;
+    --color-background: #202020;
 
+    --color-on-background: #bdbdbd;
+    --color-on-surface: #2b2b2b;
+    --color-on-primary: #1d1d1d;
+    --color-on-secondary: #242424;
+    --moon-i: 5;
+}
 
 * {
     box-sizing: border-box;
@@ -13,7 +42,7 @@
 body, html {
     padding: 0;
     margin: 0;
-    background: rgb(255, 255, 255);
+    background: var(--color-background);
     background-image: var(--background-image);
     background-size: cover;
     overflow: hidden;
@@ -64,6 +93,7 @@ footer #cont-space .space{
 .cont-settings{
     position: absolute;
     opacity: 0.4;
+    color: var(--color-on-background);
     padding: 16px;
     bottom: 0;
     right: 0;

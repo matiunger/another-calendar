@@ -117,7 +117,7 @@ class NextWeeks {
             var day = `
             <div data-date="${this.date.yyyymmdd()}" class="day-row" style="${style}">
                 <div class='weekday'>${getWeekDay(this.date)}</div>
-                <div class='day'>${checkTime(this.date.getDate())}</div>
+                <div class='day'>${/*checkTime(*/this.date.getDate()/*)*/}</div>
                 <div class='content'></div>
                 <div class='month'>${h_month}</div>
             </div>
@@ -409,7 +409,7 @@ class Sunhours {
             <div class="sunhours-lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
         <div class="nightbar">
-            <div class="nowbar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"></div>
+            <div class="nowbar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"><div class="fill"></div></div>
             <div class="daybar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
         <div class="info">${this.getRemainingDaylight()}</div>`;
