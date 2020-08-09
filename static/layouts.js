@@ -13,12 +13,12 @@ class Welcome {
         <div class="l-welcome">
             <div class="c-name"></div>
             <div class="c-clock"></div>
-            <div class="c-sunhours"></div>
+            <div class="c-sun-hours"></div>
         </div>
         `
         new Clock(".c-clock")
         new Name(".c-name")
-        new Sunhours(today, ".c-sunhours")
+        new Sunhours(today, ".c-sun-hours")
     }
 
 }
@@ -39,42 +39,42 @@ class NextWeeks {
         var words = ["weeks", "experience", "trip", "adventure"]
 
         document.querySelector(this.selector).innerHTML = `
-        <div class="l-nextweeks">
+        <div class="l-next-weeks">
             <header>
-                <div class="title">Plan your next <span id="dynamic-word">${words[Math.floor(Math.random() * (words.length-1))]}</span></div>
-                <div class="next-holiday">Next holiday in <span id="next-holiday-days"></span> days</div>
+                <div class="l-next-weeks__title">Plan your next <span class="l-next-weeks__title--color">${words[Math.floor(Math.random() * (words.length-1))]}</span></div>
+                <div class="l-next-weeks__next-holiday">Next holiday in <span class="l-next-weeks__next-holiday__days"></span> days</div>
             </header>
-            <nav id="nav-prev" class="column"><</nav>
-            <div class="column col1"></div>
-            <div class="column col2"></div>
-            <div class="column col3"></div>
-            <nav id="nav-next" class="column">></nav>
+            <nav id="l-next-weeks__nav-prev" class="l-next-weeks__column"><</nav>
+            <div class="l-next-weeks__column l-next-weeks__column-1"></div>
+            <div class="l-next-weeks__column l-next-weeks__column-2"></div>
+            <div class="l-next-weeks__column l-next-weeks__column-3"></div>
+            <nav id="l-next-weeks__nav-next" class="l-next-weeks__column">></nav>
         </div>
         `
 
 
         $("body").on("keyup", function(e){
             if(e.keyCode == 39){
-                $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+                $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
                 me.date.setDate(me.date.getDate() - 3*me.days_col +1);
                 me.renderDays ()
             }
         })
         $("body").on("keyup", function(e){
             if(e.keyCode == 37){
-                $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+                $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
                 me.date.setDate(me.date.getDate() - 3*me.days_col-1);
                 me.renderDays ()
             }
         })
 
-        $("#nav-next").click(function () {
-            $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+        $("#l-next-weeks__nav-next").click(function () {
+            $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
             me.date.setDate(me.date.getDate() - 3*me.days_col +1);
             me.renderDays ()
         })
-        $("#nav-prev").click(function () {
-            $(".l-nextweeks .column.col1, .l-nextweeks .column.col2, .l-nextweeks .column.col3").html("")
+        $("#l-next-weeks__nav-prev").click(function () {
+            $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
             me.date.setDate(me.date.getDate() - 3*me.days_col-1);
             me.renderDays ()
         })
@@ -88,10 +88,10 @@ class NextWeeks {
 
             var target = $(e.target)
 
-            if ($(".open-event").length && target.closest(".open-event").length == 0) {
-                $(".open-event").remove()
-            } else if (target.closest("[data-date] .e").length) {
-                me.openAddEvent(target.closest("[data-date]").attr("data-date"), target.closest("[data-date] .e").text())
+            if ($(".modal-event").length && target.closest(".modal-event").length == 0) {
+                $(".modal-event").remove()
+            } else if (target.closest("[data-date] .description").length) {
+                me.openAddEvent(target.closest("[data-date]").attr("data-date"), target.closest("[data-date] .description").text())
                 
             } else if (target.closest("[data-date]").length) {
                 me.openAddEvent(target.closest("[data-date]").attr("data-date"), "")
@@ -100,14 +100,13 @@ class NextWeeks {
         })
     }
     renderDays () {
-        this.fillDays(this.days_col, ".l-nextweeks .column.col1")
-        this.fillDays(this.days_col, ".l-nextweeks .column.col2")
-        this.fillDays(this.days_col, ".l-nextweeks .column.col3")
+        this.fillDays(this.days_col, ".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1")
+        this.fillDays(this.days_col, ".l-next-weeks .l-next-weeks__column.l-next-weeks__column-2")
+        this.fillDays(this.days_col, ".l-next-weeks .l-next-weeks__column.l-next-weeks__column-3")
         this.renderEvents (getData("ac_events"))
     }
     fillDays (total_days, container) {
         $(container).empty()
-        var txt_class = total_days < 32 ? "txt-m" : "txt-s"
         
         for (var i=1; i <= total_days; i++) {
             // style
@@ -115,19 +114,19 @@ class NextWeeks {
             var h_month = isFirstMonthDay(this.date) ? getMonth(this.date)+" "+this.date.getFullYear().toString() : ""
 
             var day = `
-            <div data-date="${this.date.yyyymmdd()}" class="day-row" style="${style}">
-                <div class='weekday'>${getWeekDay(this.date)}</div>
-                <div class='day'>${/*checkTime(*/this.date.getDate()/*)*/}</div>
-                <div class='content'></div>
-                <div class='month'>${h_month}</div>
+            <div data-date="${this.date.yyyymmdd()}" class="l-next-weeks__day-row" style="${style}">
+                <div class='l-next-weeks__day-row__weekday'>${getWeekDay(this.date)}</div>
+                <div class='l-next-weeks__day-row__day'>${/*checkTime(*/this.date.getDate()/*)*/}</div>
+                <div class='l-next-weeks__day-row__content'></div>
+                <div class='l-next-weeks__day-row__month'>${h_month}</div>
             </div>
             `
             $(container).append(day)
-            var node = $(`.l-nextweeks [data-date='${this.date.yyyymmdd()}']`)
-            if (isLastMonthDay(this.date)) node.addClass("last-month-day")
-            if (isFirstMonthDay(this.date)) node.addClass("first-month-day")
-            if (isPastDay(this.date)) node.addClass("past-day")
-            if (isWeekend(this.date)) node.addClass("holiday")
+            var node = $(`.l-next-weeks [data-date='${this.date.yyyymmdd()}']`)
+            if (isLastMonthDay(this.date)) node.addClass("l-next-weeks__day-row--last-month-day")
+            if (isFirstMonthDay(this.date)) node.addClass("l-next-weeks__day-row--first-month-day")
+            if (isPastDay(this.date)) node.addClass("l-next-weeks__day-row--past-day")
+            if (isWeekend(this.date)) node.addClass("l-next-weeks__day-row--holiday")
 
             this.date.setDate(this.date.getDate() + 1);
         }
@@ -135,9 +134,9 @@ class NextWeeks {
     renderEvents (events) {
         for (var i=0; i <= events.length-1; i++) {
             var d = parseDate(events[i]["day"])
-            var node = $(`.l-nextweeks [data-date='${d.yyyymmdd()}']`)
-            if (events[i]["holiday"] && !node.hasClass("holiday")) node.addClass("holiday")
-            if (events[i]["description"] != "")node.find(".content").append(`<span class='e'>${events[i]["description"]}</span>`)
+            var node = $(`.l-next-weeks [data-date='${d.yyyymmdd()}']`)
+            if (events[i]["holiday"] && !node.hasClass("l-next-weeks__day-row--holiday")) node.addClass("l-next-weeks__day-row--holiday")
+            if (events[i]["description"] != "")node.find(".l-next-weeks__day-row__content").append(`<span class='description'>${events[i]["description"]}</span>`)
         }
     }
     renderNextHoliday (events) {
@@ -152,10 +151,10 @@ class NextWeeks {
             }
         }
         if (date_diff != undefined) {
-            $(".next-holiday #next-holiday-days").html(date_diff)
-            $(".next-holiday").prop("title", d.yyyymmdd())
+            $(".l-next-weeks__next-holiday__days").html(date_diff)
+            $(".l-next-weeks__next-holiday").prop("title", d.yyyymmdd())
         } else {
-            $(".next-holiday").hide()
+            $(".l-next-weeks__next-holiday__days").hide()
         }
 
     }
@@ -174,8 +173,11 @@ class NextWeeks {
         var holiday_checked = (results.length && results[0]["holiday"]) ? "checked" : ""
         var delete_display = results.length ? "block" : "none"
         
+        console.log(results.length)
+        console.log(delete_display)
+
         $(".main").append(`
-        <div class="open-event">
+        <div class="modal-event">
             <div class=''>${mydate}</div>
             <div class=''><input type="text" name="description" value="${description_str}" /></div>
             <div class=''>holiday: <input type="checkbox" ${holiday_checked} name="holiday" /></div>
@@ -184,26 +186,26 @@ class NextWeeks {
         </div>
         `)
 
-        $(".open-event input[type='submit']").click(function () {
+        $(".modal-event input[type='submit']").click(function () {
             var event_data = {
                 "day": mydate,
-                "description": $(".open-event input[name='description']").val(),
-                "holiday": $(".open-event input[name='holiday']")[0].checked
+                "description": $(".modal-event input[name='description']").val(),
+                "holiday": $(".modal-event input[name='holiday']")[0].checked
             }
             if (results.length) events = me.removeEvent(events, results[0]) // si estoy editando
 
             events.push(event_data)
             localStorage.setItem("ac_events", JSON.stringify(events))
-            $(".open-event").remove()
+            $(".modal-event").remove()
             me.date.setDate(me.date.getDate() - 3*me.days_col)
             me.renderDays ()
         })
-        $(".open-event .btn-delete").click(function () {
+        $(".modal-event .btn-delete").click(function () {
 
             console.log(results[0])
             var filtered_events = me.removeEvent(events, results[0])
             localStorage.setItem("ac_events", JSON.stringify(filtered_events))
-            $(".open-event").remove()
+            $(".modal-event").remove()
             me.date.setDate(me.date.getDate() - 3*me.days_col)
             me.renderDays ()
         })
@@ -243,17 +245,17 @@ class Name {
     }
 
     renderWelcome() {
-        document.querySelector(this.selector).innerHTML = `<h2>Hey, <span class="welcome-name">${this.user_name}</span></h2>`
+        document.querySelector(this.selector).innerHTML = `<h2 class="c-name__text">Hey, <span class="c-name__text__name">${this.user_name}</span></h2>`
         var me = this
-        document.querySelector(this.selector+" .welcome-name").addEventListener("click", function () {
+        $(this.selector+" .c-name__text__name").click(function () {
             me.renderInput()
         })
     }
     renderInput() {
         var me = this
         document.querySelector(this.selector).innerHTML = `
-            <h2>Hey, whats your name?</h2>
-            <input type="text" name="name" class="name"></input>
+            <h2 class="c-name__text">Hey, whats your name?</h2>
+            <input type="text" name="name"></input>
         `
         var input = document.querySelector(this.selector+" input[name='name']")
         if (this.user_name) input.value = this.user_name
@@ -291,7 +293,7 @@ class Clock {
         var s = now.getSeconds();
         m = this.checkTime(m);
         s = this.checkTime(s);
-        document.querySelector(this.selector).innerHTML = h + ":" + m + "<span class='seconds'>" + s + "</span>";
+        document.querySelector(this.selector).innerHTML = h + ":" + m + "<span class='c-clock__seconds'>" + s + "</span>";
     }
     checkTime (i) {
         if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
@@ -400,19 +402,19 @@ class Sunhours {
     render () {
         var now = new Date()
         document.querySelector(this.selector).innerHTML = `
-        <div class="hours">
-            <div class="hour" style="left:${100*this.getSunrise()[0]/24}%;"><i class="material-icons icon">wb_sunny</i> ${this.getSunrise()[1]}</div>
-            <div class="hour" style="left:${100*this.getSunset()[0]/24}%;"><i class="moon-icon icon"><span class="moon"></span></i>${this.getSunset()[1]}</div>
+        <div class="sun-hours__hours">
+            <div class="sun-hours__hours__hour" style="left:${100*this.getSunrise()[0]/24}%;"><i class="material-icons icon">wb_sunny</i> ${this.getSunrise()[1]}</div>
+            <div class="sun-hours__hours__hour" style="left:${100*this.getSunset()[0]/24}%;"><i class="moon-icon icon"><span class="moon-icon__moon"></span></i>${this.getSunset()[1]}</div>
         </div>
-        <div class="sunhours-container-lines">
+        <div class="sun-hours__container-lines">
             <!-- <div class="now-line" style="left:${100*(now.getHours()+now.getMinutes()/60)/24}%"></div> -->
-            <div class="sunhours-lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
+            <div class="sun-hours__container-lines__lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
-        <div class="nightbar">
-            <div class="nowbar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"><div class="fill"></div></div>
-            <div class="daybar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
+        <div class="sun-hours__night-bar">
+            <div class="sun-hours__night-bar__now-bar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"><div class="sun-hours__night-bar__now-bar__fill"></div></div>
+            <div class="sun-hours__night-bar__day-bar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
-        <div class="info">${this.getRemainingDaylight()}</div>`;
+        <div class="sun-hours__info">${this.getRemainingDaylight()}</div>`;
 
     }
 

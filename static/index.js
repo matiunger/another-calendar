@@ -11,30 +11,30 @@ var layouts = [new Welcome(), new NextWeeks()]
 var current_layout = 0; 
 
 window.onload = function() {
-    root.style.setProperty('--background-image', "url('')");
+    //root.style.setProperty('--background-image', "url('../img/pexels-no-name-66997.jpg')");
     
     // data
 
-    if (!getData("ac_settings")["spaceBarUse"]) $("#cont-space").show()
+    if (!getData("ac_settings")["spaceBarUse"]) $(".container-space-bar").show()
 
     // render
     layouts[0].render(".main")
 
     // space bar
     document.body.onkeyup = function(e){
-        if(e.keyCode == 32 && !$(".open-event").length) {
+        if(e.keyCode == 32 && !$(".modal-event").length) {
 
-            setData ("ac_settings", "spaceBarUse", true); $("#cont-space").hide();
+            setData ("ac_settings", "spaceBarUse", true); $(".container-space-bar").hide();
 
-            $("#app").append("<div class='new'></div>")
+            $("#app").append("<div class='main-next'></div>")
             current_layout = current_layout == layouts.length-1 ? 0 : current_layout+1
-            layouts[current_layout].render(".new")
+            layouts[current_layout].render(".main-next")
             $(".main").on("animationend", function() {
                 $(".main").remove()
-                $(".new").attr("class", "main")
+                $(".main-next").attr("class", "main")
             }); 
-            $(".main").addClass("slide-out")
-            $(".new").addClass("slide-in")
+            $(".main").addClass("main--slide-out")
+            $(".main-next").addClass("main--slide-in")
                  
         }
     }

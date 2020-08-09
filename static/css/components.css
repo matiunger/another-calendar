@@ -3,18 +3,19 @@
 .c-name {
 }
 
-.c-name h2 {
-    font-family: 'Comfortaa', cursive;
+.c-name__text {
+    font-family: var(--font-main);
+    font-weight: 400;
     text-align: center;
     display: block;
     color: var(--color-on-background);
     margin: auto;
     margin: 16px 0 8px 0;
-    font-size: 18px;
+    font-size: 24px;
 }
 .c-name input[name="name"] {
     display: block;
-    font-family: 'Comfortaa', cursive;
+    font-family: var(--font-main);
     text-align: center;
     font-size: 28px;
     color: var(--color-on-background);
@@ -24,12 +25,12 @@
     padding: 8px;
     height: 40px;
     width: 100%;
-    margin: auto;
-    max-width: 300px;
+    margin: 16px auto;
+    max-width: 450px;
 }
 .c-name input[name="name"]:focus {
     border: none;
-    border-bottom: 1px solid rgb(48, 48, 48);
+    border-bottom: 1.2px solid rgb(83, 83, 83);
     background: none;
     outline: none;  
 }
@@ -37,11 +38,12 @@
 /* Clock */
 
 .c-clock {
-    height: 80px;
-    margin: 30px auto;
+    /*height: 72px;*/
+    margin: 0 auto 50px auto;
     width: 100%;
     font-family: var(--font-main);
-    font-size: 70px;
+    font-weight: 500;
+    font-size: 78px;
     text-shadow: rgb(218, 218, 218) 1px 1px;
     display: inline-flex;
     align-items: center;
@@ -49,7 +51,7 @@
     padding: 0;
     color: var(--color-on-background);
 }
-.c-clock .seconds {
+.c-clock .c-clock__seconds {
     display: none;
     font-size: 24px;
     padding-left: 8px;
@@ -57,18 +59,18 @@
 }
 
 /* Sunhours */
-.c-sunhours {
+.c-sun-hours {
     width: 100%;
     max-width: 600px;
     margin: auto;
 }
-.c-sunhours .hours {
+.sun-hours__hours {
     width: 100%;
     height: 45px;
     position: relative;
 }
 
-.c-sunhours .hour {
+.sun-hours__hours__hour {
     display: inline-block;
     position: absolute;
     font-family: var(--font-main);
@@ -80,13 +82,13 @@
     height: 40px;
     margin-left: -25px;
 }
-.c-sunhours .hour .icon{
+.sun-hours__hours__hour .icon{
     margin-bottom: 4px;
     opacity: 0.6;
     color: var(--color-on-background);
 }
 
-.c-sunhours .nightbar {
+.sun-hours__night-bar {
     height: 25px;
     background-color: var(--color-dark);
     width: 100%;
@@ -94,7 +96,7 @@
     border-radius: 15px;
     margin: auto;
 }
-.c-sunhours .nowbar {
+.sun-hours__night-bar__now-bar {
     height: 100%;
     padding: 4px;
     top: 0;
@@ -104,7 +106,7 @@
     border-radius: 15px;
     z-index: 2;
 }
-.c-sunhours .nowbar .fill {
+.sun-hours__night-bar__now-bar__fill {
     width: 100%;
     height: 100%;
     border-radius: 15px;
@@ -112,21 +114,21 @@
     background-color: #ffffff;
 
 }
-.c-sunhours .daybar {
+.sun-hours__night-bar__day-bar {
     height: 100%;
     display: inline-block;
     position: absolute;
     float: left;
     background-color: var(--color-primary);
 }
-.c-sunhours .sunhours-container-lines {
+.sun-hours__container-lines {
     height: 10px;
     margin-bottom: 4px;
     width: 100%;
     position: relative;
     margin: auto;
 }
-.c-sunhours .sunhours-container-lines .sunhours-lines {
+.sun-hours__container-lines__lines {
     height: 100%;
     display: inline-block;
     position: absolute;
@@ -134,14 +136,15 @@
     border-right: 1px var(--color-on-background) dotted;
     border-left: 1px var(--color-on-background) dotted;
 }
-.c-sunhours .sunhours-container-lines .now-line {
-    /*height: 50%;
+/*
+.c-sun-hours .sunhours-container-lines .now-line {
+    height: 50%;
     
     width: 1px;
     display: inline-block;
     
     
-    border-right: 2px #051d27 solid;*/
+    border-right: 2px #051d27 solid;
     position: absolute;
     float: left;
     bottom: 0;
@@ -151,24 +154,24 @@
     border-right: 3px solid transparent;
     border-top: 8px solid #051d27;
 }
-
-.c-sunhours .moon-icon {
+*/
+.moon-icon {
     padding: 4px;
     display: inline-block;
     width: 24px;
     height: 24px;
 }
-.c-sunhours .moon-icon .moon {
+.moon-icon__moon {
     display: inline-block;
     width: 16px;
     height: 16px;
     border-radius: 50%;
     box-shadow: inset calc(var(--moon-i)*16px) 0 var(--color-on-background);
 }
-.c-sunhours .info {
+.sun-hours__info {
     font-family: var(--font-secondary);
     color: var(--color-on-background);
-    font-size: 15px;
+    font-size: 18px;
     text-align: center;
     padding: 16px 0;
 }

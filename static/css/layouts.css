@@ -2,10 +2,10 @@
 .l-welcome {
     padding: 5%;
 }
-.l-nextweeks {
+.l-next-weeks {
     position: relative;
 }
-.l-nextweeks header {
+.l-next-weeks header {
     position: absolute;
     width: 100%;
     top:0;
@@ -15,42 +15,42 @@
     align-items: center;
     font-family: var(--font-main);
 }
-.l-nextweeks header .title {
+.l-next-weeks header .l-next-weeks__title {
     font-size: 26px;
     color: var(--color-on-background);
 }
-.l-nextweeks header .next-holiday {
+.l-next-weeks header .l-next-weeks__next-holiday {
     position: relative;
     color: var(--color-on-background);
     font-size: 16px;
 }
-.l-nextweeks header .next-holiday #next-holiday-days {
+.l-next-weeks header .l-next-weeks__next-holiday .l-next-weeks__next-holiday__days {
     font-size: 18px;
     color: var(--color-primary);
 }
-.l-nextweeks header .title #dynamic-word {
+.l-next-weeks header .l-next-weeks__title .l-next-weeks__title--color {
     color: var(--color-primary);
 }
 
-.l-nextweeks .column {
+.l-next-weeks .l-next-weeks__column {
     float: left;
     /*padding: 10px;*/
     height: 100vh; /* Should be removed. Only for demonstration */
 }
-.l-nextweeks .col1 {
+.l-next-weeks .l-next-weeks__column-1 {
     width: 30%;
     padding: 94px 32px 64px 0;
 }
-.l-nextweeks .col2 {
+.l-next-weeks .l-next-weeks__column-2 {
     width: 30%;
     padding: 94px 32px 64px 0;
 }
-.l-nextweeks .col3 {
+.l-next-weeks .l-next-weeks__column-3 {
     width: 30%;
     padding: 94px 0 64px 0;
 } 
 
-.l-nextweeks nav {
+.l-next-weeks nav {
     width: 5%;
     padding: 0;
     font-family: var(--font-main);
@@ -61,26 +61,26 @@
     justify-content: center;
     opacity: 0;
 }
-.l-nextweeks nav:hover {
+.l-next-weeks nav:hover {
     cursor: pointer;
     opacity: 1;
 }
 
 /* Clear floats after the columns */
-.l-nextweeks .row:after {
+.l-next-weeks .row:after {
     content: "";
     display: table;
     clear: both;
 }
 
-.l-nextweeks .day-row {
+.l-next-weeks .l-next-weeks__day-row {
     width: 100%;
     border-top: 1px dotted var(--color-surface);
     border-bottom:none;
     padding: 0 4px 0 8px;
     font-family: var(--font-main);
 }
-.l-nextweeks .day-row .weekday {
+.l-next-weeks__day-row__weekday {
     width: 10px;
     color: var(--color-on-background);
     opacity: 0.5;
@@ -91,7 +91,7 @@
     justify-content: center;
     float: left;
 }
-.l-nextweeks .day-row .day {
+.l-next-weeks__day-row__day {
     width: 32px;
     height: 100%;
     font-size: 13px;
@@ -103,15 +103,12 @@
     justify-content: center;
     float: left;
 }
-.l-nextweeks .day-row:hover .day {
-    color: red;
-}
-.l-nextweeks .day-row .content {
+.l-next-weeks__day-row__content {
     height: 100%;
     padding: 2px 0;
     float: left;
 }
-.l-nextweeks .day-row .content .e {
+.l-next-weeks__day-row__content .description {
     cursor: pointer;
     padding: 0 4px;
     display: inline-flex;
@@ -125,7 +122,7 @@
     border-radius: 4px;
     float: left;
 }
-.l-nextweeks .day-row .month {
+.l-next-weeks__day-row__month {
     width: 80px;
     height: 100%;
     font-size: 10px;
@@ -139,22 +136,22 @@
     float: right;
 }
 
-.l-nextweeks .past-day {
+.l-next-weeks__day-row--past-day {
     opacity: 0.1;
 }
 
-.l-nextweeks .holiday {
+.l-next-weeks__day-row--holiday {
     background-color: var(--color-surface);
 }
 
-.l-nextweeks .last-month-day {
+.l-next-weeks__day-row--last-month-day {
     /*border-bottom-right-radius: 5px;*/
     /*border-bottom-left-radius: 5px;*/
     /*border-bottom: 1px dashed var(--color-on-background);*/
     /*margin-bottom: 8px;*/
 }
 
-.l-nextweeks .first-month-day {
+.l-next-weeks__day-row--first-month-day {
     border-top: none;
     background: linear-gradient(180deg, rgba(58, 58, 58, 0.2) 0%, rgba(255,255,255,0) 85%);
     /*border-top-left-radius: 5px;*/
