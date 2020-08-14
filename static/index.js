@@ -10,6 +10,9 @@ if (!getData("ac_events")) { localStorage.setItem("ac_events", JSON.stringify(co
 var layouts = [new Welcome(), new NextWeeks()]
 var current_layout = 0; 
 
+// theme
+
+
 window.onload = function() {
     //root.style.setProperty('--background-image', "url('../img/pexels-no-name-66997.jpg')");
     
@@ -44,7 +47,7 @@ window.onload = function() {
 
 
 var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var months = ['January', 'Febraury', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 
 

@@ -1,4 +1,4 @@
-:root {
+/*:root {
     --background-image: url('');
     --font-main: 'Ubuntu', sans-serif;
     --font-secondary:  'Open Sans', sans-serif;
@@ -15,27 +15,63 @@
     --color-on-primary: #1d1d1d;
     --color-on-secondary: #242424;
     --moon-i: 5;
-}
+}*/
+/* sunset */
 /*
 :root {
-    --background-image: url('');
+    --background-image: url('../img/pexels-no-name-66997.jpg');
+    --color-background: #3b1003;
+    --color-surface: #ffffff28;
+    --color-on-background: #ffffff;
+    --color-on-background-shadow: #00000083;
+
     --font-main: 'Ubuntu', sans-serif;
     --font-secondary:  'Open Sans', sans-serif;
     --font-3: 'Comfortaa', cursive;
-    --color-dark: #05668D;
-    --color-secondary: #028090;
-    --color-primary: #00A896;
-    --color-light: #02C39A;
-    --color-surface: #2c2c2c;
-    --color-background: #202020;
 
-    --color-on-background: #bdbdbd;
+    --color-dark: #ffffff33;
+    --color-light: #ffffff42;
+    --color-on-dark-light: #ffffffb2;
+    
+    --color-primary: #ff9900;
+    --color-secondary: #ffffff86;
+    --color-tertiary: #ffffff;
+    
+    --color-tertiary-shadow: #202020b6;
+
     --color-on-surface: #2b2b2b;
     --color-on-primary: #1d1d1d;
     --color-on-secondary: #242424;
     --moon-i: 5;
+}*/
+/* dark */
+:root {
+    --background-image: url('');
+    --color-background: #202020;
+    --color-surface: #2c2c2c;
+    --color-on-background: #bdbdbd;
+    --color-on-background-shadow: #00000083;
+
+    --font-main: 'Ubuntu', sans-serif;
+    --font-secondary:  'Open Sans', sans-serif;
+    --font-3: 'Comfortaa', cursive;
+
+    --color-dark: #028090be;
+    --color-light: #21a4b6be;
+    --color-on-dark-light: #ffffffb2;
+    
+    --color-primary: #028090;
+    --color-secondary: #21a4b6be;
+    --color-tertiary: #ffffff;
+    
+    --color-tertiary-shadow: #202020b6;
+
+    --color-on-surface: #2b2b2b;
+    --color-on-primary: #1d1d1d;
+    --color-on-secondary: #e7e7e7;
+    --moon-i: 5;
 }
-*/
+
 * {
     box-sizing: border-box;
 }

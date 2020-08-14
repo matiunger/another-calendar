@@ -111,7 +111,7 @@ class NextWeeks {
         for (var i=1; i <= total_days; i++) {
             // style
             var style = `height: ${100/total_days}%;`
-            var h_month = isFirstMonthDay(this.date) ? getMonth(this.date)+" "+this.date.getFullYear().toString() : ""
+            var h_month = isFirstMonthDay(this.date) || (i == 1 && container.indexOf("column-1") != -1 && !isFirstMonthDay(this.date))  ? getMonth(this.date)+" "+this.date.getFullYear().toString().substring(2,4) : ""
 
             var day = `
             <div data-date="${this.date.yyyymmdd()}" class="l-next-weeks__day-row" style="${style}">
@@ -407,7 +407,7 @@ class Sunhours {
             <div class="sun-hours__hours__hour" style="left:${100*this.getSunset()[0]/24}%;"><i class="moon-icon icon"><span class="moon-icon__moon"></span></i>${this.getSunset()[1]}</div>
         </div>
         <div class="sun-hours__container-lines">
-            <!-- <div class="now-line" style="left:${100*(now.getHours()+now.getMinutes()/60)/24}%"></div> -->
+            <!-- <div class="sun-hours__container-lines__now-line" style="left:${100*(now.getHours()+now.getMinutes()/60)/24}%"></div> -->
             <div class="sun-hours__container-lines__lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
         <div class="sun-hours__night-bar">
