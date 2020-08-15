@@ -30,7 +30,7 @@ window.onload = function() {
 
     // space bar
     document.body.onkeyup = function(e){
-        if(e.keyCode == 32 && !$(".modal-event").length) {
+        if(e.keyCode == 32 && !$(".modal-event").length && !$(".main-next").length) {
 
             setData ("ac_settings", "spaceBarUse", true); $(".container-space-bar").hide();
 

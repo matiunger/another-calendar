@@ -434,6 +434,16 @@ class Sunhours {
             <div class="sun-hours__container-lines__lines" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
         <div class="sun-hours__night-bar">
+            <div class="sun-hours__night-bar__day-curve" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;">
+                <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="myMask">
+                    <!-- Everything under a white pixel will be visible -->
+                        <rect x="0" y="0" width="${1000*((now.getHours()+now.getMinutes()/60)-this.getSunrise()[0])/(this.getSunset()[0]-this.getSunrise()[0])}" height="500" fill="white" />
+                    </mask>
+                    <path d="M 0 500 Q 500 200 1000 500" fill="${root.style.getPropertyValue("--color-light")}" />
+                    <path d="M 0 500 Q 500 200 1000 500" fill="${root.style.getPropertyValue("--color-dark")}" mask="url(#myMask)" />
+                </svg>
+            </div>
             <div class="sun-hours__night-bar__now-bar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"><div class="sun-hours__night-bar__now-bar__fill"></div></div>
             <div class="sun-hours__night-bar__day-bar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>

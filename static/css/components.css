@@ -99,6 +99,11 @@
     border-radius: 10px;
     margin: auto;
 }
+.sun-hours__night-bar__day-curve {
+    position: absolute;
+    z-index: 3;
+    transform: translateY(-100%);
+}
 .sun-hours__night-bar__now-bar {
     
     content: '';
