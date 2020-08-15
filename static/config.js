@@ -12,7 +12,7 @@ var config = {
         },
         "spaceBarUse" : false,
         "layouts": ["welcome", "nextweeks"],
-        "theme": "",
+        "theme": "sunset",
         "backgroundImage": null
     },
     "events": [
@@ -42,6 +42,46 @@ var config = {
 }
 
 var themes = {
+    "classic" : {
+        "--background-image": "url('')",
+        "--color-background": "#fafce0",
+        "--color-surface": "#edf0be",
+        "--color-on-background": "#202020",
+        "--color-on-background-shadow": "#ffffff83",
+        "--font-main": "'Ubuntu', sans-serif",
+        "--font-secondary":  "'Open Sans', sans-serif",
+        "--font-3": "'Comfortaa', cursive",
+        "--color-dark": "#0280906b",
+        "--color-light": "#21a5b69c",
+        "--color-on-dark-light": "#ffffffb2",
+        "--color-primary": "#05668D",
+        "--color-secondary": "#21a5b6a9",
+        "--color-tertiary": "#313131",
+        "--color-tertiary-shadow": "#ffffff80",
+        "--color-on-surface": "#2b2b2b",
+        "--color-on-primary": "#1d1d1d",
+        "--color-on-secondary": "#000000"
+    },
+    "sunset" : {
+        "--background-image": "url('../img/pexels-no-name-66997.jpg')",
+        "--color-background": "#3b1003",
+        "--color-surface": "#ffffff28",
+        "--color-on-background": "#ffffff",
+        "--color-on-background-shadow": "#00000083",
+        "--font-main": "'Ubuntu', sans-serif",
+        "--font-secondary":  "'Open Sans', sans-serif",
+        "--font-3": "'Comfortaa', cursive",
+        "--color-dark": "#ffffff33",
+        "--color-light": "#ffffff42",
+        "--color-on-dark-light": "#ffffffb2",
+        "--color-primary": "#ff9900",
+        "--color-secondary": "#ffffff86",
+        "--color-tertiary": "#ffffff",
+        "--color-tertiary-shadow": "#202020b6",
+        "--color-on-surface": "#2b2b2b",
+        "--color-on-primary": "#1d1d1d",
+        "--color-on-secondary": "#242424"
+    },
     "dark" : {
         "--background-image": "url('')",
         "--color-background": "#202020",

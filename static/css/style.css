@@ -1,23 +1,33 @@
-/*:root {
+:root {
+
     --background-image: url('');
+    --color-background: #fafce0;
+    --color-surface: #edf0be;
+    --color-on-background: #202020;
+    --color-on-background-shadow: #ffffff83;
+
     --font-main: 'Ubuntu', sans-serif;
     --font-secondary:  'Open Sans', sans-serif;
     --font-3: 'Comfortaa', cursive;
-    --color-dark: #05668D;
-    --color-secondary: #028090;
-    --color-primary: #00A896;
-    --color-light: #02C39A;
-    --color-surface: #edf0be;
-    --color-background: #fafce0;
 
-    --color-on-background: #000000;
+    --color-dark: #0280906b;
+    --color-light: #21a5b69c;
+    --color-on-dark-light: #ffffffb2;
+    
+    --color-primary: #05668D;
+    --color-secondary: #21a5b6a9;
+    --color-tertiary: #313131;
+    
+    --color-tertiary-shadow: #ffffff80;
+
     --color-on-surface: #2b2b2b;
     --color-on-primary: #1d1d1d;
-    --color-on-secondary: #242424;
+    --color-on-secondary: #000000;
+
     --moon-i: 5;
-}*/
-/* sunset */
-/*
+}
+/* sunset 
+
 :root {
     --background-image: url('../img/pexels-no-name-66997.jpg');
     --color-background: #3b1003;
@@ -44,7 +54,7 @@
     --color-on-secondary: #242424;
     --moon-i: 5;
 }*/
-/* dark */
+/* dark
 :root {
     --background-image: url('');
     --color-background: #202020;
@@ -71,7 +81,7 @@
     --color-on-secondary: #e7e7e7;
     --moon-i: 5;
 }
-
+ */
 * {
     box-sizing: border-box;
 }
@@ -119,7 +129,7 @@ body, html {
 
 
 
-footer {
+#app > footer {
     padding: 0;
     width: 100%;
     position: absolute;
@@ -127,13 +137,13 @@ footer {
     padding: 16px 0;
     text-align: center;
 }
-footer .container-space-bar{
+#app > footer .container-space-bar{
     display: inline-block;
     font-family: var(--font-main);
     font-size: 12px;
     display: none;
 }
-footer .container-space-bar .container-space-bar__space-bar{
+#app > footer .container-space-bar .container-space-bar__space-bar{
     text-transform: uppercase;
     opacity: 0;
     padding: 5px 8px;
@@ -168,24 +178,6 @@ footer .container-space-bar .container-space-bar__space-bar{
     justify-content: center;
     align-items: center;
 }
-
-.modal-event {
-    position: absolute;
-    width: 500px;
-    height: 300px;
-    top:50%;
-    left:50%;
-    padding: 32px;
-    margin-left:-250px;   /* negative half of width above */
-    margin-top:-150px;
-    z-index: 10;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px grey;
-}
-
-
-
 
 
 .txt-m {

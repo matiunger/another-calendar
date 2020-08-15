@@ -115,7 +115,7 @@ class NextWeeks {
 
             var day = `
             <div data-date="${this.date.yyyymmdd()}" class="l-next-weeks__day-row" style="${style}">
-                <div class='l-next-weeks__day-row__weekday'>${getWeekDay(this.date)}</div>
+                <div class='l-next-weeks__day-row__weekday'>${getShortWeekDay(this.date)}</div>
                 <div class='l-next-weeks__day-row__day'>${/*checkTime(*/this.date.getDate()/*)*/}</div>
                 <div class='l-next-weeks__day-row__content'></div>
                 <div class='l-next-weeks__day-row__month'>${h_month}</div>
@@ -162,9 +162,10 @@ class NextWeeks {
     openAddEvent (date, description) {
         var me = this
         var events = getData("ac_events")
-        var mydate = yyyymmdd2Date(date).toShortISO()
+        var myisodate = yyyymmdd2Date(date).toShortISO()
+        var mydate = yyyymmdd2Date(date)
         var filter = {
-            "day" : mydate,
+            "day" : myisodate,
             "description": description
         }
         var results = filterObjects(events, filter);
@@ -176,19 +177,41 @@ class NextWeeks {
         console.log(results.length)
         console.log(delete_display)
 
+        var wd = getWeekDay(mydate)
+        var d = mydate.getDate()
+        var m = getMonth(mydate)
+        var y = mydate.getFullYear()
+
+        var days_diff = dateDiff(mydate, today)
+
         $(".main").append(`
         <div class="modal-event">
-            <div class=''>${mydate}</div>
-            <div class=''><input type="text" name="description" value="${description_str}" /></div>
-            <div class=''>holiday: <input type="checkbox" ${holiday_checked} name="holiday" /></div>
-            <div class=''><input type="submit" /></div>
-            <div class='btn-delete' style="display:${delete_display}"><i class="material-icons">delete</i></div>
+            <header>
+                <div class='modal-event__header__day'><span class="modal-event__header__day__week-day">${wd}</span></br>${d} ${m} ${y}</div>
+                <div class='modal-event__header__day-diff'>${days_diff} days away</div>
+            </header>
+            <section>
+                <div class="modal-event__row">
+                    <div class="col-10 left txt-left modal-event__labels">Description</div>
+                    <div class="col-2 right txt-right modal-event__labels">Holiday</div>
+                </div>
+                <div class="modal-event__row">
+                    <div class="col-10 left txt-left"><input class="modal-event__description" type="text" name="description" value="${description_str}" /></div>
+                    <div class="col-2 right txt-right"><input class="modal-event__checkbox-holiday" type="checkbox" ${holiday_checked} name="holiday" /></div>
+                </div>
+            </section>
+            <footer>
+                <div class="modal-event__row">
+                    <div class="col-6 left txt-left"><span class='modal-event__btn-delete' style="display:${delete_display}"><i class="material-icons">delete</i></span></div>
+                    <div class="col-6 right txt-right"><input value="Guardar" type="submit" /></div>
+                </div>
+            </footer>
         </div>
         `)
 
         $(".modal-event input[type='submit']").click(function () {
             var event_data = {
-                "day": mydate,
+                "day": myisodate,
                 "description": $(".modal-event input[name='description']").val(),
                 "holiday": $(".modal-event input[name='holiday']")[0].checked
             }
@@ -200,7 +223,7 @@ class NextWeeks {
             me.date.setDate(me.date.getDate() - 3*me.days_col)
             me.renderDays ()
         })
-        $(".modal-event .btn-delete").click(function () {
+        $(".modal-event .modal-event__btn-delete").click(function () {
 
             console.log(results[0])
             var filtered_events = me.removeEvent(events, results[0])

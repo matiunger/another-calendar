@@ -108,6 +108,7 @@
     border-top: 1px solid var(--color-on-dark-light);
     background: var(--color-on-dark-light);
     transform: translateY(-50%);
+    z-index: 2;
     /*
     height: 100%;
     padding: 5% 0;
@@ -116,7 +117,7 @@
     position: absolute;
     float: left;
     border-radius: 10px;
-    z-index: 2;*/
+    */
 }
 .sun-hours__night-bar__now-bar__fill {
     width: 100%;

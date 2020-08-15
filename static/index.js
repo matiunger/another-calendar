@@ -11,10 +11,15 @@ var layouts = [new Welcome(), new NextWeeks()]
 var current_layout = 0; 
 
 // theme
+theme = themes[getData("ac_settings")["theme"]]
+changeTheme(theme)
+
+// background
+//root.style.setProperty("--background-image", "url('https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg')")
 
 
 window.onload = function() {
-    //root.style.setProperty('--background-image', "url('../img/pexels-no-name-66997.jpg')");
+    //
     
     // data
 
@@ -46,7 +51,8 @@ window.onload = function() {
 };
 
 
-var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+var week_days_short = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 var months = ['January', 'Febraury', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 
@@ -79,9 +85,14 @@ const isHoliday = (someDate) => {
     return false
 }
 
-const getWeekDay = (someDate) => {
-    return days[someDate.getDay()];
+const getShortWeekDay = (someDate) => {
+    return week_days_short[someDate.getDay()];
 }
+
+const getWeekDay = (someDate) => {
+    return week_days[someDate.getDay()];
+}
+
 const getMonth = (someDate) => {
     return months[someDate.getMonth()];
 }
@@ -142,6 +153,14 @@ function setData (location, key, value) {
 
 const yyyymmdd2Date = (someDate) => {
     return new Date(someDate.substring(0,4),parseInt(someDate.substring(4,6))-1,parseInt(someDate.substring(6,8)));
+}
+
+function changeTheme (theme) {
+    for (var key in theme) {
+        if (theme.hasOwnProperty(key)) {
+            root.style.setProperty(key, theme[key]);
+        }
+    }
 }
 
 

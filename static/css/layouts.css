@@ -172,3 +172,111 @@
     border-top-left-radius: 5px;*/
     /*border-top-right-radius: 5px;*/
 }
+
+.modal-event {
+    position: absolute;
+    width: 500px;
+    height: 240px;
+    top:50%;
+    left:50%;
+    padding: 32px;
+    margin-left:-250px;   /* negative half of width above */
+    margin-top:-120px;
+    z-index: 10;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px grey;
+}
+.modal-event header {
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.modal-event footer {
+    overflow: hidden;
+}
+.modal-event section {
+    margin-bottom: 48px;
+}
+
+.modal-event__header__day {
+    width: 50%;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    font-family: var(--font-main);
+}
+.modal-event__header__day__week-day {
+    font-size: 12px;
+}
+.modal-event__header__day-diff {
+    text-align: right;
+    width: 50%;
+    font-size: 16px;
+    font-family: var(--font-main);
+    float: right;
+}
+.modal-event__row {
+    overflow: hidden;
+}
+
+.modal-event__labels {
+    font-size: 12px;
+    font-family: var(--font-secondary);
+    color: var(--color-on-background);
+    opacity: 0.4;
+}
+.modal-event__description {
+    font-size: 22px;
+    height: 40px;
+    width: 100%;
+    padding: 4px 8px;
+    color: var(--color-on-background);
+    font-family: var(--font-main);
+    margin: 4px 0 0 0;
+}
+.modal-event__checkbox-holiday {
+    height: 40px;
+    width: 40px;
+    margin: 4px 0 0 0;
+}
+
+.modal-event__btn-delete {
+    color: var(--color-on-background);
+    cursor: pointer;
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.txt-left {
+    text-align: left;
+}
+.txt-right {
+    text-align: right;
+}
+.col-11 {
+    width: 91.66%;
+}
+.col-10 {
+    width: 83.33%;
+}
+.col-8 {
+    width: 66.66%;
+}
+.col-6 {
+    width: 50%;
+}
+.col-4 {
+    width: 33.33%;
+}
+.col-2 {
+    width: 16.66%;
+}
+.col-1 {
+    width: 8.33%;
+}
+
