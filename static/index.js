@@ -18,12 +18,15 @@ changeTheme(theme)
 //root.style.setProperty("--background-image", "url('https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg')")
 
 
+// language
+var userLang = navigator.language || navigator.userLanguage; 
+var text = texts[getData("ac_user")["language"]]
+
+
 window.onload = function() {
-    //
-    
     // data
 
-    if (!getData("ac_settings")["spaceBarUse"]) $(".container-space-bar").show()
+    if (!getData("ac_settings")["spaceBarUse"]) $(".container-space-bar").html(`${text["pressSpace"]} <span class="container-space-bar__space-bar blink">${text["space"]}</span> ${text["forNextView"]}`).show()
 
     // render
     layouts[0].render(".main")
@@ -86,15 +89,15 @@ const isHoliday = (someDate) => {
 }
 
 const getShortWeekDay = (someDate) => {
-    return week_days_short[someDate.getDay()];
+    return text["weekDaysShort"][someDate.getDay()];
 }
 
 const getWeekDay = (someDate) => {
-    return week_days[someDate.getDay()];
+    return text["weekDays"][someDate.getDay()];
 }
 
 const getMonth = (someDate) => {
-    return months[someDate.getMonth()];
+    return text["months"][someDate.getMonth()];
 }
 
 const isLastMonthDay = (someDate) => {

@@ -36,13 +36,13 @@ class NextWeeks {
         this.selector = selector
         var me = this
 
-        var words = ["weeks", "experience", "trip", "adventure"]
+        var random_index = Math.floor(Math.random() * (text["planWords"].length-1))
 
         document.querySelector(this.selector).innerHTML = `
         <div class="l-next-weeks">
             <header>
-                <div class="l-next-weeks__title">Plan your next <span class="l-next-weeks__title--color">${words[Math.floor(Math.random() * (words.length-1))]}</span></div>
-                <div class="l-next-weeks__next-holiday">Next holiday in <span class="l-next-weeks__next-holiday__days"></span> days</div>
+                <div class="l-next-weeks__title">${text["planYourNext"][random_index]} <span class="l-next-weeks__title--color">${text["planWords"][random_index]}</span></div>
+                <div class="l-next-weeks__next-holiday">${text["nextHoliday"]} <span class="l-next-weeks__next-holiday__days"></span> ${text["days"]}</div>
             </header>
             <nav id="l-next-weeks__nav-prev" class="l-next-weeks__column"><</nav>
             <div class="l-next-weeks__column l-next-weeks__column-1"></div>
@@ -188,12 +188,12 @@ class NextWeeks {
         <div class="modal-event">
             <header>
                 <div class='modal-event__header__day'><span class="modal-event__header__day__week-day">${wd}</span></br>${d} ${m} ${y}</div>
-                <div class='modal-event__header__day-diff'>${days_diff} days away</div>
+                <div class='modal-event__header__day-diff'>${days_diff} ${text["daysAway"]}</div>
             </header>
             <section>
                 <div class="modal-event__row">
-                    <div class="col-10 left txt-left modal-event__labels">Description</div>
-                    <div class="col-2 right txt-right modal-event__labels">Holiday</div>
+                    <div class="col-10 left txt-left modal-event__labels">${text["description"]}</div>
+                    <div class="col-2 right txt-right modal-event__labels">${text["holiday"]}</div>
                 </div>
                 <div class="modal-event__row">
                     <div class="col-10 left txt-left"><input class="modal-event__description" type="text" name="description" value="${description_str}" /></div>
@@ -203,7 +203,7 @@ class NextWeeks {
             <footer>
                 <div class="modal-event__row">
                     <div class="col-6 left txt-left"><span class='modal-event__btn-delete' style="display:${delete_display}"><i class="material-icons">delete</i></span></div>
-                    <div class="col-6 right txt-right"><input value="Guardar" type="submit" /></div>
+                    <div class="col-6 right txt-right"><input value="${text["save"]}" type="submit" /></div>
                 </div>
             </footer>
         </div>
@@ -224,7 +224,6 @@ class NextWeeks {
             me.renderDays ()
         })
         $(".modal-event .modal-event__btn-delete").click(function () {
-
             console.log(results[0])
             var filtered_events = me.removeEvent(events, results[0])
             localStorage.setItem("ac_events", JSON.stringify(filtered_events))
@@ -268,7 +267,7 @@ class Name {
     }
 
     renderWelcome() {
-        document.querySelector(this.selector).innerHTML = `<h2 class="c-name__text">Hey, <span class="c-name__text__name">${this.user_name}</span></h2>`
+        document.querySelector(this.selector).innerHTML = `<h2 class="c-name__text">${text["hey"]}, <span class="c-name__text__name">${this.user_name}</span></h2>`
         var me = this
         $(this.selector+" .c-name__text__name").click(function () {
             me.renderInput()
@@ -277,7 +276,7 @@ class Name {
     renderInput() {
         var me = this
         document.querySelector(this.selector).innerHTML = `
-            <h2 class="c-name__text">Hey, whats your name?</h2>
+            <h2 class="c-name__text">${text["whatsYourName"]}</h2>
             <input type="text" name="name"></input>
         `
         var input = document.querySelector(this.selector+" input[name='name']")

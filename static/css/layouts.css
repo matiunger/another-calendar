@@ -223,7 +223,6 @@
 .modal-event__labels {
     font-size: 12px;
     font-family: var(--font-secondary);
-    color: var(--color-on-background);
     opacity: 0.4;
 }
 .modal-event__description {
@@ -231,7 +230,6 @@
     height: 40px;
     width: 100%;
     padding: 4px 8px;
-    color: var(--color-on-background);
     font-family: var(--font-main);
     margin: 4px 0 0 0;
 }
@@ -242,7 +240,6 @@
 }
 
 .modal-event__btn-delete {
-    color: var(--color-on-background);
     cursor: pointer;
 }
 
