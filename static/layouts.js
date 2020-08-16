@@ -173,9 +173,6 @@ class NextWeeks {
         var description_str = results.length ? results[0]["description"] : ""
         var holiday_checked = (results.length && results[0]["holiday"]) ? "checked" : ""
         var delete_display = results.length ? "block" : "none"
-        
-        console.log(results.length)
-        console.log(delete_display)
 
         var wd = getWeekDay(mydate)
         var d = mydate.getDate()
@@ -224,7 +221,6 @@ class NextWeeks {
             me.renderDays ()
         })
         $(".modal-event .modal-event__btn-delete").click(function () {
-            console.log(results[0])
             var filtered_events = me.removeEvent(events, results[0])
             localStorage.setItem("ac_events", JSON.stringify(filtered_events))
             $(".modal-event").remove()
@@ -236,7 +232,6 @@ class NextWeeks {
 
     removeEvent (events, remove_event) {
         return events.filter(function(item) {
-            console.log(item)
             for (var key in remove_event) {
               if (item[key] != remove_event[key]) return true;
             }
@@ -246,13 +241,7 @@ class NextWeeks {
 
 }
 
-
-
-
-
 // WIDGETS
-
-
 
 class Name {
     constructor(selector) {
@@ -295,7 +284,6 @@ class Name {
     }
 
 }
-
 
 class Clock {
     constructor(selector) {
@@ -434,14 +422,13 @@ class Sunhours {
         </div>
         <div class="sun-hours__night-bar">
             <div class="sun-hours__night-bar__day-curve" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;">
-                <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+                <!-- <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
                     <mask id="myMask">
-                    <!-- Everything under a white pixel will be visible -->
                         <rect x="0" y="0" width="${1000*((now.getHours()+now.getMinutes()/60)-this.getSunrise()[0])/(this.getSunset()[0]-this.getSunrise()[0])}" height="500" fill="white" />
                     </mask>
                     <path d="M 0 500 Q 500 200 1000 500" fill="${root.style.getPropertyValue("--color-light")}" />
                     <path d="M 0 500 Q 500 200 1000 500" fill="${root.style.getPropertyValue("--color-dark")}" mask="url(#myMask)" />
-                </svg>
+                </svg> -->
             </div>
             <div class="sun-hours__night-bar__now-bar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"><div class="sun-hours__night-bar__now-bar__fill"></div></div>
             <div class="sun-hours__night-bar__day-bar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
