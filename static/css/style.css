@@ -168,9 +168,8 @@ body, html {
 }
 
 
-.container-settings{
+.container-settings-btn{
     position: absolute;
-    opacity: 0.4;
     color: var(--color-on-background);
     padding: 16px;
     bottom: 0;
@@ -179,6 +178,14 @@ body, html {
     display: inline-flex;
     justify-content: center;
     align-items: center;
+}
+.container-settings-btn__btn{
+    opacity: 0.4;
+    cursor: pointer;
+}
+.container-settings-btn__btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
 }
 
 
@@ -191,9 +198,38 @@ body, html {
 
 
 /* ----- WIDGETS ---- */
-.widget {
-    margin-bottom: 32px;
+.modal-settings {
+    position: absolute;
+    width: 700px;
+    height: 600px;
+    top:50%;
+    left:50%;
+    padding: 32px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left:-350px;   /* negative half of width above */
+    margin-top:-300px;
+    z-index: 10;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px grey;
+}
+.modal-settings header {
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.modal-settings footer {
+    overflow: hidden;
+}
+.modal-settings section {
+    margin-bottom: 48px;
+}
+.modal-settings__row {
+    overflow: hidden;
 }
 
+.modal-settings__language__flag {
+    height: 25px;
+}
 
 

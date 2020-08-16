@@ -20,7 +20,7 @@ changeTheme(theme)
 
 // language
 var userLang = navigator.language || navigator.userLanguage; 
-var text = texts[getData("ac_user")["language"]]
+var text = texts[getData("ac_user")["language"]]["text"]
 
 
 window.onload = function() {
@@ -49,6 +49,64 @@ window.onload = function() {
                  
         }
     }
+
+    $(".container-settings-btn__btn").click(function (e) {
+
+
+        var flags = []
+        for (var key in texts) {
+            if (texts.hasOwnProperty(key)) {
+                flags.push("<img class='modal-settings__language__flag' src='img/flags/"+texts[key]["flag"]+"' />")
+            }
+        }
+        flags = flags.join('')
+
+        $(".main").append(`
+                <div class="modal-settings">
+                    <header>
+                    <div class="modal-settings__row">
+                        <div class="col-6 left txt-left"><i class="material-icons">settings</i> Settings</div>
+                        <div class="col-6 right txt-right"><i class="material-icons modal-settings__btn-close">close</i></div>
+                    </div>
+                    </header>
+                    <section>
+                        <div class="modal-settings__section-title">language</div>
+                        <div class="modal-settings__row">
+                        ${flags}
+                        </div>
+                    </section>
+                    <section>
+                        <div class="modal-settings__section-title">theme</div>
+                        <div class="modal-settings__row">
+                        </div>
+                    </section>
+                    <section>
+                        <div class="modal-settings__section-title">screens</div>
+                        <div class="modal-settings__row">
+                        </div>
+                    </section>
+                    <footer>
+                        <div class="modal-settings__row">
+                            <div class="col-6 left txt-left"></div>
+                            <div class="col-6 right txt-right"><input value="${text["save"]}" type="submit" /></div>
+                        </div>
+                    </footer>
+                </div>
+        `)
+        
+        $(".container-settings-btn__btn").hide()
+        $(".modal-settings input[type='submit']").click(function () {
+            $(".modal-settings").remove()
+            $(".container-settings-btn__btn").show()
+        })
+        $(".modal-settings .modal-settings__btn-close").click(function () {
+            $(".modal-settings").remove()
+            $(".container-settings-btn__btn").show()
+        })
+
+    })
+    
+
 
     
 };
