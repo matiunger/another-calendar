@@ -47,7 +47,7 @@ class NextWeeks {
             <nav id="l-next-weeks__nav-prev" class="l-next-weeks__column"><</nav>
             <div class="l-next-weeks__column l-next-weeks__column-1"></div>
             <div class="l-next-weeks__column l-next-weeks__column-2"></div>
-            <div class="l-next-weeks__column l-next-weeks__column-3"></div>
+            <!-- <div class="l-next-weeks__column l-next-weeks__column-3"></div> -->
             <nav id="l-next-weeks__nav-next" class="l-next-weeks__column">></nav>
         </div>
         `
@@ -55,27 +55,27 @@ class NextWeeks {
 
         $("body").on("keyup", function(e){
             if(e.keyCode == 39){
-                $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
-                me.date.setDate(me.date.getDate() - 3*me.days_col +1);
+                $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2").html("")
+                me.date.setDate(me.date.getDate() - 2*me.days_col +1);
                 me.renderDays ()
             }
         })
         $("body").on("keyup", function(e){
             if(e.keyCode == 37){
-                $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
-                me.date.setDate(me.date.getDate() - 3*me.days_col-1);
+                $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2").html("")
+                me.date.setDate(me.date.getDate() - 2*me.days_col-1);
                 me.renderDays ()
             }
         })
 
         $("#l-next-weeks__nav-next").click(function () {
-            $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
-            me.date.setDate(me.date.getDate() - 3*me.days_col +1);
+            $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2").html("")
+            me.date.setDate(me.date.getDate() - 2*me.days_col +1);
             me.renderDays ()
         })
         $("#l-next-weeks__nav-prev").click(function () {
-            $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-3").html("")
-            me.date.setDate(me.date.getDate() - 3*me.days_col-1);
+            $(".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1, .l-next-weeks .l-next-weeks__column.l-next-weeks__column-2").html("")
+            me.date.setDate(me.date.getDate() - 2*me.days_col-1);
             me.renderDays ()
         })
 
@@ -102,7 +102,6 @@ class NextWeeks {
     renderDays () {
         this.fillDays(this.days_col, ".l-next-weeks .l-next-weeks__column.l-next-weeks__column-1")
         this.fillDays(this.days_col, ".l-next-weeks .l-next-weeks__column.l-next-weeks__column-2")
-        this.fillDays(this.days_col, ".l-next-weeks .l-next-weeks__column.l-next-weeks__column-3")
         this.renderEvents (getData("ac_events"))
     }
     fillDays (total_days, container) {
@@ -145,14 +144,14 @@ class NextWeeks {
         for (var i=0; i <= events.length-1; i++) {
             var d = parseDate(events[i]["day"])
             var dd = dateDiff(today, d)
-            if (events[i]["holiday"] && (date_diff == undefined || dd < date_diff) && dd >= 0) {
+            if (events[i]["holiday"] && (date_diff == undefined || dd < date_diff) && d >= today) {
                 date_diff = dd
                 next_holiday = d
             }
         }
         if (date_diff != undefined) {
             $(".l-next-weeks__next-holiday__days").html(date_diff)
-            $(".l-next-weeks__next-holiday").prop("title", d.yyyymmdd())
+            $(".l-next-weeks__next-holiday").prop("title", next_holiday.yyyymmdd())
         } else {
             $(".l-next-weeks__next-holiday__days").hide()
         }

@@ -45,20 +45,20 @@
     height: 100vh; /* Should be removed. Only for demonstration */
 }
 .l-next-weeks .l-next-weeks__column-1 {
-    width: 30%;
-    padding: 94px 32px 64px 0;
+    width: 35%;
+    padding: 94px 20px 64px 0;
 }
 .l-next-weeks .l-next-weeks__column-2 {
-    width: 30%;
-    padding: 94px 32px 64px 0;
+    width: 35%;
+    padding: 94px 0 64px 20px;
 }
 .l-next-weeks .l-next-weeks__column-3 {
     width: 30%;
     padding: 94px 0 64px 0;
-} 
+}
 
 .l-next-weeks nav {
-    width: 5%;
+    width: 15%;
     padding: 0;
     font-family: var(--font-main);
     font-size: 40px;

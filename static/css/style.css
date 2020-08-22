@@ -199,6 +199,7 @@ body, html {
 
 /* ----- WIDGETS ---- */
 .modal-settings {
+    display: none;
     position: absolute;
     width: 700px;
     height: 400px;

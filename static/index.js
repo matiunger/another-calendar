@@ -140,6 +140,7 @@ function renderApp () {
             $(".modal-settings").remove()
             $(".container-settings-btn__btn").show()
         })
+        $(".modal-settings").show()
 
     })
 }
