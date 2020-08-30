@@ -246,9 +246,25 @@ const yyyymmdd2Date = (someDate) => {
 
 function changeTheme (theme) {
     var theme_props = theme["properties"]
+    var async_imgBgd;
+    $("body").removeClass("full-background")
     for (var key in theme_props) {
         if (theme_props.hasOwnProperty(key)) {
-            root.style.setProperty(key, theme_props[key]);
+            if (key == "--background-image" && theme_props[key] != "") {
+                var img = new Image();
+                async_imgBgd = theme_props[key]
+                var bgdImg = theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/) != null ? theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/)[1] : undefined;
+                img.onload = function () {
+                    console.log("img ready "+async_imgBgd)
+                    root.style.setProperty("--background-image", async_imgBgd);
+                    $("body").addClass("full-background")
+                };
+                if (bgdImg) {
+                    img.src = bgdImg.replace("../","");
+                }   
+            } else {
+                root.style.setProperty(key, theme_props[key]);
+            }
         }
     }
 }
