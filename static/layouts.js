@@ -372,32 +372,35 @@ class Sunhours {
         return [hs, this.checkTime(h)+":"+this.checkTime(m)]
     }
 
-    getRemainingDaylight () {
+    getPhrases () {
         var now = new Date()
         var hs = (now.getHours()+now.getMinutes()/60)
-        if (hs < this.getSunrise()[0]) {
-            var rh = Math.floor(this.getSunrise()[0]- hs)
-            var rm = Math.floor((this.getSunrise()[0]- hs - rh)*60)
-            return `Sunrise in <strong>${rh}</strong>h <strong>${rm}</strong>m`
-        } else if (hs < 15) {
-            return `Focus. Don't Multitask<br />Maintain a good posture`
-        
-        
-        } else if (hs < this.getSunset()[0]) {
-            var rh = Math.floor(this.getSunset()[0]- hs)
-            var rm = Math.floor((this.getSunset()[0]- hs - rh)*60)
-            return `Remaining daylight in <strong>${rh}</strong>h <strong>${rm}</strong>m<br />
-            Go for a walk. Get some sunlight`
-        } else if (hs < 20) {
-            return `Exercise`
-        } else if (hs < 22) {
-            return `Start turning the screens off`
-        } else {
-            return `Take a shower. Go to sleep`
+
+        var sunset_hs = this.getSunset()[0]
+        var sunrise_hs = this.getSunrise()[0]
+
+        var h_to_sunrise = Math.floor(sunrise_hs - hs)
+        var m_to_sunrise = Math.floor((sunrise_hs - hs - h_to_sunrise)*60)
+        var h_to_sunset = Math.floor(sunset_hs - hs)
+        var m_to_sunset = Math.floor((sunset_hs - hs - h_to_sunset)*60)
+
+        for (let index = 0; index < phrases.length; index++) {
+            const elem = phrases[index]
+            const h_start = eval(elem["start"])
+            const h_end = eval(elem["end"])
+
+            console.log(h_start)
+            console.log(h_end)
+
+            if (hs > h_start && hs < h_end) {
+                var random_index = Math.floor(Math.random() * (elem["phrases"].length-1))
+                var phrase = elem["phrases"][random_index]
+                if (phrase.indexOf("${") != -1) return eval(phrase)
+                return phrase
+                
+            }
         }
-        var h = Math.floor(hs)
-        var m = Math.round((hs-h)*60)
-        return [hs, this.checkTime(h)+":"+this.checkTime(m)]
+        return ""
     }
 
     geoError() {
@@ -432,7 +435,7 @@ class Sunhours {
             <div class="sun-hours__night-bar__now-bar" style="width:${100*(now.getHours()+now.getMinutes()/60)/24}%;"><div class="sun-hours__night-bar__now-bar__fill"></div></div>
             <div class="sun-hours__night-bar__day-bar" style="left:${100*this.getSunrise()[0]/24}%; width:${100*(this.getSunset()[0]-this.getSunrise()[0])/24}%;"></div>
         </div>
-        <div class="sun-hours__info">${this.getRemainingDaylight()}</div>`;
+        <div class="sun-hours__info">${this.getPhrases()}</div>`;
 
     }
 

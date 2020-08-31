@@ -41,6 +41,55 @@ var config = {
     ]
 }
 
+var phrases = [
+    {
+        "start":"0",
+        "end":"sunrise_hs",
+        "phrases":[
+            "`Sunrise in <strong>${h_to_sunrise}</strong>h <strong>${m_to_sunrise}</strong>m`"
+        ]
+    },
+    {
+        "start":"sunrise_hs",
+        "end":"sunset_hs - 3",
+        "phrases":[
+            "Focus",
+            "Don't multitask",
+            "Block distractions",
+            "Get up and move",
+            "Mantain a good posture"
+        ]
+    },
+    {
+        "start":"sunset_hs - 4",
+        "end":"sunset_hs",
+        "phrases":[
+            "`Remaining daylight <strong>${h_to_sunset}</strong>h <strong>${m_to_sunset}</strong>m. Go for a walk.`",
+            "`Remaining daylight <strong>${h_to_sunset}</strong>h <strong>${m_to_sunset}</strong>m. Get some sunlight.`"
+        ]
+    },
+    {
+        "start":"sunset_hs",
+        "end":"21.5",
+        "phrases":[
+            "Exercise",
+            "Create something",
+            "What did you learn today?",
+            "Read 2 pages a book"
+        ]
+    },
+    {
+        "start":"21.5",
+        "end":"23.99",
+        "phrases":[
+            "Start turning the screens off",
+            "Take a shower",
+            "Go to sleep"
+        ]
+    }
+]
+
+
 var themes = {
     "classic" : {
         "userAvailable":true,
