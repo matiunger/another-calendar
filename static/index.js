@@ -1,10 +1,10 @@
-var date = new Date ();
+var date = new Date();
 const today = new Date()
 let root = document.documentElement;
 let app = document.getElementById("app");
 
 init()
-window.onload = function() {
+window.onload = function () {
     renderApp()
 };
 
@@ -15,19 +15,19 @@ function init() {
     if (!getData("ac_events")) { localStorage.setItem("ac_events", JSON.stringify(config["events"])) }
 
     window.layouts = [new Welcome(), new NextWeeks()]
-    window.current_layout = 0; 
+    window.current_layout = 0;
 
     // language
-    var userLang = navigator.language || navigator.userLanguage; 
+    var userLang = navigator.language || navigator.userLanguage;
     window.text = texts[getData("ac_user")["language"]]["text"]
-    
+
     // background
     //root.style.setProperty("--background-image", "url('https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg')")
 
 
 }
-function renderApp () {
-    
+function renderApp() {
+
     // space bar message
     if (!getData("ac_settings")["spaceBarUse"]) $(".container-space-bar").html(`${text["pressSpace"]} <span class="container-space-bar__space-bar blink">${text["space"]}</span> ${text["forNextView"]}`).show()
 
@@ -37,21 +37,21 @@ function renderApp () {
     changeTheme(theme)
 
     // space bar
-    document.body.onkeyup = function(e){
-        if(e.keyCode == 32 && !$(".modal-event").length && !$(".main-next").length) {
+    document.body.onkeyup = function (e) {
+        if (e.keyCode == 32 && !$(".modal-event").length && !$(".main-next").length) {
 
-            setData ("ac_settings", "spaceBarUse", true); $(".container-space-bar").hide();
+            setData("ac_settings", "spaceBarUse", true); $(".container-space-bar").hide();
 
             $("#app").append("<div class='main-next'></div>")
-            current_layout = current_layout == layouts.length-1 ? 0 : current_layout+1
+            current_layout = current_layout == layouts.length - 1 ? 0 : current_layout + 1
             layouts[current_layout].render(".main-next")
-            $(".main").on("animationend", function() {
+            $(".main").on("animationend", function () {
                 $(".main").remove()
                 $(".main-next").attr("class", "main")
-            }); 
+            });
             $(".main").addClass("main--slide-out")
             $(".main-next").addClass("main--slide-in")
-                 
+
         }
     }
 
@@ -72,8 +72,8 @@ function renderApp () {
         for (var key in themes) {
             if (themes.hasOwnProperty(key)) {
                 var t_style = ""
-                if (themes[key]["image"] != "" && themes[key]["image"] != undefined) {
-                    t_style = `style="background-image:url('${themes[key]["image"]}');"`
+                if (themes[key]["thumbnail"]) {
+                    t_style = `style="background-image:url('${background_images[themes[key]["thumbnail"]].base64}');"`
                 } else if (themes[key]["palette"].length) {
                     t_style = `style="background: linear-gradient(180deg, ${themes[key]["palette"][0]} 0%, ${themes[key]["palette"][0]} 25%, ${themes[key]["palette"][1]} 25%, ${themes[key]["palette"][1]} 50%, ${themes[key]["palette"][2]} 50%, ${themes[key]["palette"][2]} 75%, ${themes[key]["palette"][3]} 75%, ${themes[key]["palette"][3]} 100%);"`
                 }
@@ -111,16 +111,16 @@ function renderApp () {
                     </footer>
                 </div>
         `)
-        
+
         // selected flag
-        $(".modal-settings__language__flag[data-id='"+language+"']").addClass("modal-settings__language__flag--selected")
+        $(".modal-settings__language__flag[data-id='" + language + "']").addClass("modal-settings__language__flag--selected")
         $(".modal-settings__language__flag").click(function (e) {
             $(".modal-settings__language__flag").removeClass("modal-settings__language__flag--selected")
             $(e.target).addClass("modal-settings__language__flag--selected")
         })
 
         // selected theme
-        $(".modal-settings__theme-container[data-id='"+theme_user+"']").addClass("modal-settings__theme-container--selected")
+        $(".modal-settings__theme-container[data-id='" + theme_user + "']").addClass("modal-settings__theme-container--selected")
         $(".modal-settings__theme-container").click(function (e) {
             $(".modal-settings__theme-container").removeClass("modal-settings__theme-container--selected")
             $(e.target).closest(".modal-settings__theme-container").addClass("modal-settings__theme-container--selected")
@@ -151,8 +151,8 @@ function parseDate(str) {
     return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
 }
 
-function checkTime (i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+function checkTime(i) {
+    if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
     return i;
 }
 const isPastDay = (someDate) => {
@@ -163,14 +163,14 @@ const isWeekend = (someDate) => {
     return someDate.getDay() == 0 || someDate.getDay() == 6
 }
 const isHoliday = (someDate) => {
-    for (var i=0; i < holidays.length; i++) {
-        var holiday = new Date (holidays[i].day)
+    for (var i = 0; i < holidays.length; i++) {
+        var holiday = new Date(holidays[i].day)
         if (isSameday(holiday, someDate)) {
             return true;
             break;
         }
     }
-    
+
     return false
 }
 
@@ -188,33 +188,33 @@ const getMonth = (someDate) => {
 
 const isLastMonthDay = (someDate) => {
     var auxDate = new Date(someDate);
-    auxDate.setDate(auxDate.getDate()+1);
+    auxDate.setDate(auxDate.getDate() + 1);
     return someDate.getMonth() < auxDate.getMonth()
 }
 
 const isFirstMonthDay = (someDate) => {
     //var auxDate = new Date( someDate - 24*60*60*1000);
     var auxDate = new Date(someDate);
-    auxDate.setDate(auxDate.getDate()-1);
+    auxDate.setDate(auxDate.getDate() - 1);
     return someDate.getMonth() > auxDate.getMonth()
 }
 
 const isToday = (someDate) => {
     const today = new Date()
     return someDate.getDate() == today.getDate() &&
-      someDate.getMonth() == today.getMonth() &&
-      someDate.getFullYear() == today.getFullYear()
+        someDate.getMonth() == today.getMonth() &&
+        someDate.getFullYear() == today.getFullYear()
 }
 const isSameday = (someDate, someDate2) => {
     return someDate.getDate() == someDate2.getDate() &&
-      someDate.getMonth() == someDate2.getMonth() &&
-      someDate.getFullYear() == someDate2.getFullYear()
+        someDate.getMonth() == someDate2.getMonth() &&
+        someDate.getFullYear() == someDate2.getFullYear()
 }
 const dateDiff = (someDate, someDate2) => {
     return Math.ceil(Math.abs(someDate2 - someDate) / (1000 * 60 * 60 * 24));
 }
 
-function getData (key) {
+function getData(key) {
     if (localStorage.getItem(key) != null) {
         return JSON.parse(localStorage.getItem(key))
     }
@@ -222,74 +222,101 @@ function getData (key) {
 
 }
 
-function filterObjects (array, filter) {
+function filterObjects(array, filter) {
 
-    return array.filter(function(item) {
+    return array.filter(function (item) {
         for (var key in filter) {
-          if (item[key] === undefined || item[key] != filter[key])
-            return false;
+            if (item[key] === undefined || item[key] != filter[key])
+                return false;
         }
         return true;
     });
-      
+
 }
 
-function setData (location, key, value) {
-    var data = getData (location) || {}
+function setData(location, key, value) {
+    var data = getData(location) || {}
     data[key] = value
     localStorage.setItem(location, JSON.stringify(data))
 }
 
 const yyyymmdd2Date = (someDate) => {
-    return new Date(someDate.substring(0,4),parseInt(someDate.substring(4,6))-1,parseInt(someDate.substring(6,8)));
+    return new Date(someDate.substring(0, 4), parseInt(someDate.substring(4, 6)) - 1, parseInt(someDate.substring(6, 8)));
 }
 
-function changeTheme (theme) {
-    var theme_props = theme["properties"]
-    var async_imgBgd;
-    $("body").removeClass("full-background")
-    for (var key in theme_props) {
-        if (theme_props.hasOwnProperty(key)) {
-            if (key == "--background-image" && theme_props[key] != "") {
+function changeTheme(theme) {
+    var logic = theme.logic
+    for (let index = 0; index < logic.length; index++) {
+        const elem = logic[index]
+        const h_start = eval(elem["start"])
+        const h_end = eval(elem["end"])
+
+        var now = new Date()
+        var hs = (now.getHours() + now.getMinutes() / 60)
+
+        if (hs > h_start && hs < h_end) {
+            console.log(elem["theme"].length)
+            var random_index = Math.round(Math.random() * (elem["theme"].length - 1))
+            console.log(random_index)
+            var theme = elem["theme"][random_index]
+            console.log(theme)
+            
+            var theme_props = themes_properties[theme.props].properties
+            console.log(theme_props)
+            
+            var bgd_image = background_images[theme.bgdImage]
+            console.log(bgd_image)
+
+            $("body").removeClass("full-background")
+
+            // theme props, colors
+            for (var key in theme_props) {
+                if (theme_props.hasOwnProperty(key)) {
+                    root.style.setProperty(key, theme_props[key]);
+                }
+            }
+            //load background image
+            if (bgd_image) {
+                console.log("has image")
+                console.log(bgd_image.base64)
+                root.style.setProperty("--background-image-small", `url('${bgd_image.base64}')`);
                 var img = new Image();
-                async_imgBgd = theme_props[key]
-                var bgdImg = theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/) != null ? theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/)[1] : undefined;
+                //var bgdImg = theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/) != null ? theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/)[1] : undefined;
                 img.onload = function () {
-                    console.log("img ready "+async_imgBgd)
-                    root.style.setProperty("--background-image", async_imgBgd);
+                    console.log("img ready " + bgd_image.uri)
+                    root.style.setProperty("--background-image", `url('../${bgd_image.uri}')`);
                     $("body").addClass("full-background")
                 };
-                if (bgdImg) {
-                    img.src = bgdImg.replace("../","");
-                }   
-            } else {
-                root.style.setProperty(key, theme_props[key]);
+                img.src = bgd_image.uri
             }
         }
     }
+
+
+
 }
 
 
-Date.prototype.yyyymmdd = function() {
+Date.prototype.yyyymmdd = function () {
     var mm = this.getMonth() + 1; // getMonth() is zero-based
     var dd = this.getDate();
-  
-    return [this.getFullYear(),
-            (mm>9 ? '' : '0') + mm,
-            (dd>9 ? '' : '0') + dd
-           ].join('');
-  };
 
-  Date.prototype.toShortISO = function() {
+    return [this.getFullYear(),
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd
+    ].join('');
+};
+
+Date.prototype.toShortISO = function () {
     var mm = this.getMonth() + 1; // getMonth() is zero-based
     var dd = this.getDate();
-  
+
     return [this.getFullYear(),
-            "-",
-            (mm>9 ? '' : '0') + mm,
-            "-",
-            (dd>9 ? '' : '0') + dd
-           ].join('');
-  };
+        "-",
+    (mm > 9 ? '' : '0') + mm,
+        "-",
+    (dd > 9 ? '' : '0') + dd
+    ].join('');
+};
 
 

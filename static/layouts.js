@@ -302,7 +302,7 @@ class Clock {
         var s = now.getSeconds();
         m = this.checkTime(m);
         s = this.checkTime(s);
-        document.querySelector(this.selector).innerHTML = h + ":" + m + "<span class='c-clock__seconds'>" + s + "</span>";
+        document.querySelector(this.selector).innerHTML = h + "·" + m + "<span class='c-clock__seconds'>" + s + "</span>";
     }
     checkTime (i) {
         if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
@@ -312,7 +312,6 @@ class Clock {
 
 class Sunhours {
 
-    // TODO: Add moon phases
     constructor(date, selector) {
         this.selector = selector
         this.date = date

@@ -109,7 +109,7 @@ body {
     background-position: center bottom;
     background-attachment: fixed;
     overflow: hidden;
-    animation: sharpen 0.5s ease-out;
+    animation: sharpen 0.3s ease-out;
 }
 
 @keyframes sharpen {
