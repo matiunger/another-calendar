@@ -3,29 +3,14 @@ const today = new Date()
 let root = document.documentElement;
 let app = document.getElementById("app");
 
-init()
+
+window.layouts = [new Welcome(), new NextWeeks()]
+window.current_layout = 0;
+
 window.onload = function () {
     renderApp()
 };
 
-function init() {
-
-    if (!getData("ac_user")) { localStorage.setItem("ac_user", JSON.stringify(config["user"])) }
-    if (!getData("ac_settings")) { localStorage.setItem("ac_settings", JSON.stringify(config["settings"])) }
-    if (!getData("ac_events")) { localStorage.setItem("ac_events", JSON.stringify(config["events"])) }
-
-    window.layouts = [new Welcome(), new NextWeeks()]
-    window.current_layout = 0;
-
-    // language
-    var userLang = navigator.language || navigator.userLanguage;
-    window.text = texts[getData("ac_user")["language"]]["text"]
-
-    // background
-    //root.style.setProperty("--background-image", "url('https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg')")
-
-
-}
 function renderApp() {
 
     // space bar message
@@ -77,7 +62,7 @@ function renderApp() {
                 } else if (themes[key]["palette"].length) {
                     t_style = `style="background: linear-gradient(180deg, ${themes[key]["palette"][0]} 0%, ${themes[key]["palette"][0]} 25%, ${themes[key]["palette"][1]} 25%, ${themes[key]["palette"][1]} 50%, ${themes[key]["palette"][2]} 50%, ${themes[key]["palette"][2]} 75%, ${themes[key]["palette"][3]} 75%, ${themes[key]["palette"][3]} 100%);"`
                 }
-                var theme_node = `<div data-id='${key}' class='modal-settings__theme-container'><div ${t_style} class='modal-settings__theme'></div></div>`
+                var theme_node = `<div data-id='${key}' class='modal-settings__theme-container'><div ${t_style} class='modal-settings__theme'>${themes[key]["name"]}</div></div>`
                 if (themes[key]["userAvailable"]) themes_options.push(theme_node)
             }
         }
@@ -214,14 +199,6 @@ const dateDiff = (someDate, someDate2) => {
     return Math.ceil(Math.abs(someDate2 - someDate) / (1000 * 60 * 60 * 24));
 }
 
-function getData(key) {
-    if (localStorage.getItem(key) != null) {
-        return JSON.parse(localStorage.getItem(key))
-    }
-    return
-
-}
-
 function filterObjects(array, filter) {
 
     return array.filter(function (item) {
@@ -246,6 +223,10 @@ const yyyymmdd2Date = (someDate) => {
 
 function changeTheme(theme) {
     var logic = theme.logic
+
+    var sunrise_hs = window.sunhours.sunrise_hs
+    var sunset_hs = window.sunhours.sunset_hs
+
     for (let index = 0; index < logic.length; index++) {
         const elem = logic[index]
         const h_start = eval(elem["start"])

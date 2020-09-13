@@ -289,7 +289,7 @@ body {
 }
 .modal-settings__theme-container {
     display: inline-block;
-    width: 80px;
+    width: 100px;
     height: 80px;
     padding: 8px;
     margin: 4px;
@@ -298,9 +298,15 @@ body {
 .modal-settings__theme {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-size: cover;
     background-color: khaki;
     border-radius: 8px;
+    font-family: var(--font-main);
+    color: white;
+    text-shadow: black 1px 1px 2px;
 }
 .modal-settings__theme-container--selected {
     background-color: lightgrey;
