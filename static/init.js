@@ -8,8 +8,10 @@ function init() {
     // language
     var userLang = navigator.language || navigator.userLanguage;
     window.text = texts[getData("ac_user")["language"]]["text"]
-    setPhrases()
-    setThemes()
+    try {
+        setPhrases()
+        setThemes()
+    } catch (e) {}
 }
 
 function getData(key) {

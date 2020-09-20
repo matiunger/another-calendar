@@ -72,26 +72,26 @@ function renderApp() {
                 <div class="modal-settings">
                     <header>
                     <div class="modal-settings__row">
-                        <div class="col-6 left txt-left modal-settings_title"><i class="material-icons">settings</i>&nbsp;Settings</div>
+                        <div class="col-6 left txt-left modal-settings_title"><i class="material-icons">settings</i>&nbsp;${getText("settings")}</div>
                         <div class="col-6 right txt-right"><i class="material-icons modal-settings__btn-close">close</i></div>
                     </div>
                     </header>
                     <section>
-                        <div class="modal-settings__section-title">Language</div>
+                        <div class="modal-settings__section-title">${getText("theme")}</div>
                         <div class="modal-settings__row">
-                        ${flags}
+                        ${themes_options}
                         </div>
                     </section>
                     <section>
-                        <div class="modal-settings__section-title">Theme</div>
+                        <div class="modal-settings__section-title">${getText("language")}</div>
                         <div class="modal-settings__row">
-                        ${themes_options}
+                        ${flags}
                         </div>
                     </section>
                     <footer>
                         <div class="modal-settings__row">
                             <div class="col-6 left txt-left"></div>
-                            <div class="col-6 right txt-right"><input value="${text["save"]}" type="submit" /></div>
+                            <div class="col-6 right txt-right"><input class="primary-button" value="${getText("save")}" type="submit" /></div>
                         </div>
                     </footer>
                 </div>
@@ -125,7 +125,7 @@ function renderApp() {
             $(".modal-settings").remove()
             $(".container-settings-btn__btn").show()
         })
-        $(".modal-settings").show()
+        $(".modal-settings").show().addClass("popup")
 
     })
 }
@@ -267,6 +267,10 @@ function changeTheme(theme) {
                     console.log("img ready " + bgd_image.uri)
                     root.style.setProperty("--background-image", `url('../${bgd_image.uri}')`);
                     $("body").addClass("full-background")
+                    console.log(bgd_image.url)
+                    $(".container-photoby a").attr("href", bgd_image.url)
+                    $(".container-photoby a").text(bgd_image.author)
+                    $(".container-photoby").show()
                 };
                 img.src = bgd_image.uri
             }

@@ -17,7 +17,7 @@ class Welcome {
         </div>
         `
         new Clock(".c-clock")
-        new Name(".c-name")
+        //new Name(".c-name")
         new Sunhours(today, ".c-sun-hours")
     }
 
@@ -181,7 +181,7 @@ class NextWeeks {
         var days_diff = dateDiff(mydate, today)
 
         $(".main").append(`
-        <div class="modal-event">
+        <div class="modal-event popup">
             <header>
                 <div class='modal-event__header__day'><span class="modal-event__header__day__week-day">${wd}</span></br>${d} ${m} ${y}</div>
                 <div class='modal-event__header__day-diff'>${days_diff} ${text["daysAway"]}</div>
@@ -199,7 +199,7 @@ class NextWeeks {
             <footer>
                 <div class="modal-event__row">
                     <div class="col-6 left txt-left"><span class='modal-event__btn-delete' style="display:${delete_display}"><i class="material-icons">delete</i></span></div>
-                    <div class="col-6 right txt-right"><input value="${text["save"]}" type="submit" /></div>
+                    <div class="col-6 right txt-right"><input class="primary-button" value="${text["save"]}" type="submit" /></div>
                 </div>
             </footer>
         </div>
