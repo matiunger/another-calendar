@@ -38,6 +38,10 @@ function renderApp() {
             $(".main-next").addClass("main--slide-in")
 
         }
+        if (e.keyCode == 27 && !isHidden($("#modal")[0])) {
+            console.log("close modal")
+            $("#modal").hide()
+        }
     }
 
     $(".container-settings-btn__btn").click(function (e) {
@@ -68,7 +72,7 @@ function renderApp() {
         }
         themes_options = themes_options.join('')
 
-        $(".main").append(`
+        $("#modal .modal-content").html(`
                 <div class="modal-settings">
                     <header>
                     <div class="modal-settings__row">
@@ -111,25 +115,27 @@ function renderApp() {
             $(e.target).closest(".modal-settings__theme-container").addClass("modal-settings__theme-container--selected")
         })
 
-        $(".container-settings-btn__btn").hide()
         $(".modal-settings input[type='submit']").click(function () {
             setData("ac_user", "language", $(".modal-settings__language__flag--selected").attr("data-id"))
             setData("ac_settings", "theme", $(".modal-settings__theme-container--selected").attr("data-id"))
-            $(".modal-settings").remove()
-            $(".container-settings-btn__btn").show()
+            $("#modal").hide();
             init()
             renderApp()
         })
 
         $(".modal-settings .modal-settings__btn-close").click(function () {
-            $(".modal-settings").remove()
-            $(".container-settings-btn__btn").show()
+            $("#modal").hide();
         })
-        $(".modal-settings").show().addClass("popup")
+        $(".modal-content").css("width", "50%"); $("#modal").show()
 
     })
 }
 
+
+function isHidden(el) {
+    var style = window.getComputedStyle(el);
+    return (style.display === 'none')
+}
 
 function parseDate(str) {
     var parts = str.split('-');
@@ -169,6 +175,9 @@ const getWeekDay = (someDate) => {
 
 const getMonth = (someDate) => {
     return text["months"][someDate.getMonth()];
+}
+const getShortMonth = (someDate) => {
+    return text["monthsShort"][someDate.getMonth()];
 }
 
 const isLastMonthDay = (someDate) => {

@@ -40,9 +40,9 @@ class NextWeeks {
 
         document.querySelector(this.selector).innerHTML = `
         <div class="l-next-weeks">
-            <header>
-                <div class="l-next-weeks__title">${text["planYourNext"][random_index]} <span class="l-next-weeks__title--color">${text["planWords"][random_index]}</span></div>
-                <div class="l-next-weeks__next-holiday">${text["nextHoliday"]} <span class="l-next-weeks__next-holiday__days"></span> ${text["days"]}</div>
+            <header>${text["planYourNext"][random_index]} <span class="l-next-weeks__header--color">${text["planWords"][random_index]}</span> · ${text["nextHoliday"]} <span class="l-next-weeks__header--color l-next-weeks__next-holiday__days"></span> ${text["days"]}
+            <!-- <div class="l-next-weeks__title"></div>
+                <div class="l-next-weeks__next-holiday"></div> -->
             </header>
             <nav id="l-next-weeks__nav-prev" class="l-next-weeks__column"><</nav>
             <div class="l-next-weeks__column l-next-weeks__column-1"></div>
@@ -88,9 +88,7 @@ class NextWeeks {
 
             var target = $(e.target)
 
-            if ($(".modal-event").length && target.closest(".modal-event").length == 0) {
-                $(".modal-event").remove()
-            } else if (target.closest("[data-date] .description").length) {
+            if (target.closest("[data-date] .description").length) {
                 me.openAddEvent(target.closest("[data-date]").attr("data-date"), target.closest("[data-date] .description").text())
 
             } else if (target.closest("[data-date]").length) {
@@ -110,7 +108,7 @@ class NextWeeks {
         for (var i = 1; i <= total_days; i++) {
             // style
             var style = `height: ${100 / total_days}%;`
-            var h_month = isFirstMonthDay(this.date) || (i == 1 && container.indexOf("column-1") != -1 && !isFirstMonthDay(this.date)) ? getMonth(this.date) + " " + this.date.getFullYear().toString().substring(2, 4) : ""
+            var h_month = isFirstMonthDay(this.date) ? getMonth(this.date) + " " + this.date.getFullYear().toString().substring(0, 4) : ""
 
             var day = `
             <div data-date="${this.date.yyyymmdd()}" class="l-next-weeks__day-row" style="${style}">
@@ -159,6 +157,7 @@ class NextWeeks {
     }
 
     openAddEvent(date, description) {
+        console.log("open add event")
         var me = this
         var events = getData("ac_events")
         var myisodate = yyyymmdd2Date(date).toShortISO()
@@ -180,8 +179,9 @@ class NextWeeks {
 
         var days_diff = dateDiff(mydate, today)
 
-        $(".main").append(`
-        <div class="modal-event popup">
+        $("#modal .modal-content").html(`
+        <div class="modal-event">
+            <div class="pre-header"><div>
             <header>
                 <div class='modal-event__header__day'><span class="modal-event__header__day__week-day">${wd}</span></br>${d} ${m} ${y}</div>
                 <div class='modal-event__header__day-diff'>${days_diff} ${text["daysAway"]}</div>
@@ -215,17 +215,29 @@ class NextWeeks {
 
             events.push(event_data)
             localStorage.setItem("ac_events", JSON.stringify(events))
-            $(".modal-event").remove()
-            me.date.setDate(me.date.getDate() - 3 * me.days_col)
+            $("#modal").hide()
+            me.date.setDate(me.date.getDate() - 2 * me.days_col)
             me.renderDays()
         })
         $(".modal-event .modal-event__btn-delete").click(function () {
             var filtered_events = me.removeEvent(events, results[0])
             localStorage.setItem("ac_events", JSON.stringify(filtered_events))
-            $(".modal-event").remove()
-            me.date.setDate(me.date.getDate() - 3 * me.days_col)
+            $("#modal").hide()
+            me.date.setDate(me.date.getDate() - 2 * me.days_col)
             me.renderDays()
         })
+        $("#modal").click(function (e) {
+            if ($(e.target).is("#modal")) $("#modal").hide()
+        })
+        $("#modal").keyup(function(e) {
+            if (e.key === "Escape") { // escape key maps to keycode `27`
+            $("#modal").hide()
+           }
+       })
+
+        $(".modal-content").css("width", "33%")
+        $("#modal").show()
+        $(".modal-event__description").focus()
 
     }
 
