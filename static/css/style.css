@@ -21,6 +21,11 @@
     
     --color-tertiary-shadow: #ffffff80;
 
+    --color-button: #05668D;
+    --color-on-button: #ffffff;
+    --color-button-hover: #05668db4;
+    --color-button-active: #05668d67;
+
     --color-on-surface: #2b2b2b;
     --color-on-primary: #1d1d1d;
     --color-on-secondary: #000000;
@@ -402,17 +407,17 @@ body {
     height: 36px;
     letter-spacing: .0892857143em;
     font-weight: 500;
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
+    background-color: var(--color-button);
+    color: var(--color-on-button);
     cursor: pointer;
+    transition: 0.2s;
+    outline: none;
     
 }
 
 .primary-button:hover {
-    opacity: 0.9;
-    box-shadow: 0px 2px 3px 0px grey;
+    background-color: var(--color-button-hover);
 }
 .primary-button:active {
-    opacity: 0.8;
-    box-shadow: 0px 2px 3px 0px grey;
+    background-color: var(--color-button-active);
 }

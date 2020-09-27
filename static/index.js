@@ -64,7 +64,7 @@ function renderApp() {
                 if (themes[key]["thumbnail"]) {
                     t_style = `style="background-image:url('${background_images[themes[key]["thumbnail"]].base64}');"`
                 } else if (themes[key]["palette"].length) {
-                    t_style = `style="background: linear-gradient(180deg, ${themes[key]["palette"][0]} 0%, ${themes[key]["palette"][0]} 25%, ${themes[key]["palette"][1]} 25%, ${themes[key]["palette"][1]} 50%, ${themes[key]["palette"][2]} 50%, ${themes[key]["palette"][2]} 75%, ${themes[key]["palette"][3]} 75%, ${themes[key]["palette"][3]} 100%);"`
+                    t_style = `style="background: linear-gradient(180deg, ${themes[key]["palette"][0]} 0%, ${themes[key]["palette"][0]} 33%, ${themes[key]["palette"][1]} 33%, ${themes[key]["palette"][1]} 66%, ${themes[key]["palette"][2]} 66%, ${themes[key]["palette"][2]} 100%);"`
                 }
                 var theme_node = `<div data-id='${key}' class='modal-settings__theme-container'><div ${t_style} class='modal-settings__theme'>${themes[key]["name"]}</div></div>`
                 if (themes[key]["userAvailable"]) themes_options.push(theme_node)
@@ -266,17 +266,14 @@ function changeTheme(theme) {
                 }
             }
             //load background image
+            $(".container-photoby").hide()
             if (bgd_image) {
-                console.log("has image")
-                console.log(bgd_image.base64)
                 root.style.setProperty("--background-image-small", `url('${bgd_image.base64}')`);
                 var img = new Image();
                 //var bgdImg = theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/) != null ? theme_props[key].match(/(?:\(['|"]?)(.*?)(?:['|"]?\))/)[1] : undefined;
                 img.onload = function () {
-                    console.log("img ready " + bgd_image.uri)
                     root.style.setProperty("--background-image", `url('../${bgd_image.uri}')`);
                     $("body").addClass("full-background")
-                    console.log(bgd_image.url)
                     $(".container-photoby a").attr("href", bgd_image.url)
                     $(".container-photoby a").text(bgd_image.author)
                     $(".container-photoby").show()

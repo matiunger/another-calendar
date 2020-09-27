@@ -23,19 +23,19 @@
     font-size: 18px;
     font-family: var(--font-main);
     color: var(--color-on-background);
-    text-shadow: var(--color-on-background-shadow) 1px 1px 6px;
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
 }
 .l-next-weeks header .l-next-weeks__title {
     font-size: 26px;
     text-align: right;
     color: var(--color-on-background);
-    text-shadow: var(--color-on-background-shadow) 1px 1px 6px;
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
 }
 .l-next-weeks header .l-next-weeks__next-holiday {
     position: relative;
     text-align: left;
     color: var(--color-on-background);
-    text-shadow: var(--color-on-background-shadow) 1px 1px 6px;
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
     font-size: 16px;
 }
 .l-next-weeks header .l-next-weeks__header--color {
