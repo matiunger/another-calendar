@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "timetab",
+    "description": "Time tab",
+    "version": "0.0.1",
+    "chrome_url_overrides" : {
+        "newtab": "/static/index.html"
+    },
+    "browser_action": {
+        "default_icon": "static/favicon-32x32.png",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "geolocation",
+        "https://ajax.googleapis.com/",
+        "https://fonts.googleapis.com/"
+    ]
+}
