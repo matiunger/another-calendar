@@ -8,6 +8,7 @@ class Welcome {
     }
 
     render(selector) {
+        tagPageview("/welcome")
         this.selector = selector
         document.querySelector(this.selector).innerHTML = `
         <div class="l-welcome">
