@@ -13,3 +13,16 @@ function tagEvent(event, params) {
         "pagePath" : "/welcome"
     })
 }
+function tagError(params) {
+    params["event"] = "app_error"
+    window.dataLayer.push(params)
+}
+
+function setProperties(event, params) {
+    window.dataLayer.push({
+        "event" : "setProperties",
+        "version" : "/welcome",
+        "theme" : "/welcome",
+        "language" : "/welcome"
+    })
+}

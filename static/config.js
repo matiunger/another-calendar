@@ -3,7 +3,7 @@ var config = {
     "user": {
         "name": "",
         "birthday": "",
-        "language": "ES",
+        "language": undefined,
     },
     "settings": {
         "location": {
