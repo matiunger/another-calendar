@@ -16,6 +16,7 @@ class Welcome {
     render(selector) {
         try {
             tagPageview("/welcome")
+            $("body").removeClass("blur")
             this.selector = selector
             document.querySelector(this.selector).innerHTML = `
             <div class="l-welcome">
@@ -39,11 +40,13 @@ class NextWeeks {
             this.date = new Date();
             this.days_col = 24;
             this.past_days = 0;
+            
         } catch(e) {handleError(e, {location:"nextweeks constructor"})}
     }
 
     render(selector) {
         try {
+            $("body").addClass("blur")
             this.date = new Date();
             this.selector = selector
             var me = this
