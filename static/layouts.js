@@ -33,6 +33,31 @@ class Welcome {
 
 }
 
+class TenMinutes {
+    constructor() {
+        try {
+            this.selector = ""
+            var user_data = getData("ac_user")
+            this.user_name = user_data["name"]
+        } catch(e) {handleError(e, {location:"welcome constructor"})}
+    }
+
+    render(selector) {
+        try {
+            tagPageview("/ten-minutes")
+            $("body").removeClass("blur")
+            this.selector = selector
+            document.querySelector(this.selector).innerHTML = `
+            <div class="l-ten-minutes">
+
+            </div>
+            `
+
+        } catch(e) {handleError(e, {location:"welcome render"})}
+    }
+
+}
+
 class NextWeeks {
     constructor() {
         try {
