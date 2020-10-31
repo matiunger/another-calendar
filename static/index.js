@@ -4,7 +4,7 @@ let root = document.documentElement;
 let app = document.getElementById("app");
 
 try {
-    window.layouts = [new Welcome(), new NextWeeks()]
+    window.layouts = [new Welcome(), new DayBlocks(), new NextWeeks()]
     window.current_layout = 0;
 } catch(e) {handleError(e, {location: "index start"})}
 

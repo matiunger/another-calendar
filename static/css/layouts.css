@@ -7,6 +7,58 @@
     align-items: center;
     justify-content: center;
 }
+
+/* Next Weeks */
+
+.l-day-blocks {
+    padding: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.l-day-blocks .l-day-blocks__title {
+    font-size: 18px;
+    margin-bottom: 28px;
+    font-family: var(--font-main);
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+}
+
+.l-day-blocks .l-day-blocks__block-cont {
+    width: 33%;
+    position: relative;
+}
+.l-day-blocks .l-day-blocks__block-cont:before {
+    content: "";
+    float: left;
+    padding-top: 100%;
+}
+
+.l-day-blocks .l-day-blocks__block-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto; 
+    column-gap: 10px;
+    row-gap: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.l-day-blocks .l-day-blocks__block-container .l-day-blocks__block {
+    background-color: var(--color-on-background);
+    box-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+    border-radius: 8px;
+    opacity: 0.7;
+}
+.l-day-blocks .l-day-blocks__block-container .l-day-blocks__block--past {
+    opacity: 0.2;
+}
+
+/* Next Weeks */
+
 .l-next-weeks {
     position: relative;
 }

@@ -33,10 +33,12 @@ class Welcome {
 
 }
 
-class TenMinutes {
+class DayBlocks {
     constructor() {
         try {
             this.selector = ""
+            this.block_minutes = 10
+            this.block_name = "10 minutes"
             var user_data = getData("ac_user")
             this.user_name = user_data["name"]
         } catch(e) {handleError(e, {location:"welcome constructor"})}
@@ -44,12 +46,35 @@ class TenMinutes {
 
     render(selector) {
         try {
-            tagPageview("/ten-minutes")
+            tagPageview("/day-blocks")
             $("body").removeClass("blur")
             this.selector = selector
-            document.querySelector(this.selector).innerHTML = `
-            <div class="l-ten-minutes">
+            
+            var blocks = 24*60/this.block_minutes
 
+            var now = new Date();
+            var now_min = now.getHours()*60+now.getMinutes();
+
+            var wd = getWeekDay(now)
+            var d = now.getDate()
+            var m = getMonth(now)
+            var y = now.getFullYear()
+
+            var grid_elements = ""
+            for (var i = 1; i <= blocks; i++) {
+                var classes = "l-day-blocks__block";
+                if (i*this.block_minutes < now_min) { 
+                    classes = classes + " l-day-blocks__block--past"
+                }
+                grid_elements += `<div class='${classes}' data-block-id='${i}'></div>`
+            }
+
+            document.querySelector(this.selector).innerHTML = `
+            <div class="l-day-blocks">
+                <div class='l-day-blocks__title'>${wd} ${d} ${m} in ${this.block_name} blocks</div>
+                <div class='l-day-blocks__block-cont'>
+                    <div class='l-day-blocks__block-container'>${grid_elements}</div>
+                </div>
             </div>
             `
 
