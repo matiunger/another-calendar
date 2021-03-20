@@ -8,5 +8,5 @@
       "remainingDaylight": "Sunrise in {{h_to_sunrise}}h {{m_to_sunrise}}m",
       "sunriseIn": "Remaining daylight {{h_to_sunset}}h {{m_to_sunset}}m."
     },
-    "itis" : "It is"
+    "photoBy" : "Photo by"
 }
