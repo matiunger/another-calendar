@@ -1,0 +1,12 @@
+{
+    "settings": {
+      "settings":"Ajustes",
+      "theme": "Tema",
+      "language": "Idioma"
+    },
+    "sunhours": {
+      "remainingDaylight": "Amanecer en {{h_to_sunrise}}h {{m_to_sunrise}}m",
+      "sunriseIn": "Quedan {{h_to_sunset}}h {{m_to_sunset}}m de sol."
+    },
+    "itis" : "Son las"
+}

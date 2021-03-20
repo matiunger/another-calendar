@@ -8,3 +8,16 @@ This is an experimental project with the goal of presenting time in different wa
  - Next 60 days / Holidays planning
  - Moment fo year / Months / Seasons
  - Life calendar / Weeks
+
+
+
+## React setup
+
+install node and npm
+
+npx create-react-app timetab
+
+creates a folder for the app with basic structure and resources
+
+cd timetab
+nppm start
