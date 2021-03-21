@@ -15,29 +15,18 @@ import store from 'store'
 
 // https://www.npmjs.com/package/suncalc
 
-function Header(props) {
-  return (
-    <header>
-      <Trans i18nKey="settings.settings">
-        Settings
-    </Trans>
-    </header>
-  )
-}
-
 function Footer(props) {
   return (
     <footer>
       <Grid container direction="row">
-        <Grid className="photoby" item xs={6}>
-          <Trans i18nKey="photoBy">Photo by</Trans>&nbsp;<a href={props.photoUrl} target="_blank">{props.photoAuthor}</a>
+        <Grid className="photoby" item xs={6} >
+        {props.photoAuthor ? (<React.Fragment><Trans i18nKey="photoBy">Photo by</Trans>&nbsp;<a href={props.photoUrl} target="_blank">{props.photoAuthor}</a></React.Fragment>) : null}
         </Grid>
-        <Grid item xs={6} className="settings-button" style={{ textAlign: "right" }}><SettingsIcon onClick={() => props.openSettings()} style={{ fontSize: 24 }} className="settings-button__btn"/></Grid>
+        <Grid item xs={6} className="settings-button" style={{ textAlign: "right" }}><SettingsIcon onClick={() => props.openSettings()} style={{ fontSize: 24 }} className="settings-button__btn" /></Grid>
       </Grid>
     </footer>
   )
 }
-
 
 function TimeTab(props) {
   const { t, i18n } = useTranslation();
@@ -47,7 +36,7 @@ function TimeTab(props) {
   const [themeImages, setThemeImages] = useState(null)
 
   const [theme, setTheme] = useState(null)
-  const [location, setLocation] = useState(store.get('location') || {"lat" : 48.137, "lng" : 11.576}) // Default Munich
+  const [location, setLocation] = useState(store.get('location') || { "lat": 48.137, "lng": 11.576 }) // Default Munich
 
   const [photoAutor, setphotoAutor] = useState(null)
   const [photoUrl, setphotoUrl] = useState(null)
@@ -63,20 +52,27 @@ function TimeTab(props) {
     setSettingsOpen(false);
   }
 
+  const changeTheme = (newTheme) => {
+    console.log("change theme "+newTheme)
+    setTheme(newTheme);
+    store.set('theme', newTheme)
+  }
+
   let moonIllumination = SunCalc.getMoonIllumination(new Date());
 
   const modalCustomStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      backgroundColor       : 'white'
+    content: {
+      top: '30%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      backgroundColor: 'white',
+      minWidth: '650px'
     },
     overlay: {
-      backgroundColor : '#00000094'
+      backgroundColor: '#00000094'
     }
   };
   Modal.setAppElement('#app')
@@ -92,17 +88,21 @@ function TimeTab(props) {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
-        setTheme("beach")
+        console.log("listo los json!")
+        changeTheme(store.get('theme') || "default")
+        
 
         if (navigator.geolocation) {
 
           navigator.geolocation.getCurrentPosition((position) => {
-              const loc = {"lat" : position.coords.latitude,
-                           "lng" : position.coords.longitude}
-              setLocation(loc)
-              store.set('location', loc)
+            const loc = {
+              "lat": position.coords.latitude,
+              "lng": position.coords.longitude
+            }
+            setLocation(loc)
+            store.set('location', loc)
           }, geoError());
-      }
+        }
 
 
       })
@@ -114,8 +114,8 @@ function TimeTab(props) {
 
   // render theme
   useEffect(() => {
+    console.log("use effect change theme "+theme)
     if (themes) {
-
       const myTheme = _.find(themes, ['name', theme])
       const myThemeLogic = myTheme["logic"]
 
@@ -156,13 +156,12 @@ function TimeTab(props) {
             };
             img.src = myThemeBackgroundImg["uri"]
           }
+          setphotoAutor(undefined)
+          setphotoUrl(undefined)
           break;
 
         }
       }
-
-
-
     }
   }, [theme]);
 
@@ -178,25 +177,18 @@ function TimeTab(props) {
 
   return (
     <div className="main">
-      <Header name="pepe" />
-      <button type="button" onClick={() => changeLanguage('en')}>
-        en
-        </button>
-      <button type="button" onClick={() => changeLanguage('ar')}>
-        ar
-        </button>
       <div className="welcome">
         <Clock />
         <SunHours times={sunCalcTimes} moonIllumination={moonIllumination} />
       </div>
-      <Footer photoAuthor={photoAutor} photoUrl={photoUrl} openSettings={openSettingsModal}/>
+      <Footer photoAuthor={photoAutor} photoUrl={photoUrl} openSettings={openSettingsModal} />
       <Modal
-          isOpen={settingsIsOpen}
-          //onAfterOpen={afterOpenModal}
-          onRequestClose={closeSettingsModal}
-          style={modalCustomStyles}
-          contentLabel="Example Modal"
-        ><Settings closeSettings={closeSettingsModal} /></Modal>
+        isOpen={settingsIsOpen}
+        //onAfterOpen={afterOpenModal}
+        onRequestClose={closeSettingsModal}
+        style={modalCustomStyles}
+        contentLabel="Example Modal"
+      ><Settings closeSettings={closeSettingsModal} changeLanguagee={changeLanguage} themes={themes} themeProps={themeProperties} backgroundImages={themeImages} changeTheme={changeTheme} /></Modal>
     </div>
   );
 }

@@ -1,0 +1,19 @@
+{
+    "settings": {
+      "settings":"Einstellungen",
+      "theme": "Theme",
+      "language": "Sprache"
+    },
+    "themes" : {
+      "default": "Mix",
+      "beach": "Strand",
+      "mountain": "Berge",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "sunhours": {
+      "remainingDaylight": "Sunrise in {{h_to_sunrise}}h {{m_to_sunrise}}m",
+      "sunriseIn": "Remaining daylight {{h_to_sunset}}h {{m_to_sunset}}m."
+    },
+    "photoBy" : "Photo von"
+}

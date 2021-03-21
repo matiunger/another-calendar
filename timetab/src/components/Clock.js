@@ -20,7 +20,7 @@ function Clock() {
 
   return (
     <div className="clock">
-      <Moment format="h·mm" date={date}></Moment>
+      <Moment format="H·mm" date={date}></Moment>
     </div>
   );
 }

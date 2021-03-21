@@ -14,6 +14,11 @@
     justify-content: center;
 }
 
+.settings-modal {
+  max-width: 100%;
+  min-width: 800px;
+}
+
 /* Footer */
 
 footer {

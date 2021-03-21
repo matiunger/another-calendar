@@ -30,8 +30,8 @@ function SunHours(props) {
   return (
     <div className="c-sun-hours">
       <div className="sun-hours__hours">
-        <div className="sun-hours__hours__hour" style={{ "left": (100 * sunriseHours / 24).toString()+"%" }}><WbSunnyIcon className="icon" style={{ fontSize: 24 }} /><Moment format="hh·mm" date={times.sunrise}></Moment></div>
-        <div className="sun-hours__hours__hour" style={{ "left": (100 * sunsetHours / 24).toString() + "%" }}><i className="moon-icon icon"><span className="moon-icon__moon"></span></i><Moment format="hh·mm" date={times.sunset}></Moment></div>
+        <div className="sun-hours__hours__hour" style={{ "left": (100 * sunriseHours / 24).toString()+"%" }}><WbSunnyIcon className="icon" style={{ fontSize: 24 }} /><Moment format="HH·mm" date={times.sunrise}></Moment></div>
+        <div className="sun-hours__hours__hour" style={{ "left": (100 * sunsetHours / 24).toString() + "%" }}><i className="moon-icon icon"><span className="moon-icon__moon"></span></i><Moment format="HH·mm" date={times.sunset}></Moment></div>
       </div>
       <div className="sun-hours__container-lines">
         <div className="sun-hours__container-lines__lines" style={{ "left": (100 * sunriseHours / 24).toString() + "%" , "width": (100 * (sunsetHours - sunriseHours) / 24).toString() + "%"}} ></div>
