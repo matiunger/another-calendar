@@ -1,7 +1,6 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import '../css/App.css';
-import Clock from './Clock';
-import SunHours from './SunHours';
+import Welcome from './Welcome';
 import Settings from './Settings';
 import { useTranslation, Trans } from 'react-i18next';
 
@@ -177,10 +176,8 @@ function TimeTab(props) {
 
   return (
     <div className="main">
-      <div className="welcome">
-        <Clock />
-        <SunHours times={sunCalcTimes} moonIllumination={moonIllumination} />
-      </div>
+
+      <Welcome times={sunCalcTimes} moonIllumination={moonIllumination} />
       <Footer photoAuthor={photoAutor} photoUrl={photoUrl} openSettings={openSettingsModal} />
       <Modal
         isOpen={settingsIsOpen}

@@ -1,6 +1,6 @@
 .clock {
-    /*margin: 0 auto 30px auto;*/
-    width: 100%;
+    /*margin: 0 auto 30px auto;
+    width: 100%;*/
     font-family: var(--font-main);
     font-weight: 400;
     font-size: 90px;
@@ -10,4 +10,23 @@
     justify-content: center;
     padding: 0;
     color: var(--color-on-background);
+    user-select: none;
+}
+
+.timer {
+    /*margin: 0 auto 30px auto;
+    width: 100%;*/
+    border: 1px solid white;
+    border-radius: 16px;
+    padding: 8px 24px;
+    margin-bottom: 24px;
+    font-family: var(--font-main);
+    font-weight: 400;
+    font-size: 90px;
+    text-shadow: var(--color-on-background-shadow) 1px 1px 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-on-background);
+    user-select: none;
 }
