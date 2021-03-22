@@ -72,9 +72,9 @@ function Settings(props) {
           <Trans i18nKey="settings.language">Language</Trans>
         </Typography>
         <div className={classes.root}>
-          <Chip elevation={5} className="lang-chip" label="English" variant={activeLang == "en" ? "default" : "outlined"} avatar={<Avatar src="/img/flags/US.svg" />} clickable="true" onClick={() => props.changeLanguagee("en")} />
-          <Chip label="Español" variant={activeLang == "ar" ? "default" : "outlined"} avatar={<Avatar src="./img/flags/AR.svg" />} clickable="true" onClick={() => props.changeLanguagee("ar")} />
-          <Chip label="Deutsch" variant={activeLang == "de" ? "default" : "outlined"} avatar={<Avatar src="./img/flags/DE.svg" />} clickable="true" onClick={() => props.changeLanguagee("de")} />
+          <Chip elevation={5} className="lang-chip" label="English" variant={activeLang == "en" ? "default" : "outlined"} avatar={<Avatar src="static/img/flags/US.svg" />} clickable="true" onClick={() => props.changeLanguagee("en")} />
+          <Chip label="Español" variant={activeLang == "ar" ? "default" : "outlined"} avatar={<Avatar src="static/img/flags/AR.svg" />} clickable="true" onClick={() => props.changeLanguagee("ar")} />
+          <Chip label="Deutsch" variant={activeLang == "de" ? "default" : "outlined"} avatar={<Avatar src="static/img/flags/DE.svg" />} clickable="true" onClick={() => props.changeLanguagee("de")} />
         </div>
       </section>
       <section>
