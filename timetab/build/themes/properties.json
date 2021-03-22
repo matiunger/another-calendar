@@ -21,9 +21,9 @@
             "--color-on-surface": "#2b2b2b",
             "--color-on-primary": "#1d1d1d",
             "--color-on-secondary": "#000000",
-            "--cursor-timer": "url('./timer-black-24dp.svg'), auto",
-            "--cursor-timer-add": "url('./alarm_add-black-24dp.svg'), auto",
-            "--cursor-timer-remove": "url('./timer_off-black-24dp.svg'), auto"
+            "--cursor-timer": "timer-black-24dp.svg",
+            "--cursor-timer-add": "alarm_add-black-24dp.svg",
+            "--cursor-timer-remove": "timer_off-black-24dp.svg"
         }
     },
     {
@@ -48,9 +48,9 @@
             "--color-on-surface": "#2b2b2b",
             "--color-on-primary": "#1d1d1d",
             "--color-on-secondary": "#242424",
-            "--cursor-timer": "url('./timer-black-24dp.svg'), auto",
-            "--cursor-timer-add": "url('./alarm_add-black-24dp.svg'), auto",
-            "--cursor-timer-remove": "url('./timer_off-black-24dp.svg'), auto"
+            "--cursor-timer": "timer-black-24dp.svg",
+            "--cursor-timer-add": "alarm_add-black-24dp.svg",
+            "--cursor-timer-remove": "timer_off-black-24dp.svg"
         }
     },
     {
@@ -75,9 +75,9 @@
             "--color-on-surface": "#2b2b2b",
             "--color-on-primary": "#1d1d1d",
             "--color-on-secondary": "#e7e7e7",
-            "--cursor-timer": "url('./timer-white-24dp.svg'), auto",
-            "--cursor-timer-add": "url('./alarm_add-white-24dp.svg'), auto",
-            "--cursor-timer-remove": "url('./timer_off-white-24dp.svg'), auto"
+            "--cursor-timer": "timer-white-24dp.svg",
+            "--cursor-timer-add": "alarm_add-white-24dp.svg",
+            "--cursor-timer-remove": "timer_off-white-24dp.svg"
         }
     }
 ]
