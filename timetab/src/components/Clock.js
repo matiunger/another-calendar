@@ -56,6 +56,7 @@ function Clock(props) {
     document.getElementById('timer-remove').play();
     setTimerTime(null)
     setTimerTimeRemaining(null)
+    document.title = "timetab"
 
   }
 

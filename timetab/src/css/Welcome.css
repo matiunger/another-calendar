@@ -8,21 +8,22 @@
 }
 
 .welcome--add-timer-cursor {
-  cursor: url('../alarm_add-black-24dp.svg'), auto;
+  cursor: var(--cursor-timer-add);
 }
 .welcome--clock-light {
   opacity: 0.2;
 }
 
 .clock:hover {
-  cursor: url('../timer-black-24dp.svg'), auto;
+  /* cursor: url('../timer-white-24dp.svg'), auto; */
+  cursor: var(--cursor-timer);
   opacity: 0.2;
 }
 .clock:active {
-  cursor: url('../alarm_add-black-24dp.svg'), auto;
+  cursor: var(--cursor-timer-add);
 }
 .timer:hover {
-  cursor: url('../timer_off-black-24dp.svg'), auto;
+  cursor: var(--cursor-timer-remove);
   opacity: 0.4;
 }
 
