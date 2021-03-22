@@ -32,6 +32,10 @@
   --color-on-primary: #1d1d1d;
   --color-on-secondary: #000000;
 
+  --cursor-timer: url('../timer-white-24dp.svg'), auto;
+  --cursor-timer-add: url('../alarm_add-white-24dp.svg'), auto;
+  --cursor-timer-remove: url('../timer_off-white-24dp.svg'), auto;
+
   --moon-i: 5;
 }
 
