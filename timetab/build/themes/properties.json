@@ -20,7 +20,10 @@
             "--color-tertiary-shadow": "#ffffff80",
             "--color-on-surface": "#2b2b2b",
             "--color-on-primary": "#1d1d1d",
-            "--color-on-secondary": "#000000"
+            "--color-on-secondary": "#000000",
+            "--cursor-timer": "url('./timer-black-24dp.svg'), auto",
+            "--cursor-timer-add": "url('./alarm_add-black-24dp.svg'), auto",
+            "--cursor-timer-remove": "url('./timer_off-black-24dp.svg'), auto"
         }
     },
     {
@@ -44,7 +47,10 @@
             "--color-tertiary-shadow": "#202020b6",
             "--color-on-surface": "#2b2b2b",
             "--color-on-primary": "#1d1d1d",
-            "--color-on-secondary": "#242424"
+            "--color-on-secondary": "#242424",
+            "--cursor-timer": "url('./timer-black-24dp.svg'), auto",
+            "--cursor-timer-add": "url('./alarm_add-black-24dp.svg'), auto",
+            "--cursor-timer-remove": "url('./timer_off-black-24dp.svg'), auto"
         }
     },
     {
@@ -68,7 +74,10 @@
             "--color-tertiary-shadow": "#202020b6",
             "--color-on-surface": "#2b2b2b",
             "--color-on-primary": "#1d1d1d",
-            "--color-on-secondary": "#e7e7e7"
+            "--color-on-secondary": "#e7e7e7",
+            "--cursor-timer": "url('./timer-white-24dp.svg'), auto",
+            "--cursor-timer-add": "url('./alarm_add-white-24dp.svg'), auto",
+            "--cursor-timer-remove": "url('./timer_off-white-24dp.svg'), auto"
         }
     }
 ]
