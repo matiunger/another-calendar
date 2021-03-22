@@ -1,103 +1,351 @@
 
 .l-welcome {
     padding: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.l-nextweeks .column {
+
+/* Next Weeks */
+
+.l-day-blocks {
+    padding: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.l-day-blocks .l-day-blocks__title {
+    font-size: 18px;
+    margin-bottom: 28px;
+    font-family: var(--font-main);
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+}
+
+.l-day-blocks .l-day-blocks__block-cont {
+    width: 33%;
+    position: relative;
+}
+.l-day-blocks .l-day-blocks__block-cont:before {
+    content: "";
+    float: left;
+    padding-top: 100%;
+}
+
+.l-day-blocks .l-day-blocks__block-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto; 
+    column-gap: 10px;
+    row-gap: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.l-day-blocks .l-day-blocks__block-container .l-day-blocks__block {
+    background-color: var(--color-on-background);
+    box-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+    border-radius: 8px;
+    opacity: 0.7;
+}
+.l-day-blocks .l-day-blocks__block-container .l-day-blocks__block--past {
+    opacity: 0.2;
+}
+
+/* Next Weeks */
+
+.l-next-weeks {
+    position: relative;
+}
+.l-next-weeks header {
+    position: absolute;
+    width: 100%;
+    height: 110px;
+    top:0;
+    padding: auto 5%;
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center; 
+    font-size: 18px;
+    font-family: var(--font-main);
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+}
+.l-next-weeks header .l-next-weeks__title {
+    font-size: 26px;
+    text-align: right;
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+}
+.l-next-weeks header .l-next-weeks__next-holiday {
+    position: relative;
+    text-align: left;
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 2px;
+    font-size: 16px;
+}
+.l-next-weeks header .l-next-weeks__header--color {
+    font-size: 22px;
+    padding: 0 6px;
+    color: var(--color-primary);
+}
+
+.l-next-weeks .l-next-weeks__column {
     float: left;
     /*padding: 10px;*/
     height: 100vh; /* Should be removed. Only for demonstration */
 }
-.l-nextweeks .col1 {
-    width: 30%;
-    padding: 64px 32px 64px 0;
+.l-next-weeks .l-next-weeks__column-1 {
+    width: 35%;
+    padding: 110px 20px 64px 0;
 }
-.l-nextweeks .col2 {
-    width: 30%;
-    padding: 64px 32px 64px 0;
+.l-next-weeks .l-next-weeks__column-2 {
+    width: 35%;
+    padding: 110px 0 64px 20px;
 }
-.l-nextweeks .col3 {
+.l-next-weeks .l-next-weeks__column-3 {
     width: 30%;
-    padding: 64px 0 64px 0;
-} 
+    padding: 110px 0 64px 0;
+}
 
-.l-nextweeks nav {
-    width: 5%;
+.l-next-weeks nav {
+    width: 15%;
     padding: 0;
-    font-family: 'Comfortaa', cursive;
+    font-family: var(--font-main);
     font-size: 40px;
-    color: #E0E0E0;
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 6px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
 }
-.l-nextweeks nav:hover {
+.l-next-weeks nav:hover {
     cursor: pointer;
     opacity: 1;
 }
 
 /* Clear floats after the columns */
-.l-nextweeks .row:after {
+.l-next-weeks .row:after {
     content: "";
     display: table;
     clear: both;
 }
 
-.l-nextweeks .day-row {
+.l-next-weeks .l-next-weeks__day-row {
     width: 100%;
-    border-top: 1px dotted #ECEFF1;
-    border-bottom:none;
-    padding: 0 16px;
-    font-family: 'Comfortaa', cursive;
+    border-top:none;
+    border-bottom:1px dotted var(--color-surface);
+    padding: 0 4px 0 8px;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: 0.1s;
 }
-.l-nextweeks .day-row .weekday {
+.l-next-weeks .l-next-weeks__day-row:hover {
+    /*background-color: rgba(255, 255, 255, 0.726);*/
+    border-bottom:1px solid var(--color-on-background);
+}
+
+
+.l-next-weeks__day-row__weekday {
     width: 10px;
+    color: var(--color-on-background);
     opacity: 0.5;
     font-size: 8px;
     height: 100%;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    float: left;
 }
-.l-nextweeks .day-row .day {
+.l-next-weeks__day-row__day {
     width: 32px;
     height: 100%;
     font-size: 13px;
     font-weight: bold;
+    color: var(--color-on-background);
+    text-shadow: var(--color-on-background-shadow) 1px 1px 3px;
+    opacity: 0.7;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    float: left;
 }
-.l-nextweeks .day-row .month {
-    width: 80px;
+.l-next-weeks__day-row__content {
     height: 100%;
-    font-size: 14px;
-    opacity: 1;
-    color: #0D47A1;
+    padding: 4px 0;
+    float: left;
+}
+.l-next-weeks__day-row__content .description {
+    cursor: pointer;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 5px;
+    height: 100%;
+    font-size: 10px;
+    color: var(--color-on-secondary);
+    font-family: var(--font-secondary);
+    background-color: var(--color-secondary);
+    border-radius: 4px;
+    float: left;
+}
+.l-next-weeks__day-row__content .description:hover {
     font-weight: bold;
-    font-family: 'Comfortaa', cursive;
+}
+
+.l-next-weeks__day-row__month {
+    width: 200px;
+    height: 100%;
+    font-size: 12px;
+    opacity: 0.8;
+    /*position: relative;*/
+    color: var(--color-tertiary);
+    text-shadow: var(--color-tertiary-shadow) 1px 1px 2px;
+    
+    font-weight: 500;
+    font-family: var(--font-main);
+    text-align: right;
+    /*margin-top: -10px;*/
+    float: right;
+    /*text-shadow: 1px 1px 1px var(--color-light);*/
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
-    float: right;
 }
 
-.l-nextweeks .past-day {
+.l-next-weeks__day-row--past-day {
     opacity: 0.1;
 }
 
-.l-nextweeks .weekend {
-    background-color: #F0F4C3;
+.l-next-weeks__day-row--holiday {
+    background-color: var(--color-surface);
 }
 
-.l-nextweeks .last-month-day {
+.l-next-weeks__day-row--last-month-day {
     /*border-bottom-right-radius: 5px;*/
     /*border-bottom-left-radius: 5px;*/
-    border-bottom: 1px dashed #e7e7e7;
+    border-bottom: 1px dashed var(--color-on-background);
     /*margin-bottom: 8px;*/
 }
 
-.l-nextweeks .first-month-day {
+.l-next-weeks__day-row--first-month-day {
     border-top: none;
-    /*border-top-left-radius: 5px;*/
+    /*background: linear-gradient(180deg, rgba(58, 58, 58, 0.2) 0%, rgba(255,255,255,0) 85%);
+    border-top-left-radius: 5px;*/
     /*border-top-right-radius: 5px;*/
 }
+
+.modal-event {
+    /*position: absolute;
+    width: 500px;
+    height: 250px;
+    top:50%;
+    left:50%;
+    padding: 32px;
+    margin-left:-250px;    negative half of width above 
+    margin-top:-125px;
+    z-index: 10;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px grey;*/
+}
+.modal-event header {
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.modal-event footer {
+    overflow: hidden;
+}
+.modal-event section {
+    margin-bottom: 48px;
+}
+
+.modal-event__header__day {
+    width: 50%;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    font-family: var(--font-main);
+}
+.modal-event__header__day__week-day {
+    font-size: 12px;
+}
+.modal-event__header__day-diff {
+    text-align: right;
+    width: 50%;
+    font-size: 16px;
+    font-family: var(--font-main);
+    float: right;
+}
+.modal-event__row {
+    overflow: hidden;
+}
+
+.modal-event__labels {
+    font-size: 12px;
+    font-family: var(--font-secondary);
+    opacity: 0.4;
+}
+.modal-event__description {
+    font-size: 22px;
+    border:none;
+    border-bottom: 1px solid;
+    height: 40px;
+    width: 100%;
+    padding: 4px 8px;
+    font-family: var(--font-main);
+    margin: 4px 0 0 0;
+    outline: none;
+}
+.modal-event__checkbox-holiday {
+    height: 40px;
+    width: 40px;
+    margin: 4px 0 0 0;
+}
+
+.modal-event__btn-delete {
+    cursor: pointer;
+}
+
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.txt-left {
+    text-align: left;
+}
+.txt-right {
+    text-align: right;
+}
+.col-11 {
+    width: 91.66%;
+}
+.col-10 {
+    width: 83.33%;
+}
+.col-8 {
+    width: 66.66%;
+}
+.col-6 {
+    width: 50%;
+}
+.col-4 {
+    width: 33.33%;
+}
+.col-2 {
+    width: 16.66%;
+}
+.col-1 {
+    width: 8.33%;
+}
+

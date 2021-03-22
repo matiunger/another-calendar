@@ -1,0 +1,32 @@
+runtime: python38
+
+handlers:
+  # This configures Google App Engine to serve the files in the app's static
+  # directory.
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /manifest\.json
+  static_files: manifest.json
+  upload: manifest\.json  
+
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /locales
+  static_dir: locales
+
+- url: /sounds
+  static_dir: sounds  
+
+- url: /themes
+  static_dir: themes
+
+  # This handler routes all requests not caught above to your main app. It is
+  # required when static routes are defined, but can be omitted (along with
+  # the entire handlers section) when there are no static files defined.
+- url: /.*
+  script: auto

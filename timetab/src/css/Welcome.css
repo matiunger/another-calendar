@@ -1,0 +1,48 @@
+#welcome {
+    padding: 5%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome--add-timer-cursor {
+  cursor: url('../alarm_add-black-24dp.svg'), auto;
+}
+.welcome--clock-light {
+  opacity: 0.2;
+}
+
+.clock:hover {
+  cursor: url('../timer-black-24dp.svg'), auto;
+  opacity: 0.2;
+}
+.clock:active {
+  cursor: url('../alarm_add-black-24dp.svg'), auto;
+}
+.timer:hover {
+  cursor: url('../timer_off-black-24dp.svg'), auto;
+  opacity: 0.4;
+}
+
+#timer-tooltip {
+  border-radius: 5px;
+  box-shadow: ;
+  display: none;
+  position: absolute;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 40px;
+  height: 35px;
+  /*width: 60px;*/
+  align-items: center;
+  justify-content: center;
+
+  text-shadow: var(--color-on-background-shadow) 1px 1px 4px;
+  color: var(--color-on-background);
+
+
+
+}
+

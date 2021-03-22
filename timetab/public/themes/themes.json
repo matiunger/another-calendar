@@ -1,0 +1,285 @@
+[
+    {
+        "name": "default",
+        "userAvailable": true,
+        "thumbnail": "soft-sunrise",
+        "palette": "",
+        "defaultProps" : "lightColors",
+        "logic": [
+            {
+                "start": "0",
+                "end": "sunrise_hs - 1",
+                "theme": [
+                    {
+                        "bgdImage": "nightsky",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "cosma",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "aureora",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunrise_hs - 1",
+                "end": "sunrise_hs + 1",
+                "theme": [
+                    {
+                        "bgdImage": "soft-sunrise",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunrise_hs + 1",
+                "end": "sunset_hs - 1",
+                "theme": [
+                    {
+                        "bgdImage": "beachtop",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "shaded-hills",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "pyrenees",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "marin",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "clouded-hills",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunset_hs - 1",
+                "end": "sunset_hs + 1.5",
+                "theme": [
+                    {
+                        "bgdImage": "soft-sunrise",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "shaded-hills",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "marin",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunset_hs + 1.5",
+                "end": "23.99",
+                "theme": [
+                    {
+                        "bgdImage": "nightsky",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "cosma",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "aureora",
+                        "props": "lightColors"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "beach",
+        "userAvailable": true,
+        "thumbnail": "beachtop",
+        "palette": "",
+        "defaultProps" : "lightColors",
+        "logic": [
+            {
+                "start": "0",
+                "end": "sunrise_hs",
+                "theme": [
+                    {
+                        "bgdImage": "nightsky",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunrise_hs",
+                "end": "sunset_hs",
+                "theme": [
+                    {
+                        "bgdImage": "beachtop",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunset_hs",
+                "end": "23.99",
+                "theme": [
+                    {
+                        "bgdImage": "nightsky",
+                        "props": "lightColors"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "mountain",
+        "userAvailable": true,
+        "thumbnail": "clouded-hills",
+        "palette": "",
+        "defaultProps" : "lightColors",
+        "logic": [
+            {
+                "start": "0",
+                "end": "sunrise_hs - 1",
+                "theme": [
+                    {
+                        "bgdImage": "nightsky",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "cosma",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "aureora",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunrise_hs - 1",
+                "end": "sunrise_hs + 1",
+                "theme": [
+                    {
+                        "bgdImage": "soft-sunrise",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "marin",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunrise_hs + 1",
+                "end": "sunset_hs - 1",
+                "theme": [
+                    {
+                        "bgdImage": "shaded-hills",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "pyrenees",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "marin",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "clouded-hills",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunset_hs - 1",
+                "end": "sunset_hs + 1.5",
+                "theme": [
+                    {
+                        "bgdImage": "soft-sunrise",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "shaded-hills",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "marin",
+                        "props": "lightColors"
+                    }
+                ]
+            },
+            {
+                "start": "sunset_hs + 1.5",
+                "end": "23.99",
+                "theme": [
+                    {
+                        "bgdImage": "nightsky",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "cosma",
+                        "props": "lightColors"
+                    },
+                    {
+                        "bgdImage": "aureora",
+                        "props": "lightColors"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "light",
+        "userAvailable": true,
+        "thumbnail": "",
+        "palette": [
+            "#edf0be",
+            "#21a5b6a9",
+            "#05668D"
+        ],
+        "defaultProps" : "light",
+        "logic": [
+            {
+                "start": "0",
+                "end": "23.99",
+                "theme": [
+                    {
+                        "bgdImage": "",
+                        "props": "light"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "dark",
+        "userAvailable": true,
+        "thumbnail": "",
+        "palette": [
+            "#464646",
+            "#2c2c2c",
+            "#202020"
+        ],
+        "defaultProps" : "dark",
+        "logic": [
+            {
+                "start": "0",
+                "end": "23.99",
+                "theme": [
+                    {
+                        "bgdImage": "",
+                        "props": "dark"
+                    }
+                ]
+            }
+        ]
+    }
+]
