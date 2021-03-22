@@ -44,6 +44,9 @@ function TimeTab(props) {
 
   const [settingsIsOpen, setSettingsOpen] = useState(false)
 
+  const requestImageFile = require.context('../', true);
+
+
   const openSettingsModal = () => {
     setSettingsOpen(true);
   }
@@ -139,7 +142,14 @@ function TimeTab(props) {
           // theme props, colors
           for (var key in myThemeProps) {
             if (myThemeProps.hasOwnProperty(key)) {
-              document.documentElement.style.setProperty(key, myThemeProps[key]);
+              console.log(key.indexOf("--cursor"))
+              if (key.indexOf("--cursor") > -1) {
+                console.log("yeahh")
+                const cursorImageUrl = requestImageFile("./img/cursors/"+myThemeProps[key]).default
+                document.documentElement.style.setProperty(key, `url('${cursorImageUrl}'), auto`);
+              } else {
+                document.documentElement.style.setProperty(key, myThemeProps[key]);
+              }
             }
           }
 
@@ -148,8 +158,6 @@ function TimeTab(props) {
             document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
             var img = new Image();
             
-            const requestImageFile = require.context('../', true);
-            console.log(myThemeBackgroundImg["uri"])
             const imgSrc = requestImageFile('./'+myThemeBackgroundImg["uri"]).default
             console.log(imgSrc)
             img.onload = function () {
