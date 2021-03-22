@@ -82,8 +82,8 @@ function TimeTab(props) {
       fetch('./themes/properties.json'),
       fetch('./themes/images.json')
     ])
-      .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
-      .then(([data1, data2, data3]) => {
+    .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
+    .then(([data1, data2, data3]) => {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
@@ -148,7 +148,7 @@ function TimeTab(props) {
             document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
             var img = new Image();
             img.onload = function () {
-              document.documentElement.style.setProperty("--background-image", `url('../${myThemeBackgroundImg["uri"]}')`);
+              document.documentElement.style.setProperty("--background-image", `url('${myThemeBackgroundImg["uri"]}')`);
               document.body.classList.add("full-background");
               setphotoAutor(myThemeBackgroundImg["author"])
               setphotoUrl(myThemeBackgroundImg["url"])

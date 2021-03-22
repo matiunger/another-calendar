@@ -7,6 +7,18 @@ handlers:
   static_files: index.html
   upload: index.html
 
+- url: /img
+  static_dir: img
+
+- url: /locales
+  static_dir: locales
+
+- url: /sounds
+  static_dir: sounds  
+
+- url: /themes
+  static_dir: themes
+
   # This handler routes all requests not caught above to your main app. It is
   # required when static routes are defined, but can be omitted (along with
   # the entire handlers section) when there are no static files defined.
