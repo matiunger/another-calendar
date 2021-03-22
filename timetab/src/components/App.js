@@ -147,14 +147,18 @@ function TimeTab(props) {
           if (myThemeBackgroundImg) {
             document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
             var img = new Image();
+            
+            const requestImageFile = require.context('../', true);
             console.log(myThemeBackgroundImg["uri"])
+            const imgSrc = requestImageFile('./'+myThemeBackgroundImg["uri"]).default
+            console.log(imgSrc)
             img.onload = function () {
-              document.documentElement.style.setProperty("--background-image", `url('${myThemeBackgroundImg["uri"]}')`);
+              document.documentElement.style.setProperty("--background-image", `url('${'./'+imgSrc}')`);
               document.body.classList.add("full-background");
               setphotoAutor(myThemeBackgroundImg["author"])
               setphotoUrl(myThemeBackgroundImg["url"])
             };
-            img.src = myThemeBackgroundImg["uri"]
+            img.src = './'+imgSrc
           }
           setphotoAutor(undefined)
           setphotoUrl(undefined)

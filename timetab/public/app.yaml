@@ -16,9 +16,6 @@ handlers:
   static_files: index.html
   upload: index.html
 
-- url: /img
-  static_dir: img
-
 - url: /locales
   static_dir: locales
 
