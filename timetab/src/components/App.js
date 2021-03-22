@@ -182,6 +182,7 @@ function TimeTab(props) {
       <Modal
         isOpen={settingsIsOpen}
         //onAfterOpen={afterOpenModal}
+        closeTimeoutMS={300}
         onRequestClose={closeSettingsModal}
         style={modalCustomStyles}
         contentLabel="Example Modal"

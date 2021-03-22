@@ -21,6 +21,10 @@
 .clock:active {
   cursor: url('../alarm_add-black-24dp.svg'), auto;
 }
+.timer:hover {
+  cursor: url('../timer_off-black-24dp.svg'), auto;
+  opacity: 0.4;
+}
 
 #timer-tooltip {
   border-radius: 5px;
