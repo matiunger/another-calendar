@@ -148,7 +148,7 @@ function TimeTab(props) {
             document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
             var img = new Image();
             img.onload = function () {
-              document.documentElement.style.setProperty("--background-image", `url('${myThemeBackgroundImg["uri"]}')`);
+              document.documentElement.style.setProperty("--background-image", `url('../${myThemeBackgroundImg["uri"]}')`);
               document.body.classList.add("full-background");
               setphotoAutor(myThemeBackgroundImg["author"])
               setphotoUrl(myThemeBackgroundImg["url"])

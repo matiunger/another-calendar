@@ -8,6 +8,10 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /manifest\.json
+  static_files: manifest.json
+  upload: manifest\.json  
+
 - url: /
   static_files: index.html
   upload: index.html
