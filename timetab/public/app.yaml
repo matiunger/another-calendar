@@ -3,6 +3,11 @@ runtime: python38
 handlers:
   # This configures Google App Engine to serve the files in the app's static
   # directory.
+
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
 - url: /
   static_files: index.html
   upload: index.html
