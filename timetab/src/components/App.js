@@ -153,12 +153,12 @@ function TimeTab(props) {
             const imgSrc = requestImageFile('./'+myThemeBackgroundImg["uri"]).default
             console.log(imgSrc)
             img.onload = function () {
-              document.documentElement.style.setProperty("--background-image", `url('${'./'+imgSrc}')`);
+              document.documentElement.style.setProperty("--background-image", `url('${imgSrc}')`);
               document.body.classList.add("full-background");
               setphotoAutor(myThemeBackgroundImg["author"])
               setphotoUrl(myThemeBackgroundImg["url"])
             };
-            img.src = './'+imgSrc
+            img.src = imgSrc
           }
           setphotoAutor(undefined)
           setphotoUrl(undefined)
