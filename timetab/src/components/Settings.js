@@ -1,5 +1,6 @@
 
 import '../css/Settings.css';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,9 @@ import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import { Trans } from 'react-i18next';
 import store from 'store'
 import _ from "lodash";
@@ -16,6 +20,13 @@ import flag_us from '../img/flags/US.svg';
 import flag_de from '../img/flags/DE.svg';
 
 function Settings(props) {
+
+  const [locationAutodetect, setLocationAutodetect] =useState(props.location.autodetect);
+
+  const handleLocAutodetectChange = (event) => {
+    console.log(event.target.checked)
+    setLocationAutodetect(event.target.checked);
+  };
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,15 +61,15 @@ function Settings(props) {
     const elevation = activeTheme === item.name ? 7 : 1;
     if (item.thumbnail !== "") {
       const myThemeBackgroundImg = _.find(props.backgroundImages, ['id', item.thumbnail])
-      t_style = { "backgroundImage" : `url('${myThemeBackgroundImg.base64}')`};
+      t_style = { "backgroundImage": `url('${myThemeBackgroundImg.base64}')` };
     } else if (item["palette"].length) {
-      t_style = {"background": `linear-gradient(180deg, ${item["palette"][0]} 0%, ${item["palette"][0]} 33%, ${item["palette"][1]} 33%, ${item["palette"][1]} 66%, ${item["palette"][2]} 66%, ${item["palette"][2]} 100%)`}
+      t_style = { "background": `linear-gradient(180deg, ${item["palette"][0]} 0%, ${item["palette"][0]} 33%, ${item["palette"][1]} 33%, ${item["palette"][1]} 66%, ${item["palette"][2]} 66%, ${item["palette"][2]} 100%)` }
     }
     /*var theme_node = `<div data-id='${key}' class='modal-settings__theme-container'><div ${t_style} class='modal-settings__theme'>${themes[key]["name"]}</div></div>`*/
 
     return (
-      <Paper className="theme-box" key={item.name}  elevation={elevation} onClick={() => props.changeTheme(item.name)}>
-      <Typography gutterBottom variant="body2" style={{"padding" : "8px"}}><Trans i18nKey={"themes."+item.name}>{item.name}</Trans></Typography>
+      <Paper className="theme-box" key={item.name} elevation={elevation} onClick={() => props.changeTheme(item.name)}>
+        <Typography gutterBottom variant="body2" style={{ "padding": "8px" }}><Trans i18nKey={"themes." + item.name}>{item.name}</Trans></Typography>
         <div className="theme-box--img" style={t_style}></div>
       </Paper>)
   }
@@ -77,6 +88,27 @@ function Settings(props) {
           <Chip elevation={5} className="lang-chip" label="English" variant={activeLang === "en" ? "default" : "outlined"} avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
           <Chip label="Español" variant={activeLang === "ar" ? "default" : "outlined"} avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("ar")} />
           <Chip label="Deutsch" variant={activeLang === "de" ? "default" : "outlined"} avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
+        </div>
+      </section>
+      <section>
+        <Typography gutterBottom variant="body1">
+          <Trans i18nKey="settings.location">Location</Trans>
+        </Typography>
+        <div className={classes.root}>
+          <TextField disabled={locationAutodetect} id="outlined-basic" label="Latitude" variant="outlined" type="number" onBlur={(e) => {props.changeLocation("location.lat", e.target.value)}} defaultValue={props.location.lat} />
+          <TextField disabled={locationAutodetect} id="outlined-basic" label="Longitude" variant="outlined" type="number" onBlur={(e) => {props.changeLocation("location.lng", e.target.value)}} defaultValue={props.location.lng} />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={locationAutodetect}
+                onChange={handleLocAutodetectChange}
+                name="locationAutodetect"
+                color="primary"
+              />
+            }
+            label="Autodetect"
+          />
+
         </div>
       </section>
       <section>

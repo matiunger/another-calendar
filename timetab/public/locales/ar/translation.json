@@ -2,7 +2,8 @@
     "settings": {
       "settings":"Ajustes",
       "theme": "Tema",
-      "language": "Idioma"
+      "language": "Idioma",
+      "location": "Ubicación"
     },
     "themes" : {
       "default": "Variado",

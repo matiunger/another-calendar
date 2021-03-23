@@ -35,12 +35,12 @@ function TimeTab(props) {
   const [themeImages, setThemeImages] = useState(null)
 
   const [theme, setTheme] = useState(null)
-  const [location, setLocation] = useState(store.get('location') || { "lat": 48.137, "lng": 11.576 }) // Default Munich
+  const [location, setLocation] = useState(store.get('location') || { "lat": 48.137, "lng": 11.576, "autodetect":true }) // Default Munich
 
   const [photoAutor, setphotoAutor] = useState(null)
   const [photoUrl, setphotoUrl] = useState(null)
 
-  const [sunCalcTimes, setSunCalcTimes] = useState(SunCalc.getTimes(new Date(), 0, 0))
+  const [sunCalcTimes, setSunCalcTimes] = useState(SunCalc.getTimes(new Date(), location.lat, location.lng))
 
   const [settingsIsOpen, setSettingsOpen] = useState(false)
 
@@ -97,7 +97,8 @@ function TimeTab(props) {
           navigator.geolocation.getCurrentPosition((position) => {
             const loc = {
               "lat": position.coords.latitude,
-              "lng": position.coords.longitude
+              "lng": position.coords.longitude,
+              "autodetect": true
             }
             setLocation(loc)
             store.set('location', loc)
@@ -174,6 +175,14 @@ function TimeTab(props) {
     i18n.changeLanguage(lng);
   };
 
+  const changeLocation = (key, value) => {
+    let keys = key.split(".")
+    let loc = store.get("location")
+    loc[keys[1]] = parseFloat(value)
+    store.set("location", loc)
+    setLocation(store.get('location'))
+  };
+
   const geoError = () => {
     console.log("No geolocation. Setting saved or default")
   };
@@ -192,7 +201,7 @@ function TimeTab(props) {
         onRequestClose={closeSettingsModal}
         style={modalCustomStyles}
         contentLabel="Example Modal"
-      ><Settings closeSettings={closeSettingsModal} changeLanguagee={changeLanguage} themes={themes} themeProps={themeProperties} backgroundImages={themeImages} changeTheme={changeTheme} /></Modal>
+      ><Settings location={location} closeSettings={closeSettingsModal} changeLocation={changeLocation} changeLanguagee={changeLanguage} themes={themes} themeProps={themeProperties} backgroundImages={themeImages} changeTheme={changeTheme} /></Modal>
     </div>
   );
 }
