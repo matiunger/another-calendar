@@ -1,15 +1,13 @@
 
 import '../css/Settings.css';
-import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
-import { useTranslation, Trans } from 'react-i18next';
+import { Trans } from 'react-i18next';
 import store from 'store'
 import _ from "lodash";
 
@@ -49,8 +47,8 @@ function Settings(props) {
 
   function renderTheme(item) {
     let t_style;
-    const elevation = activeTheme == item.name ? 7 : 1;
-    if (item.thumbnail != "") {
+    const elevation = activeTheme === item.name ? 7 : 1;
+    if (item.thumbnail !== "") {
       const myThemeBackgroundImg = _.find(props.backgroundImages, ['id', item.thumbnail])
       t_style = { "backgroundImage" : `url('${myThemeBackgroundImg.base64}')`};
     } else if (item["palette"].length) {
@@ -76,9 +74,9 @@ function Settings(props) {
           <Trans i18nKey="settings.language">Language</Trans>
         </Typography>
         <div className={classes.root}>
-          <Chip elevation={5} className="lang-chip" label="English" variant={activeLang == "en" ? "default" : "outlined"} avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
-          <Chip label="Español" variant={activeLang == "ar" ? "default" : "outlined"} avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("ar")} />
-          <Chip label="Deutsch" variant={activeLang == "de" ? "default" : "outlined"} avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
+          <Chip elevation={5} className="lang-chip" label="English" variant={activeLang === "en" ? "default" : "outlined"} avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
+          <Chip label="Español" variant={activeLang === "ar" ? "default" : "outlined"} avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("ar")} />
+          <Chip label="Deutsch" variant={activeLang === "de" ? "default" : "outlined"} avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
         </div>
       </section>
       <section>

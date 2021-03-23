@@ -2,8 +2,8 @@
 
 :root {
 
-  --background-image: url('');
-  --background-image-small: url('');
+  --background-image: none;
+  --background-image-small: none;
   --color-background: #fafce0;
   --color-surface: #edf0be;
   --color-on-background: #202020;

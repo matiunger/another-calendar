@@ -2,7 +2,6 @@ import '../css/Clock.css';
 import React, { useState, useEffect, useRef } from 'react';
 import Moment from 'react-moment';
 import Zoom from '@material-ui/core/Zoom';
-import Fade from '@material-ui/core/Fade';
 import 'moment-timezone';
 
 function useInterval(callback, delay) {
@@ -39,7 +38,7 @@ function Clock(props) {
       setTimerTimeRemaining(timerTimeRemaining - 1)
       document.title = timerTimeRemaining + "s"
     }
-    if (timerTimeRemaining == 0) {
+    if (timerTimeRemaining === 0) {
       document.title = 0 + "s"
       stopTimer()
     }

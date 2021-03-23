@@ -28,7 +28,7 @@ function Footer(props) {
 }
 
 function TimeTab(props) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const [themes, setThemes] = useState(null)
   const [themeProperties, setThemeProperties] = useState(null)
@@ -55,7 +55,6 @@ function TimeTab(props) {
   }
 
   const changeTheme = (newTheme) => {
-    console.log("change theme "+newTheme)
     setTheme(newTheme);
     store.set('theme', newTheme)
   }
@@ -90,7 +89,6 @@ function TimeTab(props) {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
-        console.log("listo los json!")
         changeTheme(store.get('theme') || "default")
         
 
@@ -116,7 +114,6 @@ function TimeTab(props) {
 
   // render theme
   useEffect(() => {
-    console.log("use effect change theme "+theme)
     if (themes) {
       const myTheme = _.find(themes, ['name', theme])
       const myThemeLogic = myTheme["logic"]
@@ -135,16 +132,13 @@ function TimeTab(props) {
         if (hs > h_start && hs < h_end) {
           const random_index = Math.round(Math.random() * (timeframeInfo["theme"].length - 1))
           const mySubTheme = timeframeInfo["theme"][random_index]
-          console.log(timeframeInfo)
           const myThemeProps = _.find(themeProperties, ['name', mySubTheme["props"]])["properties"]
-          const myThemeBackgroundImg = mySubTheme["bgdImage"] != "" ? _.find(themeImages, ['id', mySubTheme["bgdImage"]]) : undefined;
+          const myThemeBackgroundImg = mySubTheme["bgdImage"] !== "" ? _.find(themeImages, ['id', mySubTheme["bgdImage"]]) : undefined;
 
           // theme props, colors
           for (var key in myThemeProps) {
             if (myThemeProps.hasOwnProperty(key)) {
-              console.log(key.indexOf("--cursor"))
               if (key.indexOf("--cursor") > -1) {
-                console.log("yeahh")
                 const cursorImageUrl = requestImageFile("./img/cursors/"+myThemeProps[key]).default
                 document.documentElement.style.setProperty(key, `url('${cursorImageUrl}'), auto`);
               } else {

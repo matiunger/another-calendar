@@ -8,8 +8,7 @@ function SunHours(props) {
 
   const times = props.times
   const moonIllumination = props.moonIllumination
-  const now = new Date()
-  const [date, setDate] = useState(new Date());
+  const [now, setDate] = useState(new Date());
 
   document.documentElement.style.setProperty("--moon-i", moonIllumination.fraction);
   const sunriseHours = times.sunrise.getHours() + times.sunrise.getMinutes() / 60
