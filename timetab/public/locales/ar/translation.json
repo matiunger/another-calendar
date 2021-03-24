@@ -3,7 +3,8 @@
       "settings":"Ajustes",
       "theme": "Tema",
       "language": "Idioma",
-      "location": "Ubicación"
+      "location": "Ubicación",
+      "pleaseShareLocation" : "Por favor compartí tu <1 target='_blank' href='https://support.google.com/chrome/answer/142065'>ubicación</1>"
     },
     "themes" : {
       "default": "Variado",

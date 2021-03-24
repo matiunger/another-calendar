@@ -66,7 +66,7 @@ function TimeTab(props) {
 
   const modalCustomStyles = {
     content: {
-      top: '30%',
+      top: '40%',
       left: '50%',
       right: 'auto',
       bottom: 'auto',
