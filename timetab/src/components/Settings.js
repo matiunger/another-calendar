@@ -24,52 +24,87 @@ function Settings(props) {
   const [locationAutodetect, setLocationAutodetect] =useState(props.location.autodetect);
 
   const handleLocAutodetectChange = (event) => {
-    console.log(event.target.checked)
+    //console.log(event.target.checked)
+    props.changeLocation("location.autodetect", event.target.checked)
     setLocationAutodetect(event.target.checked);
   };
 
-  const useStyles = makeStyles((theme) => ({
+  const useStylesChips = makeStyles({
     root: {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      flexWrap: 'wrap',
-      '& > *': {
-        margin: theme.spacing(0.5),
-      },
+      marginRight: "16px"
     },
-  }));
+  });
 
-  const useStylesThemes = makeStyles((theme) => ({
+  const useStylesChipsActive = makeStyles({
+    root: {
+      marginRight: "16px",
+      borderColor: "black",
+      fontWeight: "600"
+    },
+  });
+
+  const classesChips = useStylesChips()
+  const classesChipsActive = useStylesChipsActive()
+
+  const useStylesThemes = makeStyles({
     root: {
       display: 'flex',
       justifyContent: 'flex-start',
       padding: 0,
       flexWrap: 'wrap',
-      '& > *': {
-        margin: theme.spacing(1),
-        padding: 0,
-      },
+      marginRight: "16px",
+      display: "inline-block",
+      width: "100px",
+      height: "86px",
+      padding: "8px",
+      margin: "4px",
+      cursor: "pointer",
+      overflow: "hidden",
+      padding: 0
     },
-  }));
-  const classes = useStyles();
+  });
+
+  const useStylesThemesActive = makeStyles({
+    root: {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      padding: 0,
+      flexWrap: 'wrap',
+      marginRight: "16px",
+      display: "inline-block",
+      width: "100px",
+      height: "86px",
+      padding: "8px",
+      margin: "4px",
+      cursor: "pointer",
+      overflow: "hidden",
+      padding: 0,
+      borderColor: "black",
+      fontWeight: "bold"
+    },
+  });
+
   const classesThemes = useStylesThemes();
+  const classesThemesActive = useStylesThemesActive();
+
   const activeLang = store.get("i18nextLng")
   const activeTheme = store.get("theme")
 
   function renderTheme(item) {
     let t_style;
     const elevation = activeTheme === item.name ? 7 : 1;
+    const variant = activeTheme === item.name ? "elevation" : "outlined";
     if (item.thumbnail !== "") {
       const myThemeBackgroundImg = _.find(props.backgroundImages, ['id', item.thumbnail])
       t_style = { "backgroundImage": `url('${myThemeBackgroundImg.base64}')` };
     } else if (item["palette"].length) {
-      t_style = { "background": `linear-gradient(180deg, ${item["palette"][0]} 0%, ${item["palette"][0]} 33%, ${item["palette"][1]} 33%, ${item["palette"][1]} 66%, ${item["palette"][2]} 66%, ${item["palette"][2]} 100%)` }
+      t_style = { "background": `linear-gradient(90deg, ${item["palette"][0]} 0%, ${item["palette"][0]} 33%, ${item["palette"][1]} 33%, ${item["palette"][1]} 66%, ${item["palette"][2]} 66%, ${item["palette"][2]} 100%)` }
     }
     /*var theme_node = `<div data-id='${key}' class='modal-settings__theme-container'><div ${t_style} class='modal-settings__theme'>${themes[key]["name"]}</div></div>`*/
 
     return (
-      <Paper className="theme-box" key={item.name} elevation={elevation} onClick={() => props.changeTheme(item.name)}>
-        <Typography gutterBottom variant="body2" style={{ "padding": "8px" }}><Trans i18nKey={"themes." + item.name}>{item.name}</Trans></Typography>
+      <Paper variant="outlined" className={activeTheme === item.name ? classesThemesActive.root : classesThemes.root} key={item.name} elevation={elevation} onClick={() => props.changeTheme(item.name)}>
+        <Typography gutterBottom variant="body2" style={{ padding: "8px", margin : "0" }}><Trans i18nKey={"themes." + item.name}>{item.name}</Trans></Typography>
         <div className="theme-box--img" style={t_style}></div>
       </Paper>)
   }
@@ -84,20 +119,21 @@ function Settings(props) {
         <Typography gutterBottom variant="body1">
           <Trans i18nKey="settings.language">Language</Trans>
         </Typography>
-        <div className={classes.root}>
-          <Chip elevation={5} className="lang-chip" label="English" variant={activeLang === "en" ? "default" : "outlined"} avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
-          <Chip label="Español" variant={activeLang === "ar" ? "default" : "outlined"} avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("ar")} />
-          <Chip label="Deutsch" variant={activeLang === "de" ? "default" : "outlined"} avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
+        <div >
+          <Chip className={activeLang === "en" ? classesChipsActive.root : classesChips.root } label="English" variant="outlined" avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
+          <Chip className={activeLang === "ar" ? classesChipsActive.root : classesChips.root } label="Español" variant="outlined" avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("ar")} />
+          <Chip className={activeLang === "de" ? classesChipsActive.root : classesChips.root } label="Deutsch" variant="outlined" avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
         </div>
       </section>
       <section>
         <Typography gutterBottom variant="body1">
           <Trans i18nKey="settings.location">Location</Trans>
         </Typography>
-        <div className={classes.root}>
-          <TextField disabled={locationAutodetect} id="outlined-basic" label="Latitude" variant="outlined" type="number" onBlur={(e) => {props.changeLocation("location.lat", e.target.value)}} defaultValue={props.location.lat} />
-          <TextField disabled={locationAutodetect} id="outlined-basic" label="Longitude" variant="outlined" type="number" onBlur={(e) => {props.changeLocation("location.lng", e.target.value)}} defaultValue={props.location.lng} />
+        <div>
+          <TextField className="location-input" disabled={locationAutodetect} id="outlined-basic" label="Latitude" variant="outlined" type="number" onBlur={(e) => {props.changeLocation("location.lat", e.target.value)}} defaultValue={props.location.lat} />
+          <TextField className="location-input" disabled={locationAutodetect} id="outlined-basic" label="Longitude" variant="outlined" type="number" onBlur={(e) => {props.changeLocation("location.lng", e.target.value)}} defaultValue={props.location.lng} />
           <FormControlLabel
+            disabled={props.location.error != null}
             control={
               <Switch
                 checked={locationAutodetect}
@@ -107,7 +143,7 @@ function Settings(props) {
               />
             }
             label="Autodetect"
-          />
+          /> {props.location.error && <div className="please-share" >Please share your <a target="_blank" href="https://support.google.com/chrome/answer/142065">location</a></div>}
 
         </div>
       </section>
@@ -115,9 +151,8 @@ function Settings(props) {
         <Typography gutterBottom variant="body1">
           <Trans i18nKey="settings.theme">Theme</Trans>
         </Typography>
-        <div className={classesThemes.root}>
+        <div>
           {props.themes.map(renderTheme)}
-
         </div>
       </section>
       <div>

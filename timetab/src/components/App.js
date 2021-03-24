@@ -19,7 +19,7 @@ function Footer(props) {
     <footer>
       <Grid container direction="row">
         <Grid className="photoby" item xs={6} >
-        {props.photoAuthor ? (<React.Fragment><Trans i18nKey="photoBy">Photo by</Trans>&nbsp;<a href={props.photoUrl} target="_blank">{props.photoAuthor}</a></React.Fragment>) : null}
+          {props.photoAuthor ? (<React.Fragment><Trans i18nKey="photoBy">Photo by</Trans>&nbsp;<a href={props.photoUrl} target="_blank">{props.photoAuthor}</a></React.Fragment>) : null}
         </Grid>
         <Grid item xs={6} className="settings-button" style={{ textAlign: "right" }}><SettingsIcon onClick={() => props.openSettings()} style={{ fontSize: 24 }} className="settings-button__btn" /></Grid>
       </Grid>
@@ -35,7 +35,10 @@ function TimeTab(props) {
   const [themeImages, setThemeImages] = useState(null)
 
   const [theme, setTheme] = useState(null)
-  const [location, setLocation] = useState(store.get('location') || { "lat": 48.137, "lng": 11.576, "autodetect":true }) // Default Munich
+
+  const defaultLocation = { "lat": 0, "lng": 0, "autodetect": true, "error" : null }
+
+  const [location, setLocation] = useState(store.get('location') || defaultLocation)
 
   const [photoAutor, setphotoAutor] = useState(null)
   const [photoUrl, setphotoUrl] = useState(null)
@@ -79,20 +82,21 @@ function TimeTab(props) {
   Modal.setAppElement('#app')
 
   useEffect(() => {
+    store.set('location', defaultLocation)
     Promise.all([
       fetch('./themes/themes.json'),
       fetch('./themes/properties.json'),
       fetch('./themes/images.json')
     ])
-    .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
-    .then(([data1, data2, data3]) => {
+      .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
+      .then(([data1, data2, data3]) => {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
         changeTheme(store.get('theme') || "default")
-        
 
-        if (navigator.geolocation) {
+
+        if (location.autodetect && navigator.geolocation) {
 
           navigator.geolocation.getCurrentPosition((position) => {
             const loc = {
@@ -102,7 +106,7 @@ function TimeTab(props) {
             }
             setLocation(loc)
             store.set('location', loc)
-          }, geoError());
+          }, geoError);
         }
 
 
@@ -110,6 +114,7 @@ function TimeTab(props) {
   }, []);
 
   useEffect(() => {
+    console.log("change location")
     setSunCalcTimes(SunCalc.getTimes(new Date(), location.lat, location.lng))
   }, [location]);
 
@@ -140,7 +145,7 @@ function TimeTab(props) {
           for (var key in myThemeProps) {
             if (myThemeProps.hasOwnProperty(key)) {
               if (key.indexOf("--cursor") > -1) {
-                const cursorImageUrl = requestImageFile("./img/cursors/"+myThemeProps[key]).default
+                const cursorImageUrl = requestImageFile("./img/cursors/" + myThemeProps[key]).default
                 document.documentElement.style.setProperty(key, `url('${cursorImageUrl}'), auto`);
               } else {
                 document.documentElement.style.setProperty(key, myThemeProps[key]);
@@ -152,8 +157,8 @@ function TimeTab(props) {
           if (myThemeBackgroundImg) {
             document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
             var img = new Image();
-            
-            const imgSrc = requestImageFile('./'+myThemeBackgroundImg["uri"]).default
+
+            const imgSrc = requestImageFile('./' + myThemeBackgroundImg["uri"]).default
             img.onload = function () {
               document.documentElement.style.setProperty("--background-image", `url('${imgSrc}')`);
               document.body.classList.add("full-background");
@@ -176,15 +181,20 @@ function TimeTab(props) {
   };
 
   const changeLocation = (key, value) => {
+    console.log(key)
+    console.log(value)
     let keys = key.split(".")
     let loc = store.get("location")
-    loc[keys[1]] = parseFloat(value)
+    loc[keys[1]] = (typeof value) == "string" ? parseFloat(value) : value
     store.set("location", loc)
     setLocation(store.get('location'))
   };
 
-  const geoError = () => {
+  const geoError = (err) => {
     console.log("No geolocation. Setting saved or default")
+    console.log(err.message)
+    changeLocation("location.autodetect", false)
+    changeLocation("location.error", err.code)
   };
 
 
