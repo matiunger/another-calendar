@@ -2,7 +2,12 @@
     "settings": {
       "settings":"Einstellungen",
       "theme": "Theme",
-      "language": "Sprache"
+      "language": "Sprache",
+      "location": "Standort",
+      "latitude":"Breitengrad",
+      "longitude":"Längengrad",
+      "autodetect":"Autodetect",
+      "pleaseShareLocation" : "Bitte teilen Sie Ihren <1 target='_blank' href='https://support.google.com/chrome/answer/142065'>Standort</1>"
     },
     "themes" : {
       "default": "Mix",
@@ -12,8 +17,8 @@
       "dark": "Dunkel"
     },
     "sunhours": {
-      "remainingDaylight": "Sunrise in {{h_to_sunrise}}h {{m_to_sunrise}}m",
-      "sunriseIn": "Remaining daylight {{h_to_sunset}}h {{m_to_sunset}}m."
+      "beforeSunset": "Sonnenuntergang in <1 className='sun-hours__info-minutes'>{{minutes}}</1> Minuten",
+      "beforeSunrise": "Sonnenaufgangin  <1 className='sun-hours__info-minutes'>{{minutes}}</1> Minuten"
     },
-    "photoBy" : "Photo von"
+    "photoBy" : "Foto von"
 }

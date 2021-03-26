@@ -19,7 +19,7 @@ function Footer(props) {
     <footer>
       <Grid container direction="row">
         <Grid className="photoby" item xs={6} >
-        {props.photoAuthor ? (<React.Fragment><Trans i18nKey="photoBy">Photo by</Trans>&nbsp;<a href={props.photoUrl} target="_blank">{props.photoAuthor}</a></React.Fragment>) : null}
+          {props.photoAuthor ? (<React.Fragment><Trans i18nKey="photoBy">Photo by</Trans>&nbsp;<a href={props.photoUrl} rel="noreferrer" target="_blank">{props.photoAuthor}</a></React.Fragment>) : null}
         </Grid>
         <Grid item xs={6} className="settings-button" style={{ textAlign: "right" }}><SettingsIcon onClick={() => props.openSettings()} style={{ fontSize: 24 }} className="settings-button__btn" /></Grid>
       </Grid>
@@ -28,43 +28,32 @@ function Footer(props) {
 }
 
 function TimeTab(props) {
-  const { t, i18n } = useTranslation();
+
+  // states
 
   const [themes, setThemes] = useState(null)
   const [themeProperties, setThemeProperties] = useState(null)
   const [themeImages, setThemeImages] = useState(null)
 
   const [theme, setTheme] = useState(null)
-  const [location, setLocation] = useState(store.get('location') || { "lat": 48.137, "lng": 11.576 }) // Default Munich
+
+  const defaultLocation = store.get('location') || { "lat": 0, "lng": 0, "autodetect": true, "error": null }
+  const [location, setLocation] = useState(defaultLocation)
 
   const [photoAutor, setphotoAutor] = useState(null)
   const [photoUrl, setphotoUrl] = useState(null)
 
-  const [sunCalcTimes, setSunCalcTimes] = useState(SunCalc.getTimes(new Date(), 0, 0))
+  const [sunCalcTimes, setSunCalcTimes] = useState(SunCalc.getTimes(new Date(), location.lat, location.lng))
 
   const [settingsIsOpen, setSettingsOpen] = useState(false)
 
-  const requestImageFile = require.context('../', true);
+  // variables
 
-
-  const openSettingsModal = () => {
-    setSettingsOpen(true);
-  }
-  const closeSettingsModal = () => {
-    setSettingsOpen(false);
-  }
-
-  const changeTheme = (newTheme) => {
-    console.log("change theme "+newTheme)
-    setTheme(newTheme);
-    store.set('theme', newTheme)
-  }
-
+  const { i18n } = useTranslation();
   let moonIllumination = SunCalc.getMoonIllumination(new Date());
-
   const modalCustomStyles = {
     content: {
-      top: '30%',
+      top: '40%',
       left: '50%',
       right: 'auto',
       bottom: 'auto',
@@ -77,7 +66,38 @@ function TimeTab(props) {
       backgroundColor: '#00000094'
     }
   };
+
+  //functions
+
+  const openSettingsModal = () => {
+    setSettingsOpen(true);
+  }
+  const closeSettingsModal = () => {
+    setSettingsOpen(false);
+  }
+
+  const changeTheme = (newTheme) => {
+    setTheme(newTheme);
+    store.set('theme', newTheme)
+  }
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+  const changeLocation = (key, value) => {
+    let keys = key.split(".")
+    let loc = store.get("location")
+    loc[keys[1]] = (typeof value) == "string" ? parseFloat(value) : value
+    store.set("location", loc)
+    setLocation(store.get('location'))
+    setSunCalcTimes(SunCalc.getTimes(new Date(), location.lat, location.lng))
+  };
+
+  // init
+  store.set('location', location)
   Modal.setAppElement('#app')
+
 
   useEffect(() => {
     Promise.all([
@@ -85,107 +105,124 @@ function TimeTab(props) {
       fetch('./themes/properties.json'),
       fetch('./themes/images.json')
     ])
-    .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
-    .then(([data1, data2, data3]) => {
+      .then(([res1, res2, res3]) => Promise.all([res1.json(), res2.json(), res3.json()]))
+      .then(([data1, data2, data3]) => {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
-        console.log("listo los json!")
-        changeTheme(store.get('theme') || "default")
-        
-
-        if (navigator.geolocation) {
-
-          navigator.geolocation.getCurrentPosition((position) => {
-            const loc = {
-              "lat": position.coords.latitude,
-              "lng": position.coords.longitude
-            }
-            setLocation(loc)
-            store.set('location', loc)
-          }, geoError());
-        }
-
+        changeTheme(store.get('theme') || "default");
 
       })
   }, []);
 
   useEffect(() => {
-    setSunCalcTimes(SunCalc.getTimes(new Date(), location.lat, location.lng))
-  }, [location]);
+
+    const geoError = (err) => {
+      console.log("No geolocation. Setting saved or default")
+      console.log(err.message)
+
+      let loc = store.get("location")
+      loc["location.autodetect"] = false
+      loc["location.error"] = err.code
+      store.set("location", loc)
+      setLocation(store.get('location'))
+    };
+
+    if (location.autodetect && navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const loc = {
+          "lat": position.coords.latitude,
+          "lng": position.coords.longitude,
+          "autodetect": true
+        }
+        setLocation(loc)
+        setSunCalcTimes(SunCalc.getTimes(new Date(), loc.lat, loc.lng))
+        store.set('location', loc)
+      }, geoError);
+    }
+
+  }, [location.autodetect]);
 
   // render theme
   useEffect(() => {
-    console.log("use effect change theme "+theme)
-    if (themes) {
-      const myTheme = _.find(themes, ['name', theme])
-      const myThemeLogic = myTheme["logic"]
+    try {
+      const requestImageFile = require.context('../', true);
+      const evaluateLogic = (str) => {
+        const hs = {
+          "sunrise_hs": sunCalcTimes.sunrise.getHours() + sunCalcTimes.sunrise.getMinutes() / 60,
+          "sunset_hs": sunCalcTimes.sunset.getHours() + sunCalcTimes.sunset.getMinutes() / 60
+        }
 
-      const sunrise_hs = sunCalcTimes.sunrise.getHours() + sunCalcTimes.sunrise.getMinutes() / 60
-      const sunset_hs = sunCalcTimes.sunset.getHours() + sunCalcTimes.sunset.getMinutes() / 60
+        if (str.indexOf("+") > -1) {
+          const elements = str.split("+").map(s => s.trim()) // split and trim
+          const part1 = hs[elements[0]] ? hs[elements[0]] : parseFloat(elements[0])
+          const part2 = hs[elements[1]] ? hs[elements[1]] : parseFloat(elements[1])
+          return part1 + part2
+        } else if (str.indexOf("-") > -1) {
+          const elements = str.split("-").map(s => s.trim()) // split and trim
+          const part1 = hs[elements[0]] ? hs[elements[0]] : parseFloat(elements[0])
+          const part2 = hs[elements[1]] ? hs[elements[1]] : parseFloat(elements[1])
+          return part1 - part2
+        } else {
+          return hs[str] ? hs[str] : parseFloat(str)
+        }
 
-      for (let index = 0; index < myThemeLogic.length; index++) {
-        const timeframeInfo = myThemeLogic[index]
-        const h_start = eval(timeframeInfo["start"])
-        const h_end = eval(timeframeInfo["end"])
+      }
 
-        const now = new Date()
-        const hs = (now.getHours() + now.getMinutes() / 60)
+      if (themes && themeProperties && themeImages) {
+        const myTheme = _.find(themes, ['name', theme])
+        const myThemeLogic = myTheme["logic"]
 
-        if (hs > h_start && hs < h_end) {
-          const random_index = Math.round(Math.random() * (timeframeInfo["theme"].length - 1))
-          const mySubTheme = timeframeInfo["theme"][random_index]
-          console.log(timeframeInfo)
-          const myThemeProps = _.find(themeProperties, ['name', mySubTheme["props"]])["properties"]
-          const myThemeBackgroundImg = mySubTheme["bgdImage"] != "" ? _.find(themeImages, ['id', mySubTheme["bgdImage"]]) : undefined;
+        for (let index = 0; index < myThemeLogic.length; index++) {
+          const timeframeInfo = myThemeLogic[index]
 
-          // theme props, colors
-          for (var key in myThemeProps) {
-            if (myThemeProps.hasOwnProperty(key)) {
-              console.log(key.indexOf("--cursor"))
-              if (key.indexOf("--cursor") > -1) {
-                console.log("yeahh")
-                const cursorImageUrl = requestImageFile("./img/cursors/"+myThemeProps[key]).default
-                document.documentElement.style.setProperty(key, `url('${cursorImageUrl}'), auto`);
-              } else {
-                document.documentElement.style.setProperty(key, myThemeProps[key]);
+          const h_start = evaluateLogic(timeframeInfo["start"]) // eval(timeframeInfo["start"])
+          const h_end = evaluateLogic(timeframeInfo["end"]) // eval(timeframeInfo["end"])
+
+          const now = new Date()
+          const hs = (now.getHours() + now.getMinutes() / 60)
+
+          if (hs > h_start && hs < h_end) {
+            const random_index = Math.round(Math.random() * (timeframeInfo["theme"].length - 1))
+            const mySubTheme = timeframeInfo["theme"][random_index]
+            const myThemeProps = _.find(themeProperties, ['name', mySubTheme["props"]])["properties"]
+            const myThemeBackgroundImg = mySubTheme["bgdImage"] !== "" ? _.find(themeImages, ['id', mySubTheme["bgdImage"]]) : undefined;
+
+            // theme props, colors
+            for (var key in myThemeProps) {
+              if (myThemeProps.hasOwnProperty(key)) {
+                if (key.indexOf("--cursor") > -1) {
+                  const cursorImageUrl = requestImageFile("./img/cursors/" + myThemeProps[key]).default
+                  document.documentElement.style.setProperty(key, `url('${cursorImageUrl}'), auto`);
+                } else {
+                  document.documentElement.style.setProperty(key, myThemeProps[key]);
+                }
               }
             }
-          }
 
-          document.body.classList.remove("full-background");
-          if (myThemeBackgroundImg) {
-            document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
-            var img = new Image();
-            
-            const imgSrc = requestImageFile('./'+myThemeBackgroundImg["uri"]).default
-            console.log(imgSrc)
-            img.onload = function () {
-              document.documentElement.style.setProperty("--background-image", `url('${imgSrc}')`);
-              document.body.classList.add("full-background");
-              setphotoAutor(myThemeBackgroundImg["author"])
-              setphotoUrl(myThemeBackgroundImg["url"])
-            };
-            img.src = imgSrc
-          }
-          setphotoAutor(undefined)
-          setphotoUrl(undefined)
-          break;
+            document.body.classList.remove("full-background");
+            if (myThemeBackgroundImg) {
+              document.documentElement.style.setProperty("--background-image-small", `url('${myThemeBackgroundImg["base64"]}')`);
+              var img = new Image();
 
+              const imgSrc = requestImageFile('./' + myThemeBackgroundImg["uri"]).default
+              img.onload = function () {
+                document.documentElement.style.setProperty("--background-image", `url('${imgSrc}')`);
+                document.body.classList.add("full-background");
+                setphotoAutor(myThemeBackgroundImg["author"])
+                setphotoUrl(myThemeBackgroundImg["url"])
+              };
+              img.src = imgSrc
+            }
+            setphotoAutor(undefined)
+            setphotoUrl(undefined)
+            break;
+
+          }
         }
       }
-    }
-  }, [theme]);
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
-  const geoError = () => {
-    console.log("No geolocation. Setting saved or default")
-  };
-
-
+    } catch (e) { }
+  }, [theme, sunCalcTimes, themes, themeImages, themeProperties]);
 
   return (
     <div className="main">
@@ -199,7 +236,7 @@ function TimeTab(props) {
         onRequestClose={closeSettingsModal}
         style={modalCustomStyles}
         contentLabel="Example Modal"
-      ><Settings closeSettings={closeSettingsModal} changeLanguagee={changeLanguage} themes={themes} themeProps={themeProperties} backgroundImages={themeImages} changeTheme={changeTheme} /></Modal>
+      ><Settings location={location} closeSettings={closeSettingsModal} changeLocation={changeLocation} changeLanguagee={changeLanguage} themes={themes} themeProps={themeProperties} backgroundImages={themeImages} changeTheme={changeTheme} /></Modal>
     </div>
   );
 }

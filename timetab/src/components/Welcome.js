@@ -1,13 +1,7 @@
-import React, { Suspense, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../css/Welcome.css';
 import Clock from './Clock';
 import SunHours from './SunHours';
-import { useTranslation, Trans } from 'react-i18next';
-
-import _ from "lodash";
-import SunCalc from 'suncalc'
-import store from 'store'
-
 
 function Welcome(props) {
 
@@ -17,8 +11,6 @@ function Welcome(props) {
   let clockNearStart = false;
 
   let clockDragStartCoords = { x: null, y: null };
-  //let clockDragNearCoords = {x:null, y:null};
-  let clockDragEndCoords = { x: null, y: null };
 
   const centerCoords = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   const topCoords = { x: window.innerWidth / 2, y: 0 };
@@ -47,7 +39,6 @@ function Welcome(props) {
   const mouseDownClock = (e) => {
     clockDragStart = true
     clockDragStartCoords = { x: e.clientX, y: e.clientY }
-    console.log("mouse down")
   }
 
   const mouseMove = (e) => {
