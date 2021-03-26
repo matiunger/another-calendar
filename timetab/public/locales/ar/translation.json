@@ -4,6 +4,9 @@
       "theme": "Tema",
       "language": "Idioma",
       "location": "Ubicación",
+      "latitude":"Latitud",
+      "longitude":"Longitud",
+      "autodetect":"Autodetectar",
       "pleaseShareLocation" : "Por favor compartí tu <1 target='_blank' href='https://support.google.com/chrome/answer/142065'>ubicación</1>"
     },
     "themes" : {
@@ -14,8 +17,8 @@
       "dark": "Oscuro"
     },
     "sunhours": {
-      "remainingDaylight": "Amanecer en {{h_to_sunrise}}h {{m_to_sunrise}}m",
-      "sunriseIn": "Quedan {{h_to_sunset}}h {{m_to_sunset}}m de sol."
+      "beforeSunset": "Amanece en <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos",
+      "beforeSunrise": "Quedan <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos de sol"
     },
     "photoBy" : "Foto de"
 }

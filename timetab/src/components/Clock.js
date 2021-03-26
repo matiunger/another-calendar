@@ -46,7 +46,6 @@ function Clock(props) {
   }, 1000);
 
   const stopTimer = () => {
-    console.log("timer end")
     document.getElementById('timer-end').play();
     setTimerTime(null)
     setTimerTimeRemaining(null)
@@ -73,7 +72,7 @@ function Clock(props) {
   return (
     <React.Fragment>
       <div id="clock" style={{ "display": timerTimeRemaining ? "none" : "block" }} className="clock" onMouseDown={props.onMouseDown}><Moment format="H·mm" date={date}></Moment></div>
-      <Zoom in={timerTime}>
+      <Zoom in={timerTime > 0}>
         <div id="timer" onClick={() => deleteTimer()} className="timer" style={{ "display": timerTimeRemaining ? "block" : "none" }}>
           {timerTimeRemaining ? <Moment tz="UTC" format={timerTimeRemaining > 3600 ? "HH·mm·ss" : "mm·ss"} date={new Date(timerTimeRemaining * 1000)}></Moment> : null}
         </div>

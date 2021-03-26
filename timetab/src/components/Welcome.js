@@ -39,7 +39,6 @@ function Welcome(props) {
   const mouseDownClock = (e) => {
     clockDragStart = true
     clockDragStartCoords = { x: e.clientX, y: e.clientY }
-    console.log("mouse down")
   }
 
   const mouseMove = (e) => {
