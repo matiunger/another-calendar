@@ -17,8 +17,8 @@
       "dark": "Oscuro"
     },
     "sunhours": {
-      "beforeSunset": "Amanece en <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos",
-      "beforeSunrise": "Quedan <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos de sol"
+      "beforeSunset": "Quedan <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos de sol",
+      "beforeSunrise": "Amanece en <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos"
     },
     "photoBy" : "Foto de"
 }

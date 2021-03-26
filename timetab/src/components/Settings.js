@@ -1,16 +1,17 @@
 
 import '../css/Settings.css';
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import {useTranslation, Trans } from 'react-i18next';
+//import TextField from '@material-ui/core/TextField';
+//import FormControlLabel from '@material-ui/core/FormControlLabel';
+//import Switch from '@material-ui/core/Switch';
+//import {useTranslation, Trans } from 'react-i18next';
+import {Trans } from 'react-i18next';
 import store from 'store'
 import _ from "lodash";
 
@@ -20,8 +21,8 @@ import flag_de from '../img/flags/DE.svg';
 
 function Settings(props) {
 
+  /*
   const { t } = useTranslation();
-
   const [locationAutodetect, setLocationAutodetect] = useState(props.location.autodetect);
 
   const handleLocAutodetectChange = (event) => {
@@ -29,7 +30,7 @@ function Settings(props) {
     props.changeLocation("location.autodetect", event.target.checked)
     setLocationAutodetect(event.target.checked);
   };
-
+  */
   const useStylesChips = makeStyles({
     root: {
       marginRight: "16px",
@@ -86,7 +87,7 @@ function Settings(props) {
   const classesThemes = useStylesThemes();
   const classesThemesActive = useStylesThemesActive();
 
-  const useStylesForms = makeStyles({
+  /*const useStylesForms = makeStyles({
     root: {
       display: 'flex',
       justifyContent: 'flex-start',
@@ -97,7 +98,7 @@ function Settings(props) {
   });
 
   const classesForm = useStylesForms();
-
+  */
   const activeLang = store.get("i18nextLng")
   const activeTheme = store.get("theme")
 
@@ -129,11 +130,12 @@ function Settings(props) {
           <Trans i18nKey="settings.language">Language</Trans>
         </h2>
         <div >
-          <Chip className={activeLang === "en" ? classesChipsActive.root : classesChips.root} label="English" variant="outlined" avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
-          <Chip className={activeLang === "ar" ? classesChipsActive.root : classesChips.root} label="Español" variant="outlined" avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("ar")} />
-          <Chip className={activeLang === "de" ? classesChipsActive.root : classesChips.root} label="Deutsch" variant="outlined" avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
+          <Chip className={activeLang.startsWith("en") ? classesChipsActive.root : classesChips.root} label="English" variant="outlined" avatar={<Avatar src={flag_us} />} onClick={() => props.changeLanguagee("en")} />
+          <Chip className={activeLang.startsWith("es") ? classesChipsActive.root : classesChips.root} label="Español" variant="outlined" avatar={<Avatar src={flag_ar} />} onClick={() => props.changeLanguagee("es")} />
+          <Chip className={activeLang.startsWith("de") ? classesChipsActive.root : classesChips.root} label="Deutsch" variant="outlined" avatar={<Avatar src={flag_de} />} onClick={() => props.changeLanguagee("de")} />
         </div>
       </section>
+      {/*
       <section>
         <h2>
           <Trans i18nKey="settings.location">Location</Trans>
@@ -155,7 +157,7 @@ function Settings(props) {
           /> {props.location.error && <div className="please-share" ><Trans i18nKey="settings.pleaseShareLocation">Please share your <a target="_blank" rel="noreferrer" href="https://support.google.com/chrome/answer/142065">location</a></Trans></div>}
 
         </div>
-      </section>
+          </section>*/}
       <section>
       <h2>
           <Trans i18nKey="settings.theme">Theme</Trans>

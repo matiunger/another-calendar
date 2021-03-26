@@ -20,8 +20,10 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: 'en',
+    //load: 'all',
     debug: false,
-    load: 'languageOnly',
+    supportedLngs: ['en', 'de', 'es'],
+    nonExplicitSupportedLngs: true,
     react: { 
         useSuspense: false //   <---- this will do the magic
     },

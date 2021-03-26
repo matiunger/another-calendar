@@ -100,6 +100,7 @@ function TimeTab(props) {
 
 
   useEffect(() => {
+    //console.log("fetch data")
     Promise.all([
       fetch('./themes/themes.json'),
       fetch('./themes/properties.json'),
@@ -111,19 +112,18 @@ function TimeTab(props) {
         setThemeProperties(data2);
         setThemeImages(data3);
         changeTheme(store.get('theme') || "default");
-
       })
   }, []);
 
   useEffect(() => {
-
+    //console.log("location autodetect")
     const geoError = (err) => {
       console.log("No geolocation. Setting saved or default")
       console.log(err.message)
 
       let loc = store.get("location")
-      loc["location.autodetect"] = false
-      loc["location.error"] = err.code
+      loc["autodetect"] = false
+      loc["error"] = err.code
       store.set("location", loc)
       setLocation(store.get('location'))
     };
@@ -145,6 +145,7 @@ function TimeTab(props) {
 
   // render theme
   useEffect(() => {
+    //console.log("change theme "+theme)
     try {
       const requestImageFile = require.context('../', true);
       const evaluateLogic = (str) => {
@@ -221,13 +222,14 @@ function TimeTab(props) {
           }
         }
       }
-    } catch (e) { }
-  }, [theme, sunCalcTimes, themes, themeImages, themeProperties]);
+    } catch (e) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme]);
 
   return (
     <div className="main">
 
-      <Welcome times={sunCalcTimes} moonIllumination={moonIllumination} />
+      <Welcome times={sunCalcTimes} locationOn={location.autodetect} moonIllumination={moonIllumination} />
       <Footer photoAuthor={photoAutor} photoUrl={photoUrl} openSettings={openSettingsModal} />
       <Modal
         isOpen={settingsIsOpen}

@@ -90,9 +90,10 @@ function Welcome(props) {
   return (
     <div id="welcome" onMouseUp={(e) => mouseUp(e)} onMouseMove={(e) => mouseMove(e)}>
       <div id="timer-tooltip"></div>
-      <audio id="timer-on"><source src="/sounds/click-tone.wav" type="audio/wav"/></audio>
+      <audio id="timer-on" preload="auto"><source src="/sounds/click-tone.wav" type="audio/wav"/></audio>
       <Clock onMouseDown={mouseDownClock} timerTime={timerTime} />
-      <SunHours times={props.times} moonIllumination={props.moonIllumination} />
+      {props.locationOn ? <SunHours times={props.times} moonIllumination={props.moonIllumination} /> : null}
+      
     </div>
   );
 }
