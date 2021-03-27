@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/Welcome.css';
 import Clock from './Clock';
 import SunHours from './SunHours';
+import {logEvent} from './analytics';
 
 function Welcome(props) {
 
@@ -33,6 +34,13 @@ function Welcome(props) {
 
       setTimerTime(minutes * 60)
       document.getElementById('timer-on').play();
+      logEvent("ui_interaction", {
+        "section": "clock",
+        "subsection": "timer",
+        "action": "add",
+        "element": "timer",
+        "value" : minutes
+      })
     }
   }
 

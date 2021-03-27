@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Moment from 'react-moment';
 import Zoom from '@material-ui/core/Zoom';
 import 'moment-timezone';
+import {logEvent} from './analytics';
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -49,12 +50,25 @@ function Clock(props) {
     document.getElementById('timer-end').play();
     setTimerTime(null)
     setTimerTimeRemaining(null)
+    logEvent("ui_interaction", {
+      "section": "clock",
+      "subsection": "timer",
+      "action": "end",
+      "element": "timer",
+    })
   }
   const deleteTimer = () => {
     document.getElementById('timer-remove').play();
     setTimerTime(null)
     setTimerTimeRemaining(null)
     document.title = "timetab"
+    logEvent("ui_interaction", {
+      "section": "clock",
+      "subsection": "timer",
+      "action": "remove",
+      "element": "timer",
+      "value" : undefined
+    })
 
   }
 

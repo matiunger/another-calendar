@@ -12,6 +12,8 @@ import _ from "lodash";
 import SunCalc from 'suncalc'
 import store from 'store'
 
+import {logEvent} from './analytics';
+
 // https://www.npmjs.com/package/suncalc
 
 function Footer(props) {
@@ -70,19 +72,52 @@ function TimeTab(props) {
   //functions
 
   const openSettingsModal = () => {
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "open",
+      "element" : undefined,
+      "value": undefined
+    })
     setSettingsOpen(true);
   }
   const closeSettingsModal = () => {
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "close",
+      "element" : undefined,
+      "value": undefined
+    })
     setSettingsOpen(false);
+  }
+
+  const initTheme = (newTheme) => {
+    setTheme(newTheme);
+    store.set('theme', newTheme)
   }
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
     store.set('theme', newTheme)
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "change theme",
+      "element": newTheme,
+      "value": undefined
+    })
   }
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "change language",
+      "element": lng,
+      "value": undefined
+    })
   };
 
   const changeLocation = (key, value) => {
@@ -111,7 +146,7 @@ function TimeTab(props) {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
-        changeTheme(store.get('theme') || "default");
+        initTheme(store.get('theme') || "default");
       })
   }, []);
 
@@ -126,6 +161,13 @@ function TimeTab(props) {
       loc["error"] = err.code
       store.set("location", loc)
       setLocation(store.get('location'))
+
+      logEvent("error", {
+        "error_place": "app",
+        "error_type": "geolocation",
+        "error_message": err.message
+      })
+
     };
 
     if (location.autodetect && navigator.geolocation) {
