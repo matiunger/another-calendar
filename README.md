@@ -10,6 +10,15 @@ This is an experimental project with the goal of presenting time in different wa
  - Life calendar / Weeks
 
 
+## Tags and concepts
+
+time, moment, experience, clock, sun, action, calendar
+life, universe,
+tab, new tab, browser, start, page
+
+## Name ideas
+
+timetab, another calendar
 
 ## React setup
 
