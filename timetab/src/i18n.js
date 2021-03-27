@@ -103,7 +103,7 @@ i18n
     resources,
     fallbackLng: 'en',
     //load: 'all',
-    debug: true,
+    debug: false,
     supportedLngs: ['en', 'de', 'es'],
     nonExplicitSupportedLngs: true,
     react: { 
