@@ -12,6 +12,8 @@ import _ from "lodash";
 import SunCalc from 'suncalc'
 import store from 'store'
 
+import {logEvent} from './analytics';
+
 // https://www.npmjs.com/package/suncalc
 
 function Footer(props) {
@@ -70,19 +72,52 @@ function TimeTab(props) {
   //functions
 
   const openSettingsModal = () => {
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "open",
+      "element" : undefined,
+      "value": undefined
+    })
     setSettingsOpen(true);
   }
   const closeSettingsModal = () => {
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "close",
+      "element" : undefined,
+      "value": undefined
+    })
     setSettingsOpen(false);
+  }
+
+  const initTheme = (newTheme) => {
+    setTheme(newTheme);
+    store.set('theme', newTheme)
   }
 
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
     store.set('theme', newTheme)
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "change theme",
+      "element": newTheme,
+      "value": undefined
+    })
   }
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    logEvent("ui_interaction", {
+      "section": "settings",
+      "subction":undefined,
+      "action": "change language",
+      "element": lng,
+      "value": undefined
+    })
   };
 
   const changeLocation = (key, value) => {
@@ -100,6 +135,7 @@ function TimeTab(props) {
 
 
   useEffect(() => {
+    //console.log("fetch data")
     Promise.all([
       fetch('./themes/themes.json'),
       fetch('./themes/properties.json'),
@@ -110,22 +146,28 @@ function TimeTab(props) {
         setThemes(data1);
         setThemeProperties(data2);
         setThemeImages(data3);
-        changeTheme(store.get('theme') || "default");
-
+        initTheme(store.get('theme') || "default");
       })
   }, []);
 
   useEffect(() => {
-
+    //console.log("location autodetect")
     const geoError = (err) => {
       console.log("No geolocation. Setting saved or default")
       console.log(err.message)
 
       let loc = store.get("location")
-      loc["location.autodetect"] = false
-      loc["location.error"] = err.code
+      loc["autodetect"] = false
+      loc["error"] = err.code
       store.set("location", loc)
       setLocation(store.get('location'))
+
+      logEvent("error", {
+        "error_place": "app",
+        "error_type": "geolocation",
+        "error_message": err.message
+      })
+
     };
 
     if (location.autodetect && navigator.geolocation) {
@@ -145,6 +187,7 @@ function TimeTab(props) {
 
   // render theme
   useEffect(() => {
+    //console.log("change theme "+theme)
     try {
       const requestImageFile = require.context('../', true);
       const evaluateLogic = (str) => {
@@ -221,13 +264,14 @@ function TimeTab(props) {
           }
         }
       }
-    } catch (e) { }
-  }, [theme, sunCalcTimes, themes, themeImages, themeProperties]);
+    } catch (e) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [theme]);
 
   return (
     <div className="main">
 
-      <Welcome times={sunCalcTimes} moonIllumination={moonIllumination} />
+      <Welcome times={sunCalcTimes} locationOn={location.autodetect} moonIllumination={moonIllumination} />
       <Footer photoAuthor={photoAutor} photoUrl={photoUrl} openSettings={openSettingsModal} />
       <Modal
         isOpen={settingsIsOpen}

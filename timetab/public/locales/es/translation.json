@@ -1,0 +1,24 @@
+{
+    "settings": {
+      "settings":"Ajustes",
+      "theme": "Tema",
+      "language": "Idioma",
+      "location": "Ubicación",
+      "latitude":"Latitud",
+      "longitude":"Longitud",
+      "autodetect":"Autodetectar",
+      "pleaseShareLocation" : "Por favor compartí tu <1 target='_blank' href='https://support.google.com/chrome/answer/142065'>ubicación</1>"
+    },
+    "themes" : {
+      "default": "Variado",
+      "beach": "Playa",
+      "mountain": "Montañas",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "sunhours": {
+      "beforeSunset": "Quedan <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos de sol",
+      "beforeSunrise": "Amanece en <1 className='sun-hours__info-minutes'>{{minutes}}</1> minutos"
+    },
+    "photoBy" : "Foto de"
+}

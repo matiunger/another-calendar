@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../css/Welcome.css';
 import Clock from './Clock';
 import SunHours from './SunHours';
+import {logEvent} from './analytics';
 
 function Welcome(props) {
 
@@ -33,6 +34,13 @@ function Welcome(props) {
 
       setTimerTime(minutes * 60)
       document.getElementById('timer-on').play();
+      logEvent("ui_interaction", {
+        "section": "clock",
+        "subsection": "timer",
+        "action": "add",
+        "element": "timer",
+        "value" : minutes
+      })
     }
   }
 
@@ -90,9 +98,10 @@ function Welcome(props) {
   return (
     <div id="welcome" onMouseUp={(e) => mouseUp(e)} onMouseMove={(e) => mouseMove(e)}>
       <div id="timer-tooltip"></div>
-      <audio id="timer-on"><source src="/sounds/click-tone.wav" type="audio/wav"/></audio>
+      <audio id="timer-on" preload="auto"><source src="/sounds/click-tone.wav" type="audio/wav"/></audio>
       <Clock onMouseDown={mouseDownClock} timerTime={timerTime} />
-      <SunHours times={props.times} moonIllumination={props.moonIllumination} />
+      {props.locationOn ? <SunHours times={props.times} moonIllumination={props.moonIllumination} /> : null}
+      
     </div>
   );
 }
