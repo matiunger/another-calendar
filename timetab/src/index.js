@@ -5,7 +5,6 @@ import App from './components/App';
 //import reportWebVitals from './reportWebVitals';
 import './i18n';
 
-
 ReactDOM.render(
   <App />,
   document.getElementById('app')

@@ -17,7 +17,7 @@
         ],
         "persistent": false
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com; object-src 'self';",
+    "content_security_policy": "script-src 'self' 'unsafe-inline' https://www.google-analytics.com https://www.googletagmanager.com; object-src 'self';",
     "permissions": [
         "activeTab",
         "storage",
